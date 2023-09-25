@@ -1,0 +1,103 @@
+
+<div class="card mb-4 border"style="background-color:#eee ">
+  <div class="card-body">
+    <div class="row mb-2">
+      <div class="col-sm-3">
+        <p class="mb-0">UserName</p>
+      </div>
+      <div class="col-sm-9">
+        <p class="text-muted mb-0">{{UserData.userName}}</p>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-sm-3">
+        <p class="mb-0">Bio</p>
+      </div>
+      <div class="col-sm-9">
+        <p class="text-muted mb-0">{{UserData.bio}}</p>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-sm-3">
+        <p class="mb-0">Full Name</p>
+      </div>
+      <div class="col-sm-9">
+        <p class="text-muted mb-0">{{UserData.fullName}}</p>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-sm-3">
+        <p class="mb-0">Email</p>
+      </div>
+      <div class="col-sm-9">
+        <p class="text-muted mb-0">{{UserData.email}}</p>
+      </div>
+    </div>
+    
+    <div class="row mb-2">
+      <div class="col-sm-3">
+        <p class="mb-0">Date Of Birth</p>
+      </div>
+      <div class="col-sm-9">
+        <p class="text-muted mb-0">{{UserData.dateOfBirth }}</p>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-sm-3">
+        <p class="mb-0">Address</p>
+      </div>
+      <div class="col-sm-9">
+        <p class="text-muted mb-0">{{primaryAddress.fullAddress}},{{primaryAddress.district}},
+          {{primaryAddress.state}},India,{{primaryAddress.pincode}}</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-2 mb-4 "  (click)="newAddress()" >
+    <!-- (click)="newAddress()" -->
+    <div class="card mb-4 mb-md-0 "*ngIf="!isNewAddress">
+      <!-- *ngIf="!isNewAddress" -->
+      <div class="card-body"  style="background-color: rgba(94,113,175,255);" >
+        <h1 class="d-flex justify-content-center align-item-center text-light p-2">+</h1>
+        <p class="d-flex align-item-center text-light">Search & Add New Address</p>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isNewAddress" class="mb-3"><app-address  (newItemEvent)="isNewAddress=$event"></app-address></div>
+  <div class="col-md-2 " *ngFor="let item of UserAddresses let i=index">
+    <div class="mb-4">
+    <div class="card  mb-md-0" *ngIf="!item.isPrimary">
+      <div class="card-body "style="background-color: #eee;">
+        <h3 class="d-flex justify-content-center align-item-center"> Address {{i+1}}</h3>
+        <p class="d-flex justify-content-center align-item-center text-muted m-1">{{item.fullAddress}}</p>
+        <p class="d-flex justify-content-center align-item-center text-muted m-1">{{item.district}},{{item.state}},India
+        </p>
+        <!-- <p class="d-flex justify-content-center align-item-center text-muted m-1"></p>
+           <p class="d-flex justify-content-center align-item-center text-muted m-1"></p> -->
+        <p class="d-flex justify-content-center align-item-center text-muted m-1">{{item.pincode}}</p>
+      </div>
+    </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- data-bs-toggle="modal" data-bs-target="#staticBackdrop" -->
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" 
+aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content"style="background-color:  rgba(189, 195, 209, 0.99);">
+    <button type="button" class="btn-close "  style="background-color: rgba(94, 113, 175, 255); margin-right: 10px;" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal-body ">
+     <app-address></app-address>
+    </div>
+  </div>
+</div>
+</div>

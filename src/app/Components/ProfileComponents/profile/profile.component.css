@@ -1,0 +1,50 @@
+.nav-link{
+color:rgb(15, 36, 115)
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #eee;
+    background-color: rgba(94,113,175,255);
+    border-color: whitesmoke
+}
+
+.list-group-item {
+    background-color: rgba(189, 195, 209, 0.99);
+    border: none;
+    color: rgb(0 14 122);
+}
+.bg-danger {
+    background-color: rgb(108, 20, 20);
+  }
+  
+  .bg-warning {
+    background-color: rgba(94,113,175,255);
+  }
+  
+  .bg-success {
+    background-color: rgba(22,37,77,255);
+  }
+
+  .button-outline1 {
+    background-color: rgba(94, 113, 175, 255);
+    color: white;
+    border: 1px solid white;
+    width: 150px;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: color 0.3s, background-color 0.3s, border-color 0.3s;
+}
+
+.button-outline2 {
+  background-color: transparent;
+  color: rgb(0 14 122);
+  border: 1px solid rgba(94, 113, 175, 255);
+  width: 150px;
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: color 0.3s, background-color 0.3s, border-color 0.3s;
+}
+
+
