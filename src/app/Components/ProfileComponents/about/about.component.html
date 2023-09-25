@@ -1,63 +1,58 @@
-
-<div class="card mb-4 border" style="background-color:#eee ">
-
-  <div class="card-body">
-    <div class="row mb-2">
-      <div class="col-sm-3">
-        <p class="mb-0">UserName</p>
-      </div>
-      <div class="col-sm-9">
-        <p class="text-muted mb-0">{{UserData.userName}}</p>
-      </div>
-    </div>
-
-    <div class="row mb-2">
-      <div class="col-sm-3">
-        <p class="mb-0">Bio</p>
-      </div>
-      <div class="col-sm-9">
-        <p class="text-muted mb-0">{{UserData.bio}}</p>
-      </div>
-    </div>
-
-    <div class="row mb-2">
-      <div class="col-sm-3">
-        <p class="mb-0">Full Name</p>
-      </div>
-      <div class="col-sm-9">
-        <p class="text-muted mb-0">{{UserData.fullName}}</p>
-      </div>
-    </div>
-
-    <div class="row mb-2">
-      <div class="col-sm-3">
-        <p class="mb-0">Email</p>
-      </div>
-      <div class="col-sm-9">
-        <p class="text-muted mb-0">{{UserData.email}}</p>
-      </div>
-    </div>
-
-    <div class="row mb-2">
-      <div class="col-sm-3">
-        <p class="mb-0">Date Of Birth</p>
-      </div>
-      <div class="col-sm-9">
-        <p class="text-muted mb-0">{{UserData.dateOfBirth }}</p>
+<div class=" card mb-4 border" style="background-color:#eee ">
+  <div class="row">
+    <div class="col-11">
+      <div class="card-body" style="color:  rgb(0 14 122);">
+        <div class="row mb-2">
+          <div class="col-sm-3">
+            <p class="mb-0">UserName</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">{{UserData.userName}}</p>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-sm-3">
+            <p class="mb-0">Bio</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">{{UserData.bio}}</p>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-sm-3">
+            <p class="mb-0">Full Name</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">{{UserData.fullName}}</p>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-sm-3">
+            <p class="mb-0">Email</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">{{UserData.email}}</p>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-sm-3">
+            <p class="mb-0">Date Of Birth</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">{{UserData.dateOfBirth }}</p>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="row mb-2">
-      <div class="col-sm-3">
-        <p class="mb-0">Address</p>
-      </div>
-      <div class="col-sm-9">
-        <p class="text-muted mb-0">{{primaryAddress.fullAddress}},{{primaryAddress.district}},
-          {{primaryAddress.state}},India,{{primaryAddress.pincode}}</p>
-      </div>
-    </div>
-
+    <div class="col-1">
+      <div class="d-flex justify-content-end mx-2 my-3">
+        <button type="button border-0 " style="background-color: transparent; border: none;" data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"  (click)="EditUserInfo()"><span
+         class="material-symbols-outlined"style="color: rgba(94,113,175,255);">edit
+       </span></button>
+       </div>
   </div>
+</div>
 </div>
 <div class="row">
   <div class="col-md-2 mb-4 " (click)="newAddress()">
@@ -65,31 +60,53 @@
     <div class="card mb-4 mb-md-0 " *ngIf="!isNewAddress">
       <!-- *ngIf="!isNewAddress" -->
       <div class="card-body" style="background-color: rgba(94,113,175,255);">
-        <h1 class="d-flex justify-content-center align-item-center text-light p-2">+</h1>
-        <p class="d-flex align-item-center text-light">Search & Add New Address</p>
+        <h1 class="d-flex justify-content-center align-item-center text-light p-3">+</h1>
+        <h3 class="d-flex align-item-center text-light p-1">Search & Add New Address</h3>
       </div>
     </div>
   </div>
-
-  <div *ngIf="isNewAddress" class="mb-3"><app-address  (newItemEvent)="isNewAddress=$event"></app-address></div>
-
-  <div class="col-md-2 " *ngFor="let item of UserAddresses let i=index">
-    <div class="mb-4">
-      <div class="card  mb-md-0" *ngIf="!item.isPrimary">
-        <div class="card-body " style="background-color: #eee;">
-          <h3 class="d-flex justify-content-center align-item-center"> Address {{i+1}}</h3>
-          <p class="d-flex justify-content-center align-item-center text-muted m-1">{{item.fullAddress}}</p>
-          <p class="d-flex justify-content-center align-item-center text-muted m-1">
-            {{item.district}},{{item.state}},India
-          </p>
-          <!-- <p class="d-flex justify-content-center align-item-center text-muted m-1"></p>
-           <p class="d-flex justify-content-center align-item-center text-muted m-1"></p> -->
-          <p class="d-flex justify-content-center align-item-center text-muted m-1">{{item.pincode}}</p>
+  <div class="col-md-2 mb-4 ">
+    <div class="card mb-4 mb-md-0" *ngIf="!isNewAddress">
+      <div class="card-body" style="background-color: rgba(94,113,175,255);">
+        <h3 class="d-flex justify-content-center align-item-center text-light">Primary Address</h3>
+        <p class="d-flex justify-content-center align-item-center text-light m-1">{{primaryAddress.fullAddress}}</p>
+        <p class="d-flex justify-content-center align-item-center text-light m-1">
+          {{primaryAddress.district}},{{primaryAddress.state}},India
+        </p>
+        <p class="d-flex justify-content-center align-item-center text-light m-1">{{primaryAddress.pincode}}</p>
+        <div class="d-flex align-item-center justify-content-center">
+          <button type="button border-0" class="btn btn-secondary" style="background-color: transparent;border: none;"
+           (click)="EditAddress(primaryAddress.addressId)"><span class="material-symbols-outlined">edit</span></button>
         </div>
       </div>
     </div>
   </div>
-
+  <div *ngIf="isNewAddress" class="mb-3"><app-address (newItemEvent)="NewAdressForm($event)"></app-address></div>
+  <div class="row" *ngIf="!isNewAddress">
+    <div class="col-md-2" *ngFor="let item of temporayAddress let i=index">
+      <div class="mb-4">
+        <div class="card  mb-md-0">
+          <div class="card-body" style="background-color: rgba(189, 195, 209, 0.99);color: rgb(0 14 122);;">
+            <h3 class="d-flex justify-content-center align-item-center"> Address {{i+1}}</h3>
+            <p class="d-flex justify-content-center align-item-center text-muted m-1">{{item.fullAddress}}</p>
+            <p class="d-flex justify-content-center align-item-center text-muted m-1">
+              {{item.district}},{{item.state}},India
+            </p>
+            <!-- <p class="d-flex justify-content-center align-item-center text-muted m-1"></p>
+           <p class="d-flex justify-content-center align-item-center text-muted m-1"></p> -->
+            <p class="d-flex justify-content-center align-item-center text-muted m-1">{{item.pincode}}</p>
+            <div class="d-flex justify-content-center align-item-center">
+              <button type="button border-0 " style="background-color: transparent; border: none;" class="btn btn-secondary" (click)="EditAddress(item.addressId)"><span
+                  class="material-symbols-outlined"style="color: rgba(94,113,175,255);">edit
+                </span></button>
+              <button type="button border-0"  style="background-color: transparent; border: none;" class="btn btn-secondary"
+                (click)="DeleteAddressById(item.addressId)"><span class="material-symbols-outlined" style="color: rgb(138, 22, 22)">delete</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- data-bs-toggle="modal" data-bs-target="#staticBackdrop" -->
@@ -98,10 +115,40 @@
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content" style="background-color:  rgba(189, 195, 209, 0.99);">
-      <button type="button" class="btn-close " style="background-color: rgba(94, 113, 175, 255); margin-right: 10px;"
-        data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-header ">
+        <h3 class="d-flex align-items-center justify-content-between modal-title fs-3 m-0" 
+        id="staticBackdropLabel"style="color: rgba(94,113,175,255);">Edit User</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
       <div class="modal-body ">
-        <app-address></app-address>
+        <form [formGroup]="myForm" (ngSubmit)="onEditSubmit()" >
+        <div class="row">
+        <div class="col-2"></div>
+    
+        <div class="col-8">
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1"><div class="material-symbols-outlined">person </div></span>
+            <input type="text" class="form-control customcss" placeholder="FullName" formControlName="fullName" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1"><div class="material-symbols-outlined">calendar_today</div></span>
+            <input type="date" class="form-control customcss" placeholder="DateOfBith"   formControlName="dateOfBirth"aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1"> <div class="material-symbols-outlined">key </div></span>
+            <input type="text" class="form-control customcss" placeholder="Username"  formControlName="userName" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">Bio</span>
+            <textarea type="text" class="form-control customcss" placeholder="Bio"  formControlName="bio" aria-label="Tell Something about Yourself" aria-describedby="basic-addon1"></textarea>
+          </div>
+          <div class="input-group mb-3 d-flex align-item-center justify-content-center">
+            <button type="submit" id="Update">Update</button>
+          </div>
+        </div>
+        <div class="col-2"></div>
+      </div>
+    </form>
       </div>
     </div>
   </div>
