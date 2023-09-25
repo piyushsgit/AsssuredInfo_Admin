@@ -1,67 +1,6 @@
-<div class="card mb-4 border" style="background-color:#eee ">
-  <div class="card-body">
-    <div class="row mb-2">
-      <div class="col-sm-3">
-        <p class="mb-0">UserName</p>
-      </div>
-      <div class="col-sm-9">
-        <p class="text-muted mb-0">{{UserData.userName}}</p>
-      </div>
-    </div>
-
-    <div class="row mb-2">
-      <div class="col-sm-3">
-        <p class="mb-0">Bio</p>
-      </div>
-      <div class="col-sm-9">
-        <p class="text-muted mb-0">{{UserData.bio}}</p>
-      </div>
-    </div>
-
-    <div class="row mb-2">
-      <div class="col-sm-3">
-        <p class="mb-0">Full Name</p>
-      </div>
-      <div class="col-sm-9">
-        <p class="text-muted mb-0">{{UserData.fullName}}</p>
-      </div>
-    </div>
-
-    <div class="row mb-2">
-      <div class="col-sm-3">
-        <p class="mb-0">Email</p>
-      </div>
-      <div class="col-sm-9">
-        <p class="text-muted mb-0">{{UserData.email}}</p>
-      </div>
-    </div>
-
-    <div class="row mb-2">
-      <div class="col-sm-3">
-        <p class="mb-0">Date Of Birth</p>
-      </div>
-      <div class="col-sm-9">
-        <p class="text-muted mb-0">{{UserData.dateOfBirth }}</p>
-      </div>
-    </div>
-
-    <div class="row mb-2">
-      <div class="col-sm-3">
-        <p class="mb-0">Address</p>
-      </div>
-      <div class="col-sm-9">
-        <p class="text-muted mb-0">{{primaryAddress.fullAddress}},{{primaryAddress.district}},
-          {{primaryAddress.state}},India,{{primaryAddress.pincode}}</p>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-
-
 
 <div class="card mb-4 border" style="background-color:#eee ">
+
   <div class="card-body">
     <div class="row mb-2">
       <div class="col-sm-3">
@@ -131,7 +70,9 @@
       </div>
     </div>
   </div>
-  <div *ngIf="isNewAddress" class="mb-3"><app-address (newItemEvent)="isNewAddress=$event"></app-address></div>
+
+  <div *ngIf="isNewAddress" class="mb-3"><app-address  (newItemEvent)="isNewAddress=$event"></app-address></div>
+
   <div class="col-md-2 " *ngFor="let item of UserAddresses let i=index">
     <div class="mb-4">
       <div class="card  mb-md-0" *ngIf="!item.isPrimary">
