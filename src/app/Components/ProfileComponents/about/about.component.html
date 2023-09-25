@@ -1,4 +1,16 @@
 
+
+<div class="col-md-2 mb-4 "  (click)="newAddress()" >
+  <!-- (click)="newAddress()" -->
+  <div class="card mb-4 mb-md-0 "*ngIf="!isNewAddress">
+    <!-- *ngIf="!isNewAddress" -->
+    <div class="card-body"  style="background-color: rgba(94,113,175,255);" >
+      <h1 class="d-flex justify-content-center align-item-center text-light p-2">+</h1>
+      <p class="d-flex align-item-center text-light">Search & Add New Address</p>
+    </div>
+  </div>
+</div>
+
 <div class="card mb-4 border"style="background-color:#eee ">
   <div class="card-body">
     <div class="row mb-2">
@@ -69,6 +81,7 @@
       </div>
     </div>
   </div>
+
   <div *ngIf="isNewAddress" class="mb-3"><app-address  (newItemEvent)="isNewAddress=$event"></app-address></div>
   <div class="col-md-2 " *ngFor="let item of UserAddresses let i=index">
     <div class="mb-4">
