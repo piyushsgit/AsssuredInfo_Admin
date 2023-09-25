@@ -1,0 +1,291 @@
+.container {
+  height: 100vh;
+}
+@media only screen and (max-width: 1198px) {
+  .container {
+    height: auto;
+
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+}
+
+/* Media queries for responsive sizing */
+@media (max-width: 768px) {
+  .video-container {
+    padding-bottom: 75%; /* Adjust as needed for smaller screens */
+  }
+}
+
+.card {
+  width: 100vh;
+  background-color: transparent;
+  height: fit-content;
+  border: 0;
+}
+
+
+.background {
+  z-index: -5;
+  background-color: #ddd5d5;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: 100vh;
+}
+
+.inputGroup {
+  font-family: "Segoe UI", sans-serif;
+  margin: 1em 0 1em 0;
+  max-width: 400px;
+  position: relative;
+  color:  rgb(0 14 122);
+}
+
+.inputGroup input {
+  font-size: 100%;
+  padding: 0.8em;
+  outline: none;
+  border: 2px solid rgb(240, 0, 0);
+  background-color: transparent;
+  border-radius: 20px;
+  color:  rgb(0 14 122);
+  width: 100%;
+}
+.inputGroup textarea {
+  font-size: 100%;
+  color:  rgb(0 14 122);
+  padding: 0.8em;
+  outline: none;
+  border: 2px solid rgb(0 14 122);
+  background-color: transparent;
+  border-radius: 20px 20px 0px;
+  width: 100%;
+}
+.selected-option {
+  color: 1px solid rgba(94, 113, 175, 255) !important;
+}
+.inputGroup {
+  font-family: "Segoe UI", sans-serif;
+  margin: 1em 0 1em 0;
+  border: 2px solid rgba(94, 113, 175, 255);
+  display: flex;
+  border-radius: 20px;
+  max-width: 400px;
+  position: relative;
+}
+
+.inputGroup input {
+  font-size: 100%;
+  padding: 0.8em;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  border-radius: 20px;
+  width: 100%;
+}
+
+.inputGroup label {
+  font-size: 100%;
+  position: absolute;
+  left: 25px;
+  padding: 0.8em;
+  margin-left: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  color: blueviolet
+}
+.res {
+  display: flex;
+  justify-content: center;
+  width: 295px;
+  align-items: center;
+  font-family: "Segoe UI", sans-serif;
+  margin: 1em 0 1em 0;
+  border: 2px solid rgb(200, 200, 200);
+  display: flex;
+  border-radius: 20px;
+  max-width: 400px;
+  position: relative;
+}
+.res input {
+  font-size: 100%;
+  padding: 0.8em;
+  outline: none;
+  border: none;
+  margin-left: -5px;
+  margin-right: 0px;
+  background-color: transparent;
+  border-radius: 20px;
+  width: 100%;
+}
+input::placeholder {
+  color: white;
+}
+.inputGroup :is(input:focus, input:valid) ~ label {
+  transform: translateY(-80%) scale(0.9);
+  margin-left: -20px;
+  padding: 0.4em;
+  color: rgb(0, 0, 0);
+}
+.inputGroup :is(textarea:focus, textarea:valid) {
+  border-color: rgb(150, 150, 200);
+}
+.form-select:disabled {
+  background-color: transparent;
+}
+.form-select:focus {
+    border-color:none;
+    outline: 0;
+    box-shadow: none;
+}
+mat-option {
+  background-color: rgba(94, 113, 175, 255);
+}
+
+.mat-mdc-option.mdc-list-item--selected.mat-mdc-option.mdc-list-item--disabled
+  .mdc-list-item__primary-text {
+  color: rgb(0, 0, 0) !important;
+  z-index: 9999;
+}
+
+.mat-mdc-option.mdc-list-item {
+    align-items: center;
+    z-index: 980 !important;
+}
+.mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled)
+  .mdc-list-item__primary-text {
+  color: #ffffff !important;
+
+}
+.form-check-input:checked {
+  background-color: rgba(94, 113, 175, 255);
+  border-color: rgba(94, 113, 175, 255);
+}
+select option {
+  background-color: rgba(94, 113, 175, 255);
+  color: rgb(0 14 122);
+}
+
+.buttonReg {
+    background-color: rgba(94, 113, 175, 255);
+
+  color: rgb(0 14 122);
+  width: 250px;
+  margin-left: -30px;
+  border-radius: 25px;
+}
+
+.buttonReg:hover {
+  background-color: rgba(94, 113, 175, 255);
+}
+
+:-moz-placeholder {
+    color:rgb(0 14 122);
+}
+
+#Select_Postal{
+  height: 43px;
+  background-color: transparent;
+  border: none;
+}
+.Select-border{
+    border: 2px solid rgba(94, 113, 175, 255);
+    border-radius: 10px;
+}
+.jelly-triangle {
+  --uib-size: 30px;
+  --uib-speed: 1.75s;
+  --uib-color: rgba(94, 113, 175, 255);
+
+  position: relative;
+  height: var(--uib-size);
+  width: var(--uib-size);
+  filter: url("#uib-jelly-triangle-ooze");
+}
+
+.jelly-triangle__dot,
+.jelly-triangle::before,
+.jelly-triangle::after {
+  content: "";
+  position: absolute;
+  width: 33%;
+  height: 33%;
+  background: var(--uib-color);
+  border-radius: 100%;
+}
+
+.jelly-triangle__dot {
+  top: 6%;
+  left: 30%;
+  animation: grow var(--uib-speed) ease infinite;
+}
+
+.jelly-triangle::before {
+  bottom: 6%;
+  right: 0;
+  animation: grow var(--uib-speed) ease calc(var(--uib-speed) * -0.666) infinite;
+}
+
+.jelly-triangle::after {
+  bottom: 6%;
+  left: 0;
+  animation: grow var(--uib-speed) ease calc(var(--uib-speed) * -0.333) infinite;
+}
+
+.jelly-triangle__traveler {
+  position: absolute;
+  top: 6%;
+  left: 30%;
+  width: 33%;
+  height: 33%;
+  background: var(--uib-color);
+  border-radius: 100%;
+  animation: triangulate var(--uib-speed) ease infinite;
+}
+
+.jelly-maker {
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+@keyframes triangulate {
+  0%,
+  100% {
+    transform: none;
+  }
+
+  33.333% {
+    transform: translate(120%, 175%);
+  }
+
+  66.666% {
+    transform: translate(-95%, 175%);
+  }
+}
+
+@keyframes grow {
+  0%,
+  100% {
+    transform: scale(1.5);
+  }
+
+  20%,
+  70% {
+    transform: none;
+  }
+}
+
+@media only screen and (max-width: 1198px) {
+  .responsiveLeft {
+    width: 80%;
+  }
+  .buttonReg {
+    background-color: transparent;
+    border: #ffffff solid 2px;
+    color: white;
+    width: 250px;
+    margin-left: 30px;
+    border-radius: 25px;
+  }
+}
