@@ -1,33 +1,47 @@
- 
-  .container{
-    height: 100vh; 
+.video-container {
+  position: fixed;
+  overflow-y: auto;
+  width: 100%;
+  height: 100%; 
+  z-index: 1;
+}
+
+
+.video-background {
+  position:  fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -5;
+  object-fit: cover;
+}
+  .container-fluid{
+    height: 100vh;  
    }
    
+   .buttonReg{
+    background-color: transparent;
+    border: #ffffff solid 2px;
+    color: white;
+      }
+      .buttonReg:hover{
+        background-color: rgba(94,113,175,255);
+      }
+    
    a{
-    color: black;
+    color:  rgb(159, 189, 255);
     
    }
    
-   .box span {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -5;
-    pointer-events: none; 
-    background-color: rgba(0, 30, 128, 0.63);
-    background-image: url('../../../assets/location-icon-navigation-line-style-free-free-vector-removebg-preview.png');
-    background-repeat: repeat;
-    background-size: 300px; /* Set the height to 200 pixels */
-}
-
    
  
 .inputGroup {
     font-family: 'Segoe UI', sans-serif;
     margin: 1em 0 1em 0;
+    border: 2px solid rgb(200, 200, 200);
+    display: flex;
+    border-radius: 20px;
     max-width: 400px;
     position: relative;
   }
@@ -35,19 +49,40 @@
   .inputGroup input {
     font-size: 100%;
     padding: 0.8em;
+    margin-left: -15px;
     outline: none;
-    border: 2px solid rgb(200, 200, 200);
+    border:none;
     background-color: transparent;
     border-radius: 20px;
     width: 100%;
   }
-  
+  .form-control-wrapper {
+    position: relative;
+}
+.validation-icon {
+  position: relative;
+}
+
+.validation-message {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: calc(100% + 10px); /* Adjust the spacing as needed */
+}
+.error-icon-hover-area {
+    position: absolute;
+    background-color: transparent;
+    width: 40px;
+    height: 100%;
+    top: 0;
+    right: 0;
+}
   .inputGroup label {
     font-size: 100%;
     position: absolute;
-    left: 0;
+    left: 25px;
     padding: 0.8em;
-    margin-left: 0.5em;
+    margin-left:  0;
     pointer-events: none;
     transition: all 0.3s ease;
     color: rgb(44, 35, 35);
@@ -55,8 +90,7 @@
   
   .inputGroup :is(input:focus, input:valid)~label {
     transform: translateY(-80%) scale(.9);
-    margin: 0em;
- 
+    margin-left:-20px; 
     padding: 0.4em;
     color: rgb(0, 0, 0);
     
@@ -64,17 +98,15 @@
   
   .inputGroup :is(input:focus, input:valid) {
     border-color: rgb(150, 150, 200);
-  }
-    
-   
+  } 
    .box .content {
     position: relative;
     width: 390px;
-    height:  fit-content;
+    height:  fit-content;  
     padding: 20px 40px;
-    background: rgba(255, 255, 255, 0.05);
+    background:  rgba(22,37,77,255);
     backdrop-filter: blur(10px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+ 
     border-radius: 8px;
     z-index: 1;
     transform: 0.5s;
@@ -82,8 +114,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-   }
-   
+   } 
    .box .content h2 {
     font-size: 20px;
     color: #fff;
