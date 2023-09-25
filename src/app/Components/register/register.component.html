@@ -1,164 +1,259 @@
 <div class="video-container">
-    <video autoplay loop muted playsinline class="video-background" preload="auto">
-        <source src="../../../assets/video (2160p).mp4" type="video/mp4">
-     
-      </video>
-      
+    <video loop muted autoplay oncanplay="this.play()" onloadedmetadata="this.muted = true" class="video-background">
+        <source src={{videoSource}} type="video/mp4">
+    </video>
+
 
     <div class="container justify-content-center align-items-center d-flex">
 
 
         <div class="card  my-auto text-start">
             <h1 style="font-size: xx-large;" class="justify-content-center align-items-center d-flex text-light">
-                Welocome To <span class="m-3" style="color:  rgb(159, 189, 255);;">AssuredInfo.</span></h1>
+                Welocome To </h1>
+            <span class="mb-5 mt-2 justify-content-center align-items-center d-flex"
+                style="font-size: xxx-large; color:  rgb(159, 189, 255);">AssuredInfo.</span>
             <div class="card-body">
-                <div class="row justify-content-center align-items-center g-2">
+                <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+                    <div class="row justify-content-center align-items-center g-2">
 
-                    <div class="col-xl-6 firsthalf d-flex justify-content-center align-items-center">
-                        <div>
+
+                        <div class="col-xl-6 firsthalf d-flex justify-content-center flex-column align-items-center">
+
                             <h1 class="justify-content-center align-items-center d-flex my-3">Register</h1>
                             <div class="d-flex">
-                                <div class="material-symbols-outlined my-auto p-2">
-                                    person
-                                </div>
                                 <div class="inputGroup">
-                                    <input type="text" required="" name="" id="">
+                                    <div class="material-symbols-outlined my-auto p-2">
+                                        person
+                                    </div>
+                                    <input type="text" required="" formControlName="name">
                                     <label class="text-light" for="name">Full Name</label>
+                                    <div class="material-symbols-outlined  my-auto pe-2 "
+                                        style="color: rgb(255, 84, 84);" data-toggle="tooltip" data-placement="right"
+                                        title="Please provide a valid email address"
+                                        [ngClass]="{'d-none': !myForm.get('name')?.invalid || !(myForm.get('name')?.dirty || myForm.get('name')?.touched)}">
+                                        error
+                                    </div>
                                 </div>
                             </div>
+                            <div style="color: #cccccc; margin-top: -10px;"
+                                *ngIf="myForm.get('name')?.invalid && (myForm.get('name')?.dirty || myForm.get('name')?.touched)">
+                                Please enter your name
+                            </div>
                             <div class="d-flex">
-                                <div class="material-symbols-outlined my-auto p-2">
-                                    mail
-                                </div>
                                 <div class="inputGroup">
-                                    <input required="" type="email" name="" id="">
+                                    <div class="material-symbols-outlined my-auto p-2">
+                                        mail
+                                    </div>
+                                    <input required="" type="email" formControlName="email">
                                     <label class="text-light" for="name">Email</label>
+                                    <div class="material-symbols-outlined  my-auto pe-2 "
+                                        style="color: rgb(255, 84, 84);" data-toggle="tooltip" data-placement="right"
+                                        title="Please provide a valid email address"
+                                        [ngClass]="{'d-none': !myForm.get('email')?.invalid || !(myForm.get('email')?.dirty || myForm.get('email')?.touched)}">
+                                        error
+                                    </div>
                                 </div>
                             </div>
+                            <div style="color: #cccccc; margin-top: -10px;"
+                                *ngIf="myForm.get('name')?.invalid && (myForm.get('email')?.dirty || myForm.get('email')?.touched)">
+                                Please provide a valid email address.
+                            </div>
                             <div class="d-flex">
-                                <div class="material-symbols-outlined my-auto p-2">
-                                    calendar_today
-                                </div>
                                 <div class="inputGroup">
-                                    <input type="date" required="" name="" id="" placeholder="Date Of Birth"
-                                        style="width: 185px;" class="text-light" onfocus="(this.type='date')"
-                                        onblur="(this.type='text')">
+                                    <div class="material-symbols-outlined my-auto py-2 ps-2">
+                                        calendar_today
+                                    </div>
+                                    <input type="date" required="" formControlName="date" id="date"
+                                        placeholder="Date Of Birth" style="width: 185px;" class="text-light"
+                                        onfocus="(this.type='date')" onblur="(this.type='text')">
                                     <label class="text-light" for="name"></label>
+                                    <div class="material-symbols-outlined my-auto pe-2" style="color: rgb(255, 84, 84);"
+                                        data-toggle="tooltip" data-placement="right"
+                                        title="Please enter your date of birth"
+                                        [ngClass]="{'d-none': !myForm.get('date')?.invalid || !(myForm.get('date')?.dirty || myForm.get('date')?.touched)}">
+                                        error
+                                    </div>
                                 </div>
                             </div>
+
+                            <div style="color: #cccccc; margin-top: -10px;"
+                                *ngIf="myForm.get('date')?.invalid && (myForm.get('date')?.dirty || myForm.get('date')?.touched)">
+                                Please enter your date of birth.
+                            </div>
                             <div class="d-flex">
-                                <div class="material-symbols-outlined my-auto p-2">
-                                    label
-                                </div>
                                 <div class="inputGroup ">
-                                    <input required="" autocomplete="off" type="text" name="" id="">
+                                    <div class="material-symbols-outlined my-auto p-2">
+                                        label
+                                    </div>
+                                    <input required="" autocomplete="off" type="text" formControlName="username">
                                     <label class="text-light" for="name">UserName</label>
+                                    <div class="material-symbols-outlined my-auto pe-2" style="color: rgb(255, 84, 84);"
+                                        data-toggle="tooltip" data-placement="right" title="Please enter your username"
+                                        [ngClass]="{'d-none': !myForm.get('username')?.invalid || !(myForm.get('username')?.dirty || myForm.get('username')?.touched)}">
+                                        error
+                                    </div>
                                 </div>
                             </div>
-                            <div class="d-flex">
-                                <div class="material-symbols-outlined my-auto p-2">
-                                    key
-                                </div>
+                            <div style="color: #cccccc; margin-top: -10px;"
+                                *ngIf="myForm.get('username')?.invalid && (myForm.get('username')?.dirty || myForm.get('username')?.touched)">
+                                Please enter your username.
+                            </div>
+                            <div class="d-flex ">
                                 <div class="inputGroup">
-                                    <input type="text" required="" autocomplete="off" type="password" name="" id="">
+                                    <div class="material-symbols-outlined my-auto p-2">
+                                        key
+                                    </div>
+                                    <input type="text" required="" autocomplete="off" type="password"
+                                        formControlName="password">
                                     <label class="text-light" for="name">Password</label>
+                                    <div class="material-symbols-outlined my-auto pe-2" style="color: rgb(255, 84, 84);"
+                                        data-toggle="tooltip" data-placement="right"
+                                        title="Please enter a valid password (minimum 8 characters)"
+                                        [ngClass]="{'d-none': !myForm.get('password')?.invalid || !(myForm.get('password')?.dirty || myForm.get('password')?.touched)}">
+                                        error
+                                    </div>
                                 </div>
+                            </div>
+                            <div style="color: #cccccc; margin-top: -10px; "
+                                *ngIf="myForm.get('password')?.invalid && (myForm.get('password')?.dirty || myForm.get('password')?.touched)">
+                                Please enter a password(minimum 8 characters).
                             </div>
                             <div class="d-flex">
-                                <div class="material-symbols-outlined my-auto p-2">
-                                    vpn_key
-                                </div>
-                                <div class="inputGroup">
-                                    <input type="text" required="" autocomplete="off" type="password" name="" id="">
-                                    <label class="text-light" for="name">Confirm Password</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 secondhalf d-flex justify-content-center">
-                        <div class="mb-3" style="margin-top: 100px;">
-                            <div class="d-flex justify-content-center" style="margin-left: 25px;">
-
-                                <div class="material-symbols-outlined my-auto p-2">
-                                    pin_drop
-                                </div>
                                 <div class="inputGroup ">
-                                    <input style="width: 230px;" class="text-light" pattern="[0-9]{6}" maxlength="6"
-                                        (input)="fetchPostalCodeData(postalcode.value)" #postalcode required
-                                        name="postalcode" id="postalcode">
-                                    <label class="text-light" for="postalcode">Pincode</label>
-                                </div>
-                                <div class="m-auto">
-                                    <div class="jelly-triangle" *ngIf="responseStatus === 'loading'">
-                                        <div class="jelly-triangle__dot"></div>
-                                        <div class="jelly-triangle__traveler"></div>
+                                    <div class="material-symbols-outlined my-auto p-2">
+                                        vpn_key
                                     </div>
-                                    <div *ngIf="responseStatus === 'success'">
-                                        <span class="material-symbols-outlined" style="color: rgb(103, 218, 122);">
-                                            check_circle
-                                        </span>
+                                    <input type="text" required="" autocomplete="off" type="password"
+                                        formControlName="conpassword">
+                                    <label class="text-light" for="name">Confirm Password</label>
+                                    <div class="material-symbols-outlined my-auto pe-2" style="color: rgb(255, 84, 84);"
+                                        data-toggle="tooltip" data-placement="right"
+                                        title="Please confirm your password"
+                                        [ngClass]="{'d-none': !myForm.get('conpassword')?.invalid || !(myForm.get('conpassword')?.dirty || myForm.get('conpassword')?.touched)}">
+                                        error
                                     </div>
-                                    <div *ngIf="responseStatus === 'error'">
-                                        <span class="material-symbols-outlined" style="color: rgb(187, 53, 53);">
-                                            dangerous
-                                        </span>
 
-                                    </div>
-                                    <svg width="0" height="0" class="jelly-maker">
-                                        <defs>
-                                            <filter id="uib-jelly-triangle-ooze">
-                                                <feGaussianBlur in="SourceGraphic" stdDeviation="7.3" result="blur" />
-                                                <feColorMatrix in="blur" mode="matrix"
-                                                    values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
-                                                    result="ooze" />
-                                                <feBlend in="SourceGraphic" in2="ooze" />
-                                            </filter>
-                                        </defs>
-                                    </svg>
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-center  ">
-                                <div class="d-flex" style="margin-left: -30px;">
-                                    <div class="material-symbols-outlined mt-4 p-2">
-                                        near_me
+                            <div style="color: #cccccc; margin-top: -10px;"
+                                *ngIf="myForm.get('conpassword')?.invalid && (myForm.get('conpassword')?.dirty || myForm.get('conpassword')?.touched)">
+                                Please confirm your password.
+                            </div>
+
+                        </div>
+                        <div class="col-xl-6 secondhalf d-flex flex-column justify-content-center align-items-center"  >
+                      
+                                <div class="d-flex justify-content-center">
+                                    <div class="inputGroup">
+                                        <div class="material-symbols-outlined my-auto p-2">
+                                            pin_drop
+                                        </div>
+                                        <input class="text-light" pattern="[0-9]{6}" maxlength="7"
+                                            (input)="fetchPostalCodeData(postalcode.value)" #postalcode required
+                                            formControlName="pincode" id="postalcode">
+                                        <label class="text-light" for="postalcode">Pincode</label>
+                                        <div class="material-symbols-outlined my-auto pe-2"
+                                            style="color: rgb(255, 84, 84);" data-toggle="tooltip"
+                                            data-placement="right" title="Please enter a valid pincode (6 digits)"
+                                            [ngClass]="{'d-none': !myForm.get('pincode')?.invalid || !(myForm.get('pincode')?.dirty || myForm.get('pincode')?.touched)}">
+                                            error
+                                        </div>
+                                        <div class="m-2">
+                                            <div class="jelly-triangle" *ngIf="responseStatus === 'loading'">
+                                                <div class="jelly-triangle__dot"></div>
+                                                <div class="jelly-triangle__traveler"></div>
+                                            </div>
+                                            <div *ngIf="responseStatus === 'success'">
+                                                <span class="material-symbols-outlined"
+                                                    style="color: rgb(103, 218, 122);">
+                                                    check_circle
+                                                </span>
+                                            </div>
+                                            <div *ngIf="responseStatus === 'error'">
+                                                <span class="material-symbols-outlined"
+                                                    style="color: rgb(187, 53, 53);">
+                                                    dangerous
+                                                </span>
+
+                                            </div>
+                                            <svg width="0" height="0" class="jelly-maker">
+                                                <defs>
+                                                    <filter id="uib-jelly-triangle-ooze">
+                                                        <feGaussianBlur in="SourceGraphic" stdDeviation="7.3"
+                                                            result="blur" />
+                                                        <feColorMatrix in="blur" mode="matrix"
+                                                            values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+                                                            result="ooze" />
+                                                        <feBlend in="SourceGraphic" in2="ooze" />
+                                                    </filter>
+                                                </defs>
+                                            </svg>
+                                        </div>
                                     </div>
-                                    <div class="mb-3">
-                                        <h4 for="" class="form-label"
-                                            style="margin-bottom: 0px; margin-left: -30px; margin-top: 3px;">Postal
-                                            Address :-</h4>
-                                        <select class="form-select" style="max-width: 230px; margin-bottom: 0px;"
-                                            name="" id="" [(ngModel)]="select.option"
-                                            [disabled]="responseStatus !== 'success'">
-                                            <option selected>Select one</option>
-                                            <option *ngFor="let item of PostOffice">{{item}}</option>
+                                </div>
+                                <div style="color: #cccccc; margin-top: -10px;" class="justify-content-center d-flex"
+                                    *ngIf="myForm.get('pincode')?.invalid && (myForm.get('pincode')?.dirty || myForm.get('pincode')?.touched)">
+                                    Please enter a valid pincode (6 digits).
+                                </div>
+                                <div class="d-flex justify-content-center flex-column">
+
+                               
+                                    <h4 class="text-light"
+                                        *ngIf="select.option !== null && responseStatus === 'success'"
+                                        style="margin-bottom: -12px;">Postal Address</h4>
+                                    <div class="res" *ngIf="select.option !== null && responseStatus === 'success'">
+                                        <div class="material-symbols-outlined p-2">
+                                            home_pin
+                                        </div>
+                                        <select class="form-select rounded-pill"
+                                            style="max-width: 310px; margin-bottom: 0px;" (change)="click()" formControlName="postaladdress" required>
+                                            <option [ngValue]="null">Postal Address</option>
+                                            <option  *ngFor="let item of PostOffice" [ngValue]="item">{{ item }}</option>
                                         </select>
+                                        <!-- Error Icon for Postal Address -->
+                                        <div class="material-symbols-outlined my-auto pe-2"
+                                            style="color: rgb(255, 84, 84);" data-toggle="tooltip"
+                                            data-placement="right" title="Please provide your postal address"
+                                            [ngClass]="{'d-none': !myForm.get('postaladdress')?.invalid || !(myForm.get('postaladdress')?.dirty || myForm.get('postaladdress')?.touched)}">
+                                            error
+                                        </div>
                                     </div>
+                                    <!-- Error Message for Select -->
+                                    <div style="color: #cccccc; margin-top: -10px;"
+                                        *ngIf="select.option !== 'Postal Address'">
+                                        Please select an Area / Colony.
+                                    </div>
+                                 
+                                <div style="color: #cccccc; margin-top: -10px;"
+                                    *ngIf="myForm.get('postaladdress')?.invalid && (myForm.get('postaladdress')?.dirty || myForm.get('postaladdress')?.touched)">
+                                    Please provide your postal address.
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-center flex-column" style="margin-left: 30px;">
-                                <div class="inputGroup "
-                                    *ngIf="select.option !== 'Select one' && responseStatus === 'success'">
-                                    <h4 class="text-light" style="margin-bottom: -3px; margin-top: -15px;"
-                                        *ngIf="select.option !== 'Select one'" for="name">Full Address :-</h4>
-                                    <div class="material-symbols-outlined mt-auto p-2" style="margin-left: -10px;">
-                                        home_pin
+                                <div class="d-flex justify-content-center flex-column" style="margin-left: 30px;">
+                                    <h4 class="text-light"
+                                        *ngIf="select.option === 'Postal Address' && responseStatus === 'success'"
+                                        style="margin-bottom: -12px;" for="name">Area / Colony</h4>
+                                    <div class="res"
+                                        *ngIf="select.option === 'Postal Address' && responseStatus === 'success'">
+                                        <div class="material-symbols-outlined   p-2">
+                                            home_pin
+                                        </div>
+                                        <input class="text-light" name="" type="text" matInput [formControl]="myControl"
+                                            [matAutocomplete]="auto" style="width: 250px;">
+                                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option"
+                                                [ngClass]="{'selected-option': option === selectedOption}">
+                                                {{ option.name }}
+                                            </mat-option>
+                                        </mat-autocomplete>
                                     </div>
-                                    <input class="text-light" name="" id="" type="text" matInput
-                                        [formControl]="myControl" [matAutocomplete]="auto" style="width: 250px;">
-                                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option"
-                                            [ngClass]="{'selected-option': option === selectedOption}">
-                                            {{ option.name }}
-                                        </mat-option>
-                                    </mat-autocomplete>
-                                </div>
-                                <div class="d-flex flex-column">
-
-                                    <div class="mt-4">
-                                        <h4 style="margin-bottom: 0;">Select Your Avatar :-</h4>
-                                        <div class="d-flex row border"
-                                            style="margin-left: -25px; width: 350px; border-radius: 22px;">
-                                            <div class="col-3" *ngFor="let avatar of avatar; let i = index">
+                                    <div class="d-flex flex-column responsiveLeft">
+                                        <div class="  align-items-center d-flex ">
+                                            <h4 style="margin-bottom: 0;">Select Your Avatar</h4>
+                                        </div>
+                                        <hr>
+                                        <div class="d-flex row" style="margin-left: -25px; width: 350px; ">
+                                            <div class="col-sm-3 col-4" *ngFor="let avatar of avatar; let i = index">
                                                 <div class="p-2" (click)="selectAvatar(avatar.id)">
                                                     <img [ngClass]="{'selected-avatar': avatar.id === selectedAvatarId}"
                                                         src="{{ avatar.avt }}" style="height: 35px; width: 35px;" alt=""
@@ -166,18 +261,16 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="justify-content-center align-items-center d-flex my-2">
 
-                                        <button name="" id="" class="btn btn-outline buttonReg"
-                                            style="width: 250px; margin-left: -30px;  border-radius: 25px;">Register</button>
+                                        <div class="justify-content-center align-items-center d-flex my-2">
+                                            <button name="" type="submit" class="btn btn-outline buttonReg" [disabled]="myForm.invalid">Register</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
+                            
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

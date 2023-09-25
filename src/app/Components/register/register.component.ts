@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
 import { User } from 'src/app/Models/user';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http'
   
 @Component({
@@ -12,10 +13,11 @@ import { HttpClient } from '@angular/common/http'
  
 export class RegisterComponent {
   postalcode: string=''; 
+  myForm: FormGroup;
   video: HTMLVideoElement | null = null;
-  videoSource: string = '../../../assets/video (2160p).mp4';
+  videoSource: string = '../../../assets/mixkit-two-friends-looking-at-the-cell-phone-in-a-coffee-43266.mp4';
   loaderActive = false;
-  select: { option: string } = { option: 'Select one' };
+  select: { option: string } = { option: 'Postal Address' };
   responseStatus: 'loading' | 'success' | 'error' | 'initial' = 'initial';
   PostOffice: any[]=[];
   selectedOption: User | null = null; 
@@ -27,29 +29,35 @@ export class RegisterComponent {
   selectedValue: string = ''; // Variable to store the selected value
   isEditable = true; // Set to true to allow input
   address = 'ddd';
-  options: User[] = [{name: 'Mary'}, {name: 'Shelley'}, {name: 'Igor'}];
+  
+  options: User[] = [{name: 'Harsiddhi Pg'}, {name: 'shaligram'}, {name: 'Igor'}];
   avatar: any[]=[
     {id:1,avt:'https://www.lightningdesignsystem.com/assets/images/avatar2.jpg'},{id:2,avt:'https://www.nicepng.com/png/detail/186-1866063_dicks-out-for-harambe-sample-avatar.png' },{id:3,avt:'https://png.pngtree.com/element_our/png/20181206/female-avatar-vector-icon-png_262142.jpg' },
     {id:4,avt:'https://png.pngtree.com/png-vector/20190223/ourmid/pngtree-vector-avatar-icon-png-image_695765.jpg'},
     {id:5,avt:'https://toppng.com/uploads/preview/avatar-png-11554021661asazhxmdnu.png'},{id:6,avt:'https://png.pngtree.com/element_our/png/20181206/female-avatar-vector-icon-png_262142.jpg' },
     {id:7,avt:'https://png.pngtree.com/png-vector/20190223/ourmid/pngtree-vector-avatar-icon-png-image_695765.jpg'},
     {id:8,avt:'https://toppng.com/uploads/preview/avatar-png-11554021661asazhxmdnu.png'},]
-  myControl = new FormControl<string | User>('');
+    myControl = new FormControl<string | User>('');
   filteredOptions: Observable<User[]>;
 
-  constructor( private http: HttpClient) {  
+  constructor( private http: HttpClient,private fb: FormBuilder) {  
     this.filteredOptions = new Observable<User[]>();
+    this.myForm=new FormGroup({})
+   
   }
   
-  ngOnInit() {
-    this.video = document.querySelector('.video-background') as HTMLVideoElement; 
-    const hasVideoBeenPlayed = localStorage.getItem('videoPlayed'); 
-    if (hasVideoBeenPlayed) { 
-      this.playVideo();
-    } else { 
-      localStorage.setItem('videoPlayed', 'true');
-      this.playVideo();
-    }
+  ngOnInit() { 
+    this.myForm = this.fb.group({ 
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required,Validators.email]],
+      date: ['', [Validators.required]],
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      conpassword: ['', [Validators.required]],
+      pincode: ['', [Validators.required],Validators.minLength(6)],
+      postaladdress:['',[Validators.required]],
+      detailedaddress:['',[Validators.required]]
+    });
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => {
@@ -58,12 +66,7 @@ export class RegisterComponent {
       }),
     );
   }
-  playVideo() {
-    if (this.video) {
-      this.video.src = this.videoSource; // Set the video source
-      this.video.play(); // Start video playback
-    }
-  }
+  
   startLoader() {
     this.loaderActive = true;
   } 
@@ -79,16 +82,14 @@ export class RegisterComponent {
   }
 
   private _filter(name: string): User[] {
-    const filterValue = name.toLowerCase();
-
+    const filterValue = name.toLowerCase(); 
     return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
   }
   onInput(event: any) {
     this.address = event.target.innerHTML;
   }
   search(input: string): void {
-    const url = `${this.wikiUrl}/w/api.php?${this.params}&srsearch=${encodeURI(input)}`;
-
+    const url = `${this.wikiUrl}/w/api.php?${this.params}&srsearch=${encodeURI(input)}`; 
     if (input.length < 3) {
       this.searchResults = [];
       return;
@@ -102,9 +103,7 @@ export class RegisterComponent {
   } 
   onSelect(selectedTitle: string): void {
     if (selectedTitle) { 
-      this.selectedValue = selectedTitle;  
- 
-      
+      this.selectedValue = selectedTitle;   
     }
   }
   fetchPostalCodeData(postalCode: string) {
@@ -139,4 +138,15 @@ export class RegisterComponent {
   updateOptions(input: string): void { 
     this.search(input);
   } 
+  onSubmit() {
+    if (this.myForm.valid) {
+      console.log('Form submitted:', this.myForm.value);
+    
+    } else {
+ 
+    }
+  }
+  click(){
+    console.log(this.myForm.value)
+  }
 }

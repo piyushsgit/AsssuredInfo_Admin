@@ -1,48 +1,58 @@
  
   .container{
+    
     height:  100vh; 
    
    }
    @media only screen and (max-width: 1198px) {
     .container {
         height:  auto; 
+        
         padding-top: 100px;
         padding-bottom: 100px;
     } 
   }
   
  
-  .selected-avatar {
-    border: 2px solid rgba(94,113,175,255); /* Add a blue border to the selected avatar */
-    box-shadow: 0px 0px 5px 2px rgba(94,113,175,255); /* Add a shadow to the selected avatar */
+  .video-container {
+    position: fixed;
+    overflow-y: auto;
+    width: 100%;
+    height: 100%; 
+    z-index: 1;
   }
-.video-container {
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-bottom: 56.25%; /* 16:9 aspect ratio */
-  overflow: hidden;
-}
+  
+  .video-background {
+    position:  fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -5;
+    object-fit: cover;
+  }
+  .selected-avatar {
+    border: 2px solid rgba(94,113,175,255); 
+    box-shadow: 0px 0px 5px 2px rgba(94,113,175,255); 
+  }
 
-.video-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.content {
-  position: relative;
-  z-index: 1;
-}
+ 
 
 /* Media queries for responsive sizing */
 @media (max-width: 768px) {
   .video-container {
     padding-bottom: 75%; /* Adjust as needed for smaller screens */
   }
+}
+#date{
+  padding-left: 3px;
+}
+#date :is(input:focus, input:valid)~::placeholder {
+  transform: translateY(-80%) scale(.9);
+  margin-left:-20px; 
+  padding: 0.4em;
+  color: rgb(0, 0, 0);
+  
 }
    .card{  
     width: 100vh;
@@ -59,7 +69,7 @@ border: 0;
     border-radius: 25px 0px 0px 25px;
    }
    .secondhalf{
-    height: 583px;
+    min-height: 583px;
     background-color: rgba(22,37,77,255);
     backdrop-filter: blur(10px);
     border-radius: 0px 25px 25px 0px;
@@ -84,6 +94,7 @@ border: 0;
  .inputGroup input {
    font-size: 100%;
    padding: 0.8em;
+   color: white;
    outline: none;
    border: 2px solid rgb(200, 200, 200);
    background-color: transparent;
@@ -102,52 +113,91 @@ border: 0;
   .selected-option {
     color: blue !important;
   }
- .inputGroup label {
-   font-size: 100%;
-   position: absolute;
-   left: 0;
-   padding: 0.8em;
-   margin-left: 0.5em;
-   pointer-events: none;
-   transition: all 0.3s ease;
-   color: rgb(44, 35, 35);
- }
- 
-mat-option {
-  background-color: rgba(94,113,175,255);
-} 
- 
- .inputGroup :is(input:focus, input:valid)~label {
-   transform: translateY(-70%) scale(.9);
-   margin: 0em; 
-   padding: 0.4em;
-   color: rgb(0, 0, 0); 
- }
- .mat-mdc-option.mdc-list-item--selected.mat-mdc-option.mdc-list-item--disabled .mdc-list-item__primary-text {
-  color: rgb(0, 0, 0) !important;
-}
- .inputGroup :is(input:focus, input:valid) {
-   border-color: rgb(150, 150, 200);
- }
-
-  
- .inputGroup :is(textarea:focus, textarea:valid)~label {
-    transform: translateY(-70%) scale(.9);
-    margin: 0em; 
-    padding: 0.4em;
-    color: rgb(0, 0, 0); 
+.inputGroup {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 1em 0 1em 0;
+    border: 2px solid rgb(200, 200, 200);
+    display: flex;
+    border-radius: 20px;
+    max-width: 400px;
+    position: relative;
   }
   
+  .inputGroup input {
+    font-size: 100%;
+    padding: 0.8em;
+    outline: none;
+    border:none;
+    
+    background-color: transparent;
+    border-radius: 20px;
+    width: 100%;
+  }
+  
+  .inputGroup label {
+    font-size: 100%;
+    position: absolute;
+    left: 25px;
+    padding: 0.8em;
+    margin-left:  0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    color: rgb(44, 35, 35);
+  }
+  .res{
+    display: flex;
+    justify-content: center;
+    width: 295px;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 1em 0 1em 0;
+    border: 2px solid rgb(200, 200, 200);
+    display: flex;
+    border-radius: 20px;
+    max-width: 400px;
+    position: relative;
+  }
+  .res input {
+    font-size: 100%;
+    padding: 0.8em;
+    outline: none;
+    border:none;
+    margin-left: -5px;
+    margin-right: 0px;
+    background-color: transparent;
+    border-radius: 20px;
+    width: 100%;
+  }
+  input::placeholder{
+    color: white;
+    
+  }
+  .inputGroup :is(input:focus, input:valid)~label {
+    transform: translateY(-80%) scale(.9);
+    margin-left:-20px; 
+    padding: 0.4em;
+    color: rgb(0, 0, 0);
+    
+  }
   .inputGroup :is(textarea:focus, textarea:valid) {
     border-color: rgb(150, 150, 200);
   }
+  .form-select:disabled {
+    background-color: transparent;
+}
+  mat-option {
+    background-color: rgba(94,113,175,255);
+  } 
+   
+ .mat-mdc-option.mdc-list-item--selected.mat-mdc-option.mdc-list-item--disabled .mdc-list-item__primary-text {
+  color: rgb(0, 0, 0) !important;
+}
   select{
     width:  300px;
     background-color: transparent;
-    border-radius: 25px;
-    border: 2px solid rgb(200, 200, 200);
+    border: none;
     color: white;
-  }
+  } 
   .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text {
     color: #ffffff!important;
 }
@@ -157,9 +207,12 @@ mat-option {
   }
  
   .buttonReg{
-background-color: transparent;
-border: #ffffff solid 2px;
-color: white;
+  background-color: transparent;
+  border: #ffffff solid 2px;
+  color: white;
+  width: 250px;
+  margin-left: -30px; 
+  border-radius: 25px;
   }
 
   .buttonReg:hover{
@@ -168,9 +221,7 @@ color: white;
 
   :-moz-placeholder{
     color: white;
-  }
-
-
+  } 
 
   .jelly-triangle {
      
@@ -258,3 +309,21 @@ color: white;
       transform: none;
     }
   }
+
+  @media only screen and (max-width: 1198px) {
+   
+    .responsiveLeft{
+      width: 80%;
+      
+    }
+    .buttonReg{
+      background-color: transparent;
+      border: #ffffff solid 2px;
+      color: white;
+      width: 250px;
+      margin-left: 30px; 
+      border-radius: 25px;
+    }
+    
+  }
+  
