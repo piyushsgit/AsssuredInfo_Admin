@@ -13,7 +13,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './Components/ProfileComponents/profile/profile.component';
 import { AboutComponent } from './Components/ProfileComponents/about/about.component';
-import { MatDialogModule } from '@angular/material/dialog';
 import { AddressComponent } from './Components/ProfileComponents/address/address.component';
 
 
