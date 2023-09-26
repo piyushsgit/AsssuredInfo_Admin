@@ -14,6 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './Components/ProfileComponents/profile/profile.component';
 import { AboutComponent } from './Components/ProfileComponents/about/about.component';
 import { AddressComponent } from './Components/ProfileComponents/address/address.component';
+import { HomeModule } from './home/home.module';
+import { PostsComponent } from './Components/ProfileComponents/posts/posts.component';
 
 
 
@@ -24,7 +26,8 @@ import { AddressComponent } from './Components/ProfileComponents/address/address
     RegisterComponent,
     ProfileComponent,
     AboutComponent,
-    AddressComponent
+    AddressComponent,
+    PostsComponent,
 
     
   ],
@@ -40,6 +43,8 @@ import { AddressComponent } from './Components/ProfileComponents/address/address
     NgFor,
     AsyncPipe, 
     HttpClientModule,
+    HomeModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
