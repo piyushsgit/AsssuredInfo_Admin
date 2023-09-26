@@ -15,8 +15,10 @@ export class AddressComponent {
   fullAddress:any='';
   postalcode:any
   loaderActive = false;
+  pincode:any
   isChecked=false;
   temp:any
+  temp2:any
   PincodeData:any
   isformopen=true
   select: { option: string } = { option: 'Postal Address' };
@@ -91,7 +93,7 @@ export class AddressComponent {
 
   onSubmit() {
     this.SelectedPostalCodeData = this.PincodeData[0].PostOffice.find((x:any) => x.Name === this.select.option);
-    if(this.temp!=''){
+    if(this.temp!=undefined){
       this.fullAddress=this.temp
       this.temp=''
     }
@@ -104,12 +106,15 @@ export class AddressComponent {
     state: this.SelectedPostalCodeData.Circle,
     district: this.SelectedPostalCodeData.Block
     }
-    console.log(obj);
-    
+ 
     this.ApiService.AddnewAddress(obj).subscribe({
       next: (dataobj) => {
-        console.log(dataobj)
-        this.ngOnInit()
+        this.temp2=dataobj
+        if(this.temp2.success){
+          this.newItemEvent.emit(false)
+          this.ngOnInit()
+        }
+        
       },
       error:(e)=>{
         console.log(e);
@@ -117,10 +122,19 @@ export class AddressComponent {
       });
 
   }
-  // closeAddressForm(){
-  // this.isformopen=false
-  // }
- 
   @Output() newItemEvent = new EventEmitter<any>();
+  emitEvent() {
+    this.newItemEvent.emit(false); // Emit the event with the desired data
+  }
+
+  edit:any=false
+  EditAddress(EditData:any){
+    debugger
+  this.edit=true;
+  this.select.option=EditData.postalCode
+  this.fullAddress=EditData.fullAddress
+  this.pincode=EditData.pincode
+  this.isChecked = EditData.isPrimary;
+  }
 
 }

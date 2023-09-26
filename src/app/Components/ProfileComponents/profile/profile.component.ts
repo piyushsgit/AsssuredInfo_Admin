@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ApiCallService } from '../../Services/api-call.service';
 
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
