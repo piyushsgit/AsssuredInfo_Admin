@@ -4,6 +4,9 @@ import { Observable, map, startWith } from 'rxjs';
 import { User } from 'src/app/Models/user';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http'
+import { state } from '@angular/animations';
+import { ApiCallService } from '../Services/api-call.service';
+import { Router } from '@angular/router';
   
 @Component({
   selector: 'app-register',
@@ -30,7 +33,7 @@ export class RegisterComponent {
   isEditable = true; // Set to true to allow input
   address = 'ddd';
   
-  options: User[] = [{name: 'Harsiddhi Pg'}, {name: 'shaligram'}, {name: 'Igor'}];
+  options: any[] = [ 'Harsiddhi Pg','shaligram','Igor'];
   avatar: any[]=[
     {id:1,avt:'https://www.lightningdesignsystem.com/assets/images/avatar2.jpg'},{id:2,avt:'https://www.nicepng.com/png/detail/186-1866063_dicks-out-for-harambe-sample-avatar.png' },{id:3,avt:'https://png.pngtree.com/element_our/png/20181206/female-avatar-vector-icon-png_262142.jpg' },
     {id:4,avt:'https://png.pngtree.com/png-vector/20190223/ourmid/pngtree-vector-avatar-icon-png-image_695765.jpg'},
@@ -40,7 +43,7 @@ export class RegisterComponent {
     myControl = new FormControl<string | User>('');
   filteredOptions: Observable<User[]>;
 
-  constructor( private http: HttpClient,private fb: FormBuilder) {  
+  constructor( private http: HttpClient,private fb: FormBuilder,private api:ApiCallService,private rout :Router) {  
     this.filteredOptions = new Observable<User[]>();
     this.myForm=new FormGroup({})
    
@@ -48,15 +51,18 @@ export class RegisterComponent {
   
   ngOnInit() { 
     this.myForm = this.fb.group({ 
-      name: ['', [Validators.required]],
+      avtar_url:['https://www.lightningdesignsystem.com/assets/images/avatar2.jpg'] ,
+      fullName: ['', [Validators.required]],
       email: ['', [Validators.required,Validators.email]],
-      date: ['', [Validators.required]],
-      username: ['', [Validators.required]],
+      dateOfBirth: ['', [Validators.required]],
+      userName: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       conpassword: ['', [Validators.required]],
       pincode: ['', [Validators.required],Validators.minLength(6)],
-      postaladdress:['',[Validators.required]],
-      detailedaddress:['',[Validators.required]]
+      postalAddress:['',[Validators.required]],
+      state:'',
+      district:'',
+       fullAddress:['',[Validators.required]]
     });
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
@@ -74,16 +80,16 @@ export class RegisterComponent {
   stopLoader() {
     this.loaderActive = false;
   }
-  selectAvatar(id: number  ): void {
-    this.selectedAvatarId = id;
+  selectAvatar(event:Event): void { 
+    this.selectedAvatarId = parseInt((event.target as HTMLInputElement).id); 
+    this.myForm.patchValue({ avtar_url:(event.target as HTMLInputElement).src}); 
   }
   displayFn(user: User): string {
-    return user && user.name ? user.name : '';
+    return user ? user.toString() : '';
   }
-
   private _filter(name: string): User[] {
     const filterValue = name.toLowerCase(); 
-    return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
   onInput(event: any) {
     this.address = event.target.innerHTML;
@@ -114,7 +120,17 @@ export class RegisterComponent {
       this.http.get('https://api.postalpincode.in/pincode/' + postalCode).subscribe(
         (response: any) => {
           if (response && response[0] && response[0].PostOffice) {
-            this.PostOffice = response[0].PostOffice.map((element: any) => element.Name);
+            this.PostOffice = response[0].PostOffice.map((element: any) => {
+              return {
+                name: element.Name, 
+                District: element.District,
+                State:element.State
+              }; 
+
+            });
+            const District = response[0].PostOffice[0].District;
+            const State = response[0].PostOffice[0].State;
+           this.myForm.patchValue({ state : State ,district:District});
             this.responseStatus = 'success';
           } else {
             this.PostOffice = ['No data available'];
@@ -146,7 +162,19 @@ export class RegisterComponent {
  
     }
   }
-  click(){
-    console.log(this.myForm.value)
-  }
+click() {
+  console.log(this.myForm.value);
+  
+  this.api.Registraion(this.myForm.value).subscribe(
+    (response: any) => {
+      console.log(response);
+      if(response.message==' Registered  Successfully'){
+        this.rout.navigate(['']);
+      }
+    },
+    (error) => {
+      console.error('Error fetching data:', error);
+    }
+  );
+}
 }

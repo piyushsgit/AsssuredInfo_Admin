@@ -25,18 +25,18 @@
                                     <div class="material-symbols-outlined my-auto p-2">
                                         person
                                     </div>
-                                    <input type="text" required="" formControlName="name">
-                                    <label class="text-light" for="name">Full Name</label>
+                                    <input type="text" required="" formControlName="fullName">
+                                    <label class="text-light" for="fullName">Full Name</label>
                                     <div class="material-symbols-outlined  my-auto pe-2 "
                                         style="color: rgb(255, 84, 84);" data-toggle="tooltip" data-placement="right"
                                         title="Please provide a valid email address"
-                                        [ngClass]="{'d-none': !myForm.get('name')?.invalid || !(myForm.get('name')?.dirty || myForm.get('name')?.touched)}">
+                                        [ngClass]="{'d-none': !myForm.get('fullName')?.invalid || !(myForm.get('fullName')?.dirty || myForm.get('fullName')?.touched)}">
                                         error
                                     </div>
                                 </div>
                             </div>
                             <div style="color: #cccccc; margin-top: -10px;"
-                                *ngIf="myForm.get('name')?.invalid && (myForm.get('name')?.dirty || myForm.get('name')?.touched)">
+                                *ngIf="myForm.get('fullName')?.invalid && (myForm.get('fullName')?.dirty || myForm.get('fullName')?.touched)">
                                 Please enter your name
                             </div>
                             <div class="d-flex">
@@ -45,7 +45,7 @@
                                         mail
                                     </div>
                                     <input required="" type="email" formControlName="email">
-                                    <label class="text-light" for="name">Email</label>
+                                    <label class="text-light" for="email">Email</label>
                                     <div class="material-symbols-outlined  my-auto pe-2 "
                                         style="color: rgb(255, 84, 84);" data-toggle="tooltip" data-placement="right"
                                         title="Please provide a valid email address"
@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                             <div style="color: #cccccc; margin-top: -10px;"
-                                *ngIf="myForm.get('name')?.invalid && (myForm.get('email')?.dirty || myForm.get('email')?.touched)">
+                                *ngIf="myForm.get('email')?.invalid && (myForm.get('email')?.dirty || myForm.get('email')?.touched)">
                                 Please provide a valid email address.
                             </div>
                             <div class="d-flex">
@@ -63,21 +63,21 @@
                                     <div class="material-symbols-outlined my-auto py-2 ps-2">
                                         calendar_today
                                     </div>
-                                    <input type="date" required="" formControlName="date" id="date"
+                                    <input type="date" required="" formControlName="dateOfBirth" id="dateOfBirth"
                                         placeholder="Date Of Birth" style="width: 185px;" class="text-light"
                                         onfocus="(this.type='date')" onblur="(this.type='text')">
                                     <label class="text-light" for="name"></label>
                                     <div class="material-symbols-outlined my-auto pe-2" style="color: rgb(255, 84, 84);"
                                         data-toggle="tooltip" data-placement="right"
                                         title="Please enter your date of birth"
-                                        [ngClass]="{'d-none': !myForm.get('date')?.invalid || !(myForm.get('date')?.dirty || myForm.get('date')?.touched)}">
+                                        [ngClass]="{'d-none': !myForm.get('dateOfBirth')?.invalid || !(myForm.get('dateOfBirth')?.dirty || myForm.get('dateOfBirth')?.touched)}">
                                         error
                                     </div>
                                 </div>
                             </div>
 
                             <div style="color: #cccccc; margin-top: -10px;"
-                                *ngIf="myForm.get('date')?.invalid && (myForm.get('date')?.dirty || myForm.get('date')?.touched)">
+                                *ngIf="myForm.get('dateOfBirth')?.invalid && (myForm.get('dateOfBirth')?.dirty || myForm.get('dateOfBirth')?.touched)">
                                 Please enter your date of birth.
                             </div>
                             <div class="d-flex">
@@ -85,17 +85,17 @@
                                     <div class="material-symbols-outlined my-auto p-2">
                                         label
                                     </div>
-                                    <input required="" autocomplete="off" type="text" formControlName="username">
+                                    <input required="" autocomplete="off" type="text" formControlName="userName">
                                     <label class="text-light" for="name">UserName</label>
                                     <div class="material-symbols-outlined my-auto pe-2" style="color: rgb(255, 84, 84);"
                                         data-toggle="tooltip" data-placement="right" title="Please enter your username"
-                                        [ngClass]="{'d-none': !myForm.get('username')?.invalid || !(myForm.get('username')?.dirty || myForm.get('username')?.touched)}">
+                                        [ngClass]="{'d-none': !myForm.get('userName')?.invalid || !(myForm.get('userName')?.dirty || myForm.get('userName')?.touched)}">
                                         error
                                     </div>
                                 </div>
                             </div>
                             <div style="color: #cccccc; margin-top: -10px;"
-                                *ngIf="myForm.get('username')?.invalid && (myForm.get('username')?.dirty || myForm.get('username')?.touched)">
+                                *ngIf="myForm.get('userName')?.invalid && (myForm.get('userName')?.dirty || myForm.get('userName')?.touched)">
                                 Please enter your username.
                             </div>
                             <div class="d-flex ">
@@ -147,6 +147,7 @@
                                 <div class="inputGroup">
                                     <div class="material-symbols-outlined my-auto p-2">
                                         pin_drop
+
                                     </div>
                                     <input class="text-light" pattern="[0-9]{6}" maxlength="7"
                                         (input)="fetchPostalCodeData(postalcode.value)" #postalcode required
@@ -203,16 +204,17 @@
                                         home_pin
                                     </div>
                                     <select class="form-select rounded-pill"
-                                        style="max-width: 310px; margin-bottom: 0px;" (change)="click()"
-                                        formControlName="postaladdress" required>
+                                        style="max-width: 310px; margin-bottom: 0px;" formControlName="postalAddress"
+                                        required>
                                         <option [ngValue]="null">Postal Address</option>
-                                        <option *ngFor="let item of PostOffice" [ngValue]="item">{{ item }}</option>
+                                        <option *ngFor="let item of PostOffice" [ngValue]="item.name">{{ item.name }}
+                                        </option>
                                     </select>
                                     <!-- Error Icon for Postal Address -->
                                     <div class="material-symbols-outlined my-auto pe-2" style="color: rgb(255, 84, 84);"
                                         data-toggle="tooltip" data-placement="right"
                                         title="Please provide your postal address"
-                                        [ngClass]="{'d-none': !myForm.get('postaladdress')?.invalid || !(myForm.get('postaladdress')?.dirty || myForm.get('postaladdress')?.touched)}">
+                                        [ngClass]="{'d-none': !myForm.get('postalAddress')?.invalid || !(myForm.get('postalAddress')?.dirty || myForm.get('postalAddress')?.touched)}">
                                         error
                                     </div>
                                 </div>
@@ -223,50 +225,46 @@
                                 </div>
 
                                 <div style="color: #cccccc; margin-top: -10px;"
-                                    *ngIf="myForm.get('postaladdress')?.invalid && (myForm.get('postaladdress')?.dirty || myForm.get('postaladdress')?.touched)">
+                                    *ngIf="myForm.get('postalAddress')?.invalid && (myForm.get('postalAddress')?.dirty || myForm.get('postalAddress')?.touched)">
                                     Please provide your postal address.
                                 </div>
-                            </div>
-                            <div class="d-flex justify-content-center flex-column" style="margin-left: 30px;">
                                 <h4 class="text-light"
                                     *ngIf="select.option === 'Postal Address' && responseStatus === 'success'"
                                     style="margin-bottom: -12px;" for="name">Area / Colony</h4>
-                                <div class="res"
-                                    *ngIf="select.option === 'Postal Address' && responseStatus === 'success'">
-                                    <div class="material-symbols-outlined   p-2">
-                                        home_pin
-                                    </div>
-                                    <input class="text-light" name="" type="text" matInput [formControl]="myControl"
-                                        [matAutocomplete]="auto" style="width: 250px;">
-                                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option"
-                                            [ngClass]="{'selected-option': option === selectedOption}">
-                                            {{ option.name }}
-                                        </mat-option>
-                                    </mat-autocomplete>
+                            </div>
+                            <div class="res" *ngIf="select.option === 'Postal Address' && responseStatus === 'success'">
+                                <div class="material-symbols-outlined   p-2">
+                                    home_pin
                                 </div>
-                                <div class="d-flex flex-column responsiveLeft">
-                                    <div class="  align-items-center d-flex ">
-                                        <h4 style="margin-bottom: 0;">Select Your Avatar</h4>
-                                    </div>
-                                    <hr>
-                                    <div class="d-flex row" style="margin-left: -25px; width: 350px; ">
-                                        <div class="col-sm-3 col-4" *ngFor="let avatar of avatar; let i = index">
-                                            <div class="p-2" (click)="selectAvatar(avatar.id)">
-                                                <img [ngClass]="{'selected-avatar': avatar.id === selectedAvatarId}"
-                                                    src="{{ avatar.avt }}" style="height: 35px; width: 35px;" alt=""
-                                                    [id]="avatar.id">
-                                            </div>
+                                <input class="text-light" name="" type="text" matInput formControlName="fullAddress"
+                                    [matAutocomplete]="auto" style="width: 250px;">
+                                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option"
+                                        [ngClass]="{'selected-option': option === selectedOption}">
+                                        {{ option }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </div>
+                            <div class="d-flex flex-column responsiveLeft">
+                                <div class="  align-items-center d-flex ">
+                                    <h4 style="margin-bottom: 0;">Select Your Avatar</h4>
+                                </div>
+                                <hr>
+                                <div class="d-flex row">
+                                    <div class="col-3" *ngFor="let avatar of avatar; let i = index">
+                                        <div class="p-2" (click)="selectAvatar($event)">
+                                            <img [ngClass]="{'selected-avatar': avatar.id === selectedAvatarId}"
+                                                src="{{ avatar.avt }}" style="height: 35px; width: 35px;" alt=""
+                                                [id]="avatar.id">
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div class="justify-content-center align-items-center d-flex my-2">
-                                        <button name="" type="submit" class="btn btn-outline buttonReg"
-                                            [disabled]="myForm.invalid">Register</button>
-                                    </div>
+                                <div class="justify-content-center align-items-center d-flex my-2">
+                                    <button name="" type="submit" class="btn btn-outline buttonReg"
+                                        [disabled]="myForm.invalid" (click)="click()">Register</button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </form>

@@ -8,9 +8,9 @@ import { PostsComponent } from './Components/ProfileComponents/posts/posts.compo
 
 
 const routes: Routes = [
-  {path: '', component: LoginComponent    },
-  { path:'Register',component : RegisterComponent},
-  { path: 'profile', component:ProfileComponent },
+  { path: '', component: LoginComponent },
+  { path: 'Register', component: RegisterComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: 'about', component: AboutComponent },
   { path: 'posts', component: PostsComponent },
   {
