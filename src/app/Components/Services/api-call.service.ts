@@ -25,5 +25,19 @@ export class ApiCallService {
   {
    return this.http.post('http://localhost:5105/User/AddnewAddress',obj)
   }
-
+  
+  DeleteAddressById(id:any)
+  {
+   return this.http.delete(`http://localhost:5105/User/DeleteAddressById?id=${id}`)
+  }
+  UpdateUserInfo(obj:any)
+  {
+   return this.http.post('http://localhost:5105/User/UpdateUserInfo',obj)
+  }
+  updateuserAddess(obj:any)
+  {
+   return this.http.post('http://localhost:5105/User/updateuserAddess',obj)
+  }
 }
+
+

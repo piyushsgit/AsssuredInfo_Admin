@@ -1,7 +1,6 @@
+
 <section >
-    <div class="container-fluid pt-5">
-     
-  
+    <div class="container-fluid ">
       <div class="row">
         <div class="col-1"></div>
         <div class="col-lg-3 p-0">
@@ -43,35 +42,9 @@
             
             </div>
           </div>
-          <!-- <div class="card mb-4 mb-lg-0 border-0" >
-            <div class="card-body p-0 ">
-              <ul class="list-group list-group-flush rounded-3" style="background-color: #eee;">
-                <li class="list-group-item  p-2">
-                  <div class="d-flex justify-content-around align-items-center">
-                    <span>89</span>
-                     <span>89</span>
-                     <span>89</span>
-                    </div>
-                    <div class="mb-0 d-flex justify-content-around align-items-center">
-                      <span>Total Posts</span>
-                      <span>Followers</span>
-                      <span>Following</span>
-                    </div>
-                  </li>
-                  
-                  <li class="list-group-item  ">
-                    <label class="form-label" for="customRange1">Example range</label>
-                    <div class="range">
-                      <input type="range" class="form-range" id="customRange1" />
-                    </div>
-                  </li>
-                
-              </ul>
-            </div>
-          </div> -->
         </div>
         <div class="col-lg-7">
-            <ul class="nav nav-tabs mb-3">
+            <ul class="nav nav-tabs mt-4">
                 <li class="nav-item">
                   <button class="nav-link active" id="post" (click)="PostClick()">Posts</button>
                 </li>
@@ -80,6 +53,7 @@
                 </li>
               </ul>
          <div *ngIf="tabChanges"><app-about></app-about></div>
+         <div *ngIf="!tabChanges" > <app-posts></app-posts> </div>
         </div>
         <div class="col-1"></div>
       </div>
