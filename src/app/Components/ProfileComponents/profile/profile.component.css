@@ -47,4 +47,10 @@ color:rgb(15, 36, 115)
   transition: color 0.3s, background-color 0.3s, border-color 0.3s;
 }
 
-
+.scrollable-component {
+  height: 100vh; /* Adjust the height as needed */
+  overflow-y:auto; 
+  overflow-x: hidden;/* Enable vertical scrolling when content exceeds the height */
+  /* Add padding to the scrollable component if necessary */
+  /* Other styles for the scrollable component */
+}

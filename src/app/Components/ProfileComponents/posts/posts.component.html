@@ -1,11 +1,43 @@
+
+<div class="scrollable-component">
+
 <div class="row mt-3" >
     <div class="col-md-2 mb-4 " >
       <div class="card mb-4 mb-md-0 ">
 
-        <div class="card-body" style="background-color: rgba(94,113,175,255);">
+        <div class="card-body" style="background-color: rgba(94,113,175,255);" (click)="NewPosts()" >
           <h1 class="d-flex justify-content-center align-item-center text-light p-3">+</h1>
           <h3 class="d-flex align-item-center text-light p-1">Add / Share New Posts</h3>
         </div>
       </div>
     </div>
   </div>
+  
+  <section class="pb-5">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 mx-auto my-3" *ngFor="let item of article">
+          <blockquote class="blockquote blockquote-custom p-4 rounded" style="background-color: rgba(189, 195, 209, 0.99);">
+            <h2 class="d-flex align-item-center justify-content-center" style="color:rgba(94, 113, 175, 255)">{{item.tittle}}</h2>
+            <div [innerHTML]="item.showFullContent ? item.mainContent : (item.mainContent | slice: 0:400)"
+                 [style.color]="item.showFullContent ? 'color' : 'rgba(94, 113, 175, 255)'">
+            </div>
+            <a  class="text-muted" (click)="toggleFullContent(item)">
+              {{item.showFullContent ? 'View Less' : 'View More'}}
+            </a>
+            <footer class="blockquote-footer pt-4 mt-4 border-top">Someone famous in
+              <cite title="Source Title">Source Title</cite>
+            </footer>
+          </blockquote><!-- END -->
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+   
+<!-- <div class="card col" *ngFor="let item of article">
+  <h3 class="card-title">{{item.tittle}}</h3>
+  <div class="card-body" id="Carddetail" [innerHTML]="item.mainContent">
+  </div>
+</div> -->

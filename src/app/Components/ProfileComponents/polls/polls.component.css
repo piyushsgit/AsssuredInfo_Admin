@@ -1,0 +1,31 @@
+button {
+    margin-right: 8px;
+    background-color: rgba(189, 195, 209, 0.99);
+  }
+  #basic-addon1{
+    color:  rgba(94,113,175,255);;
+    border: solid 2px rgba(94, 113, 175, 255);
+  }
+  #poll{
+    background-color: rgba(94, 113, 175, 255);
+    color: white;
+    border: 1px solid white;
+    width: 150px;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: color 0.3s, background-color 0.3s, border-color 0.3s;
+  }
+  .form-check-input:checked {
+    background-color: rgba(94, 113, 175, 255);
+    border-color: rgba(94, 113, 175, 255);
+  }
+  .customcss{
+    background-color: transparent;
+    border: solid 2px rgba(94, 113, 175, 255);
+  }
+
+  textarea{
+    max-height: 80px;
+    min-height: 50px;
+  }
