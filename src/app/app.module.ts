@@ -16,6 +16,7 @@ import { AboutComponent } from './Components/ProfileComponents/about/about.compo
 import { AddressComponent } from './Components/ProfileComponents/address/address.component';
 import { HomeModule } from './home/home.module';
 import { PostsComponent } from './Components/ProfileComponents/posts/posts.component';
+import { PollsComponent } from './Components/ProfileComponents/polls/polls.component';
 
 
 
@@ -28,6 +29,7 @@ import { PostsComponent } from './Components/ProfileComponents/posts/posts.compo
     AboutComponent,
     AddressComponent,
     PostsComponent,
+    PollsComponent
 
     
   ],

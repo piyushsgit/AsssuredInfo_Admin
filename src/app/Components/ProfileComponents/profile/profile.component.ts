@@ -9,8 +9,8 @@ import { ApiCallService } from '../../Services/api-call.service';
   encapsulation: ViewEncapsulation.None
 })
 export class ProfileComponent {
-   id=16
-tabChanges:any=false;
+   id=27
+  tabChanges:number=1;
  temp:any
  UserData:any
  follow=true;
@@ -34,20 +34,33 @@ GetUserById(){
       }
       });
   }
-  AboutClick(){
-    this.tabChanges=true
-    var post=document.getElementById('post') 
-    post?.classList.remove("active")
-    var about =document.getElementById('about') 
-    about?.classList.add("active")
-  }
 
   PostClick(){
-    this.tabChanges=false
+    this.tabChanges=1
     var about =document.getElementById('about') 
+    about?.classList.remove("active")
+    var about =document.getElementById('poll') 
     about?.classList.remove("active")
     var post=document.getElementById('post') 
     post?.classList.add("active")
+  }
+  PollClick(){
+    this.tabChanges=2
+    var about =document.getElementById('about') 
+    about?.classList.remove("active")
+    var about =document.getElementById('post') 
+    about?.classList.remove("active")
+    var post=document.getElementById('poll') 
+    post?.classList.add("active")
+  }
+  AboutClick(){
+    this.tabChanges=3
+    var post=document.getElementById('post') 
+    post?.classList.remove("active")
+    var post=document.getElementById('poll') 
+    post?.classList.remove("active")
+    var about =document.getElementById('about') 
+    about?.classList.add("active")
   }
   progressValue: number = 67; 
 
