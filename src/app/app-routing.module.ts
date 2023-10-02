@@ -9,9 +9,9 @@ import { NewpostsComponent } from './newposts/newposts.component';
 
 
 const routes: Routes = [
-  {path: '', component: LoginComponent    },
-  { path:'Register',component : RegisterComponent},
-  { path: 'profile', component:ProfileComponent },
+  { path: '', component: LoginComponent },
+  { path: 'Register', component: RegisterComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: 'about', component: AboutComponent },
   { path: 'posts', component: PostsComponent },
   {

@@ -7,36 +7,32 @@ import { Observable } from 'rxjs';
 })
 export class ApiCallService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  GetUsersById(id:any):Observable<any[]>
-  {
-   return this.http.get<any[]>(`http://localhost:5105/User/GetUserBy_Id?id=${id}`)
+  GetUsersById(id: any): Observable<any[]> {
+    return this.http.get<any[]>(`http://localhost:5105/User/GetUserBy_Id?id=${id}`)
   }
-  GetUsersAddressById(id:any):Observable<any[]>
-  {
-   return this.http.get<any[]>(`http://localhost:5105/User/GetUserAddres_Id?id=${id}`)
+  GetUsersAddressById(id: any): Observable<any[]> {
+    return this.http.get<any[]>(`http://localhost:5105/User/GetUserAddres_Id?id=${id}`)
   }
-  GetDetailByPincode(Pincode:any):Observable<any[]>
-  {
-   return this.http.get<any[]>(`https://api.postalpincode.in/pincode/${Pincode}`)
+  GetDetailByPincode(Pincode: any): Observable<any[]> {
+    return this.http.get<any[]>(`https://api.postalpincode.in/pincode/${Pincode}`)
   }
-  AddnewAddress(obj:any)
-  {
-   return this.http.post('http://localhost:5105/User/AddnewAddress',obj)
+  AddnewAddress(obj: any) {
+    return this.http.post('http://localhost:5105/User/AddnewAddress', obj)
   }
-  
-  DeleteAddressById(id:any)
-  {
-   return this.http.delete(`http://localhost:5105/User/DeleteAddressById?id=${id}`)
+
+  DeleteAddressById(id: any) {
+    return this.http.delete(`http://localhost:5105/User/DeleteAddressById?id=${id}`)
   }
-  UpdateUserInfo(obj:any)
-  {
-   return this.http.post('http://localhost:5105/User/UpdateUserInfo',obj)
+  UpdateUserInfo(obj: any) {
+    return this.http.post('http://localhost:5105/User/UpdateUserInfo', obj)
   }
-  updateuserAddess(obj:any)
-  {
-   return this.http.post('http://localhost:5105/User/updateuserAddess',obj)
+  updateuserAddess(obj: any) {
+    return this.http.post('http://localhost:5105/User/updateuserAddess', obj)
+  }
+  Registraion(obj: any) {
+    return this.http.post('http://localhost:5105/User/Registration', obj)
   }
   AddnewArticle(obj:any)
   {
@@ -55,6 +51,7 @@ export class ApiCallService {
   {
    return this.http.get<any[]>(`http://localhost:5105/Posts/GetpollbyuserId?id=${id}`)
   }
+
 }
 
 

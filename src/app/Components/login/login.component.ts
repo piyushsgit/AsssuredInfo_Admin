@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../Services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +11,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class LoginComponent {
   myForm: FormGroup;
   
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,private authService :AuthService,private router:Router) {
     this.myForm=new FormGroup({})
   }
   ngOnInit() {
@@ -20,9 +22,22 @@ export class LoginComponent {
   }
 
   onSubmit(form: FormGroup) {
-    console.log('Valid?', form.valid); // true or false  
+    console.log('Valid?', form.valid); 
     console.log('Email', form.value.email);
     console.log('Password', form.value.password);
   }
+  login() {
+    const val = this.myForm.value;
+
+    if (val.email && val.password) {
+        this.authService.login(val.email, val.password)
+            .subscribe(
+                () => {
+                    console.log("User is logged in");
+                    this.router.navigateByUrl('home');
+                }
+            );
+    }
+}
   
 }
