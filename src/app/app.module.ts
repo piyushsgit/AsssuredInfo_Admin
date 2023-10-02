@@ -16,8 +16,12 @@ import { AboutComponent } from './Components/ProfileComponents/about/about.compo
 import { AddressComponent } from './Components/ProfileComponents/address/address.component';
 import { HomeModule } from './home/home.module';
 import { PostsComponent } from './Components/ProfileComponents/posts/posts.component';
+
 import { PollsComponent } from './Components/ProfileComponents/polls/polls.component';
 
+
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 
 @NgModule({
@@ -45,10 +49,10 @@ import { PollsComponent } from './Components/ProfileComponents/polls/polls.compo
     NgFor,
     AsyncPipe, 
     HttpClientModule,
-    HomeModule
-    
+    HomeModule,
+    ToastModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
