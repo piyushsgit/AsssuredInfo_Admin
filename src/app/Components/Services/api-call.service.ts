@@ -34,6 +34,23 @@ export class ApiCallService {
   Registraion(obj: any) {
     return this.http.post('http://localhost:5105/User/Registration', obj)
   }
+  AddnewArticle(obj:any)
+  {
+   return this.http.post('http://localhost:5105/Posts/AddnewArticle',obj)
+  }
+
+  GetArticleByUserId(id:any):Observable<any[]>
+  {
+   return this.http.get<any[]>(`http://localhost:5105/Posts/GetArticleById?id=${id}`)
+  }
+  AddNewPolls(obj:any)
+  {
+   return this.http.post('http://localhost:5105/Posts/AddNewPolls',obj)
+  }
+  GetPollsByUserId(id:any):Observable<any[]>
+  {
+   return this.http.get<any[]>(`http://localhost:5105/Posts/GetpollbyuserId?id=${id}`)
+  }
 
 }
 

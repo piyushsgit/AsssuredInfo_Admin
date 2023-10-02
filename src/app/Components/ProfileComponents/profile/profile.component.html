@@ -3,7 +3,7 @@
     <div class="container-fluid ">
       <div class="row">
         <div class="col-1"></div>
-        <div class="col-lg-3 p-0">
+        <div class="col-lg-3 p-0 " >
           <div class="card  border-0">
             <div class="card-body text-center p-0" style="background-color: rgba(189, 195, 209, 0.99); height: 100vh;color: rgb(0 14 122);;">
               <img src={{UserData.avtar_url}} 
@@ -15,9 +15,9 @@
                 <ul class="list-group list-group-flush rounded-3" style="background-color: rgba(189, 195, 209, 0.99);">
                   <li class="list-group-item  p-2">
                     <div class="d-flex justify-content-around align-items-center">
-                      <span>89</span>
-                      <span>89</span>
-                      <span>89</span>
+                      <span>{{UserData.totalPost}}</span>
+                      <span>{{UserData.followers}}</span>
+                      <span>{{UserData.following}}</span>
                     </div>
                     <div class="mb-0 d-flex justify-content-around align-items-center">
                       <span>Total Posts</span>
@@ -44,18 +44,25 @@
           </div>
         </div>
         <div class="col-lg-7">
+          <div >
             <ul class="nav nav-tabs mt-4">
                 <li class="nav-item">
                   <button class="nav-link active" id="post" (click)="PostClick()">Posts</button>
                 </li>
                 <li class="nav-item">
+                  <button class="nav-link " id="poll" (click)="PollClick()">Polls</button>
+                </li>
+                <li class="nav-item">
                   <button class="nav-link" id="about" (click)="AboutClick()">About</button>
                 </li>
               </ul>
-         <div *ngIf="tabChanges"><app-about></app-about></div>
-         <div *ngIf="!tabChanges" > <app-posts></app-posts> </div>
+              
+              <div  class="scrollable-component" *ngIf="tabChanges==1" > <app-posts></app-posts> </div>
+              <div  class="scrollable-component" *ngIf="tabChanges==2" ><app-polls></app-polls></div>
+              <div *ngIf="tabChanges==3"><app-about></app-about></div>
         </div>
         <div class="col-1"></div>
       </div>
+    </div>
     </div>
   </section>

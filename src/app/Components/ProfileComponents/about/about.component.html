@@ -1,4 +1,4 @@
-<div class=" card mb-4 border" style="background-color:#eee ">
+<div class=" mt-2 card mb-4 border" style="background-color:#eee ">
   <div class="row">
     <div class="col-11">
       <div class="card-body" style="color:  rgb(0 14 122);">
@@ -73,10 +73,10 @@
         <p class="d-flex justify-content-center align-item-center text-light m-1">
           {{primaryAddress.district}},{{primaryAddress.state}},India
         </p>
-        <p class="d-flex justify-content-center align-item-center text-light m-1">{{primaryAddress.pincode}}</p>
+        <p class="d-flex justify-content-center align-item-center text-light m-1">{{primaryAddress.pinccode}}</p>
         <div class="d-flex align-item-center justify-content-center">
           <button type="button border-0" class="btn btn-secondary" style="background-color: transparent;border: none;"
-            (click)="EditAddress(primaryAddress.addressId)"><span class="material-symbols-outlined">edit</span></button>
+            (click)="EditAddress(primaryAddress.id)"><span class="material-symbols-outlined">edit</span></button>
         </div>
       </div>
     </div>
@@ -94,14 +94,14 @@
             </p>
             <!-- <p class="d-flex justify-content-center align-item-center text-muted m-1"></p>
            <p class="d-flex justify-content-center align-item-center text-muted m-1"></p> -->
-            <p class="d-flex justify-content-center align-item-center text-muted m-1">{{item.pincode}}</p>
+            <p class="d-flex justify-content-center align-item-center text-muted m-1">{{item.pinccode}}</p>
             <div class="d-flex justify-content-center align-item-center">
               <button type="button border-0 " style="background-color: transparent; border: none;"
-                class="btn btn-secondary" (click)="EditAddress(item.addressId)"><span class="material-symbols-outlined"
+                class="btn btn-secondary" (click)="EditAddress(item.id)"><span class="material-symbols-outlined"
                   style="color: rgba(94,113,175,255);">edit
                 </span></button>
               <button type="button border-0" style="background-color: transparent; border: none;"
-                class="btn btn-secondary" (click)="DeleteAddressById(item.addressId)"><span
+                class="btn btn-secondary" (click)="DeleteAddressById(item.id)"><span
                   class="material-symbols-outlined" style="color: rgb(138, 22, 22)">delete</span></button>
             </div>
           </div>
@@ -116,8 +116,8 @@
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content" style="background-color:  rgba(189, 195, 209, 0.99);">
-      <div class="modal-header ">
+    <div class="modal-content" style="background-color: #dcdcdc;">
+      <div class="modal-header" style="background-color:  rgba(189, 195, 209, 0.99);" >
         <h3 class="d-flex align-items-center justify-content-between modal-title fs-3 m-0" id="staticBackdropLabel"
           style="color: rgba(94,113,175,255);">Edit User</h3>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

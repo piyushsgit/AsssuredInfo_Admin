@@ -98,7 +98,7 @@ export class AddressComponent {
       this.temp=''
     }
    const  obj={
-    user_Id:16,
+    user_Id:27,
     pincode: this.SelectedPostalCodeData.Pincode,
     postalCode:this.SelectedPostalCodeData.Name,
     fullAddress:  this.fullAddress,

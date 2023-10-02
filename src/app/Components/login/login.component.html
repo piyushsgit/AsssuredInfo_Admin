@@ -1,11 +1,12 @@
 <div class="video-container">
-    <video loop muted autoplay oncanplay="this.play()" onloadedmetadata="this.muted = true" class="video-background" >
-        <source src="../../../assets/mixkit-two-friends-looking-at-the-cell-phone-in-a-coffee-43266.mp4" type="video/mp4"> 
+    <video loop muted autoplay oncanplay="this.play()" onloadedmetadata="this.muted = true" class="video-background">
+        <source src="../../../assets/mixkit-two-friends-looking-at-the-cell-phone-in-a-coffee-43266.mp4"
+            type="video/mp4">
     </video>
-<div class="container-fluid d-flex flex-column justify-content-center align-items-center">
-    
-    <h1 style="font-size: 40px;" class="justify-content-center align-items-center d-flex text-light">
-        Welocome Back To</h1>
+    <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
+
+        <h1 style="font-size: 40px;" class="justify-content-center align-items-center d-flex text-light">
+            Welocome Back To</h1>
         <span class="mb-5 mt-2" style="font-size: xxx-large; color:  rgb(159, 189, 255);">AssuredInfo.</span>
         <div class="box">
             <div class="content d-flex flex-column">
@@ -13,49 +14,60 @@
                 <h1 class="mb-3 ">Log In</h1>
                 <img src="../../../assets/585e4bf3cb11b227491c339a.png" class="my-4" alt="" height="125px">
                 <div class="mb-3">
-                    <form  [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)"> 
+                    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
                         <div class="d-flex">
                             <div class="inputGroup">
-                            <div class="material-symbols-outlined my-auto p-2 input-group-prepend"  >
-                                mail
-                            </div>
-                            <input type="text" required="" autocomplete="off" type="email" formControlName="email" class="text-light"  
-                             >
-                            <label class="text-light" for="name">Email</label>
-                            <div class="material-symbols-outlined  my-auto pe-2 "  style="color: red;"  data-toggle="tooltip" data-placement="right" title="Please provide a valid email address" [ngClass]="{'d-none': !myForm.get('email')?.invalid || !(myForm.get('email')?.dirty || myForm.get('email')?.touched)}">
-                              error 
+                                <div class="material-symbols-outlined my-auto p-2 input-group-prepend">
+                                    mail
+                                </div>
+                                <input type="text" required="" autocomplete="off" type="email" formControlName="email"
+                                    class="text-light">
+                                <label class="text-light" for="name">Email</label>
+                                <div class="material-symbols-outlined  my-auto pe-2 " style="color: red;"
+                                    data-toggle="tooltip" data-placement="right"
+                                    title="Please provide a valid email address"
+                                    [ngClass]="{'d-none': !myForm.get('email')?.invalid || !(myForm.get('email')?.dirty || myForm.get('email')?.touched)}">
+                                    error
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="text-danger" *ngIf="myForm.get('email')?.invalid && (myForm.get('email')?.dirty || myForm.get('email')?.touched)">
-                        Please provide a valid email address.
-                      </div>
-                    <div class="d-flex">
-                        <div class="inputGroup">
-                            <div class="material-symbols-outlined my-auto p-2">
-                                lock
-                            </div>
-                            <input type="password" type="text" required="" autocomplete="off" type="password" formControlName="password" class="text-light" 
-                                aria-describedby="Password">
-                            <label class="text-light" for="name">Password</label>
-                            <div class="material-symbols-outlined  my-auto pe-2 "  style="color: red;"  data-toggle="tooltip" data-placement="right" title="Please provide a valid email address" [ngClass]="{'d-none': !myForm.get('password')?.invalid || !(myForm.get('password')?.dirty || myForm.get('password')?.touched)}">
-                                error 
-                              </div>
+                        <div class="text-danger"
+                            *ngIf="myForm.get('email')?.invalid && (myForm.get('email')?.dirty || myForm.get('email')?.touched)">
+                            Please provide a valid email address.
                         </div>
-                    </div>
-                    <div class="text-danger" *ngIf="myForm.get('password')?.invalid && (myForm.get('password')?.dirty || myForm.get('password')?.touched)">
-                         Enter correct password.
-                      </div>
-                    <div class="d-flex justify-content-center my-2">
-                        
-                        <button name="" id="" class="btn btn-outline buttonReg"
-                        style="width: 150px;  border-radius: 25px;" type="submit" [disabled]="myForm.invalid" (click)="login()">Login</button>
-                    </div>
-                    <div class="d-flex justify-content-center gap-2">
-                        <p>Don't Have an account</p>
-                        <a routerLink="Register">Register?</a>
-                    </div>
-                </form>
+                        <div class="d-flex">
+                            <div class="inputGroup">
+                                <div class="material-symbols-outlined my-auto p-2">
+                                    lock
+                                </div>
+                                <input type="password" type="text" required="" autocomplete="off" type="password"
+                                    formControlName="password" class="text-light" aria-describedby="Password">
+                                <label class="text-light" for="name">Password</label>
+                                <div class="material-symbols-outlined  my-auto pe-2 " style="color: red;"
+                                    data-toggle="tooltip" data-placement="right"
+                                    title="Please provide a valid email address"
+                                    [ngClass]="{'d-none': !myForm.get('password')?.invalid || !(myForm.get('password')?.dirty || myForm.get('password')?.touched)}">
+                                    error
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-danger"
+                            *ngIf="myForm.get('password')?.invalid && (myForm.get('password')?.dirty || myForm.get('password')?.touched)">
+                            Enter correct password.
+                        </div>
+                        <div class="d-flex justify-content-center my-2">
+
+                            <button name="" id="" class="btn btn-outline buttonReg"
+                                style="width: 150px;  border-radius: 25px;" type="submit"
+                                [disabled]="myForm.invalid">Login</button>
+                        </div>
+                        <div class="d-flex justify-content-center gap-2">
+                            <p>Don't Have an account</p>
+                            <a routerLink="Register">Register?</a>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>
