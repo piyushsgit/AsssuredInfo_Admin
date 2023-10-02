@@ -4,15 +4,16 @@ import { Observable, map, startWith } from 'rxjs';
 import { User } from 'src/app/Models/user';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http'
-import { state } from '@angular/animations';
+import { MessageService } from 'primeng/api';
 import { ApiCallService } from '../Services/api-call.service';
-import { Router } from '@angular/router';
-  
+import { Router } from '@angular/router'; 
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
+
  
 export class RegisterComponent {
   postalcode: string=''; 
@@ -31,7 +32,33 @@ export class RegisterComponent {
   text: string = ''; 
   selectedValue: string = ''; // Variable to store the selected value
   isEditable = true; // Set to true to allow input
+  message:any;
   address = 'ddd';
+  passwordsMatching = false;
+  isConfirmPasswordDirty = false;
+  confirmPasswordClass = 'form-control';
+  newPassword = new FormControl(null, [
+    (c: AbstractControl) => Validators.required(c),
+    Validators.pattern(
+      /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{8,}/
+    ),
+  ]);
+  confirmPassword = new FormControl(null, [
+    (c: AbstractControl) => Validators.required(c),
+    Validators.pattern(
+      /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{8,}/
+    ),
+  ]);
+
+  resetPasswordForm = this.fb.group(
+    {
+      newPassword: this.newPassword,
+      confirmPassword: this.confirmPassword,
+    },
+    {
+      validator: this.ConfirmedValidator('newPassword', 'confirmPassword'),
+    }
+  );
   
   options: any[] = [ 'Harsiddhi Pg','shaligram','Igor'];
   avatar: any[]=[
@@ -41,9 +68,9 @@ export class RegisterComponent {
     {id:7,avt:'https://png.pngtree.com/png-vector/20190223/ourmid/pngtree-vector-avatar-icon-png-image_695765.jpg'},
     {id:8,avt:'https://toppng.com/uploads/preview/avatar-png-11554021661asazhxmdnu.png'},]
     myControl = new FormControl<string | User>('');
-  filteredOptions: Observable<User[]>;
+    filteredOptions: Observable<User[]>;
 
-  constructor( private http: HttpClient,private fb: FormBuilder,private api:ApiCallService,private rout :Router) {  
+  constructor( private http: HttpClient,private fb: FormBuilder,private api:ApiCallService,private rout :Router,private messageService: MessageService) {  
     this.filteredOptions = new Observable<User[]>();
     this.myForm=new FormGroup({})
    
@@ -57,7 +84,7 @@ export class RegisterComponent {
       dateOfBirth: ['', [Validators.required]],
       userName: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
-      conpassword: ['', [Validators.required]],
+      confirmPassword: ['', [Validators.required, confirmPasswordValidator]],
       pincode: ['', [Validators.required],Validators.minLength(6)],
       postalAddress:['',[Validators.required]],
       state:'',
@@ -72,7 +99,23 @@ export class RegisterComponent {
       }),
     );
   }
-  
+  ConfirmedValidator(controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+      const control = formGroup.controls[controlName];
+      const matchingControl = formGroup.controls[matchingControlName];
+      if (
+        matchingControl.errors &&
+        !matchingControl.errors['confirmedValidator']
+      ) {
+        return;
+      }
+      if (control.value !== matchingControl.value) {
+        matchingControl.setErrors({ confirmedValidator: true });
+      } else {
+        matchingControl.setErrors(null);
+      }
+    };
+  }
   startLoader() {
     this.loaderActive = true;
   } 
@@ -163,13 +206,22 @@ export class RegisterComponent {
     }
   }
 click() {
-  console.log(this.myForm.value);
-  
+ 
+  console.log(this.myForm.value); 
   this.api.Registraion(this.myForm.value).subscribe(
     (response: any) => {
       console.log(response);
       if(response.message==' Registered  Successfully'){
-        this.rout.navigate(['']);
+        this.rout.navigate(['home']);
+      }
+      if(response.data== -2){
+      this.message='Email Already Exist';
+      this.showError();
+      }
+      if(response.data== -3)
+      {
+        this.message='Username Already Exist';
+        this.showError();
       }
     },
     (error) => {
@@ -177,4 +229,16 @@ click() {
     }
   );
 }
+showError() {
+  this.messageService.add({ severity: 'error', summary: 'Error', detail: this.message });
 }
+} 
+
+export const confirmPasswordValidator: ValidatorFn = (
+  control: AbstractControl
+): ValidationErrors | null => {
+  const password = control.get('password')?.value;
+  const confirmPassword = control.get('confirmPassword')?.value;
+
+  return password === confirmPassword ? null : { PasswordNoMatch: true };
+};

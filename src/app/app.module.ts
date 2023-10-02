@@ -16,8 +16,8 @@ import { AboutComponent } from './Components/ProfileComponents/about/about.compo
 import { AddressComponent } from './Components/ProfileComponents/address/address.component';
 import { HomeModule } from './home/home.module';
 import { PostsComponent } from './Components/ProfileComponents/posts/posts.component';
-
-
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -43,10 +43,10 @@ import { PostsComponent } from './Components/ProfileComponents/posts/posts.compo
     NgFor,
     AsyncPipe, 
     HttpClientModule,
-    HomeModule
-    
+    HomeModule,
+    ToastModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

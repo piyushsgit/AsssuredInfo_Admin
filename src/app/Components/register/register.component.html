@@ -3,10 +3,11 @@
         <source src={{videoSource}} type="video/mp4">
     </video>
 
+    <div class="card">
+        <p-toast></p-toast>
 
-    <div class="container justify-content-center align-items-center d-flex">
-
-
+    </div>
+    <div class="container justify-content-center align-items-center d-flex" style="margin-top: -50px;">
         <div class="card  my-auto text-start">
             <h1 style="font-size: xx-large;" class="justify-content-center align-items-center d-flex text-light">
                 Welocome To </h1>
@@ -119,27 +120,29 @@
                                 Please enter a password(minimum 8 characters).
                             </div>
                             <div class="d-flex">
-                                <div class="inputGroup ">
+                                <div class="inputGroup">
                                     <div class="material-symbols-outlined my-auto p-2">
                                         vpn_key
                                     </div>
-                                    <input type="text" required="" autocomplete="off" type="password"
-                                        formControlName="conpassword">
+                                    <input type="password" id="confirmPassword" formControlName="confirmPassword"
+                                        class="form-control" [ngClass]="confirmPasswordClass">
+
                                     <label class="text-light" for="name">Confirm Password</label>
                                     <div class="material-symbols-outlined my-auto pe-2" style="color: rgb(255, 84, 84);"
                                         data-toggle="tooltip" data-placement="right"
                                         title="Please confirm your password"
-                                        [ngClass]="{'d-none': !myForm.get('conpassword')?.invalid || !(myForm.get('conpassword')?.dirty || myForm.get('conpassword')?.touched)}">
+                                        [ngClass]="{'d-none': !myForm.get('confirmPassword')?.invalid || !(myForm.get('confirmPassword')?.dirty || myForm.get('confirmPassword')?.touched)}">
                                         error
                                     </div>
 
                                 </div>
                             </div>
-                            <div style="color: #cccccc; margin-top: -10px;"
-                                *ngIf="myForm.get('conpassword')?.invalid && (myForm.get('conpassword')?.dirty || myForm.get('conpassword')?.touched)">
-                                Please confirm your password.
+                            <div style="color: #cccccc; margin-top: -10px;"  *ngIf="confirmPassword.errors?.['confirmedValidator']" style="color: #cccccc; margin-top: -10px; ">
+                                 Password not matched.
                             </div>
-
+                            <div style="color: #cccccc; margin-top: -10px;"[ngClass]="{'d-none': !myForm.get('confirmPassword')?.invalid || !(myForm.get('confirmPassword')?.dirty || myForm.get('confirmPassword')?.touched)}" style="color: #cccccc; margin-top: -10px; ">
+                               Please enter your password.
+                              </div>
                         </div>
                         <div class="col-xl-6 secondhalf d-flex flex-column justify-content-center align-items-center">
 
@@ -245,7 +248,7 @@
                                     </mat-option>
                                 </mat-autocomplete>
                             </div>
-                            <div class="d-flex flex-column responsiveLeft">
+                            <div class="d-flex flex-column responsiveLeft col-10">
                                 <div class="  align-items-center d-flex ">
                                     <h4 style="margin-bottom: 0;">Select Your Avatar</h4>
                                 </div>
@@ -259,11 +262,14 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="justify-content-center align-items-center d-flex my-2">
                                     <button name="" type="submit" class="btn btn-outline buttonReg"
                                         [disabled]="myForm.invalid" (click)="click()">Register</button>
                                 </div>
+                            </div>
+                            <div class="d-flex justify-content-center gap-2">
+                                <p>Already have an account</p>
+                                <a routerLink="" style="color:  rgb(159, 189, 255);">Login?</a>
                             </div>
                         </div>
                     </div>
