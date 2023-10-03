@@ -9,10 +9,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav  mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active text-light" aria-current="page" href="#">Home</a>
+          <a class="nav-link active text-light" aria-current="page" routerLink="homepage">Home</a>
         </li>
       </ul>
-      <div class="d-flex justify-content-center my-2" style=" width: 100%;">
+      <div class="d-flex justify-content-center" style=" width: 100%;">
         <form class="d-flex align-items-center rounded-pill change" style="width: 60%; min-width: 250px; border: 1px solid white;">
           <button class="material-symbols-outlined border-0"
             style="background-color: transparent; color: rgb(255, 255, 255);">
@@ -26,7 +26,7 @@
       </div>
       <div class="d-flex justify-content-around gap-3 " style="width: fit-content;">
         <div class="d-flex align-items-center">
-          <a href="" class="material-symbols-outlined ">
+          <a class="material-symbols-outlined ">
             Poll
           </a>
           <a href="">
@@ -34,10 +34,10 @@
           </a>
         </div>
         <div class="d-flex align-items-center">
-          <a href="" class="material-symbols-outlined ">
+          <a routerLink="newpost" class="material-symbols-outlined ">
             library_add
           </a>
-          <a href="">
+          <a routerLink="newpost">
             Add_Post
           </a>
         </div>
@@ -50,7 +50,7 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
             <li>
-              <div class="dropdown-item d-flex gap-2">
+              <div class="dropdown-item d-flex gap-2" routerLink="profile">
                 <a class="material-symbols-outlined " style="color: white;">
                   account_circle
                 </a>
