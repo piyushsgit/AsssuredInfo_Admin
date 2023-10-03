@@ -16,6 +16,7 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
  
 export class RegisterComponent {
+  hideComponent: boolean = false;
   postalcode: string=''; 
   myForm: FormGroup;
   video: HTMLVideoElement | null = null;
@@ -98,6 +99,9 @@ export class RegisterComponent {
         return name ? this._filter(name as string) : this.options.slice();
       }),
     );
+    if (this.rout.url === '/some-route') {
+      this.hideComponent = true;
+    }
   }
   ConfirmedValidator(controlName: string, matchingControlName: string) {
     return (formGroup: FormGroup) => {
