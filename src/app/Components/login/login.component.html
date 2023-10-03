@@ -4,7 +4,7 @@
             type="video/mp4">
     </video>
     <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
-
+        <p-toast></p-toast>
         <h1 style="font-size: 40px;" class="justify-content-center align-items-center d-flex text-light">
             Welocome Back To</h1>
         <span class="mb-5 mt-2" style="font-size: xxx-large; color:  rgb(159, 189, 255);">AssuredInfo.</span>
@@ -60,7 +60,7 @@
 
                             <button name="" id="" class="btn btn-outline buttonReg"
                                 style="width: 150px;  border-radius: 25px;" type="submit"
-                                [disabled]="myForm.invalid">Login</button>
+                                [disabled]="myForm.invalid" (click)="login()">Login</button>
                         </div>
                         <div class="d-flex justify-content-center gap-2">
                             <p>Don't Have an account</p>

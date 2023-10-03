@@ -6,19 +6,20 @@ import { ProfileComponent } from './Components/ProfileComponents/profile/profile
 import { AboutComponent } from './Components/ProfileComponents/about/about.component';
 import { PostsComponent } from './Components/ProfileComponents/posts/posts.component';
 import { NewpostsComponent } from './newposts/newposts.component';
+import { AuthGuard } from './Components/Guard/auth.guard';
 
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'Register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'about', component: AboutComponent },
-  { path: 'posts', component: PostsComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]  },
+  { path: 'about', component: AboutComponent , canActivate: [AuthGuard] },
+  { path: 'posts', component: PostsComponent , canActivate: [AuthGuard]  },
   {
     path: 'home',
     loadChildren: () => import('./home/home-routing.module').then((m) => m.HomeRoutingModule)
   },
-  {path:'newpost',component:NewpostsComponent}
+  {path:'newpost',component:NewpostsComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
