@@ -1,10 +1,16 @@
 import { Component } from '@angular/core';
+import { AuthService } from './Components/Services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'AssuredInfo';
+export class AppComponent { 
+  constructor(private router: Router, public auth: AuthService) {}   
+  shouldShowNavbar(): boolean { 
+    const currentRoute = this.router.url;
+    return currentRoute !== '/' && currentRoute !== '/Register';
+  }
 }
