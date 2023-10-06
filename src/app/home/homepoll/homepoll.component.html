@@ -1,1 +1,29 @@
-<p>homepoll works!</p>
+<div style="background-color:rgba(189, 195, 209, 0.99); height: 100vh;">
+
+
+  
+  <div *ngFor="let item of formattedPolls; let i = index">
+        <div class="card" style="width:18rem;">
+            <div class="card-body">
+           <h3>{{item.question}}</h3>
+              <div class="form-check">
+                <div *ngFor="let opt of formattedPolls[i].options">
+                  <input class="form-check-input" type="radio" [(ngModel)]="radioValues[i]" [value]="opt" name="flexRadioDefault{{i}}">
+                  <label class="form-check-label text-muted">
+                    {{ opt }}
+                  </label>
+                  <div class="progress">
+                    <div class="progress-bar" [style.width.%]="progressValue" [ngClass]="getProgressColorClass()" role="progressbar">
+                      {{ progressValue }}%
+                    </div>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-primary" (click)="onPollSubmit(i,item)">Save</button>
+              </div>
+            
+            </div>
+      </div>
+    </div>
+      
+
+</div>
