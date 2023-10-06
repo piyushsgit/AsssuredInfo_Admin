@@ -5,7 +5,7 @@
 
     <div class="card">
         <p-toast></p-toast>
-
+ 
     </div>
     <div class="container justify-content-center align-items-center d-flex"  >
         <div class="card  my-auto text-start">
@@ -15,9 +15,7 @@
                 style="font-size: xxx-large; color:  rgb(159, 189, 255);">AssuredInfo.</span>
             <div class="card-body">
                 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-                    <div class="row justify-content-center align-items-center g-2">
-
-
+                    <div class="row justify-content-center align-items-center g-2">  
                         <div class="col-md-6 col-12 firsthalf d-flex justify-content-center flex-column align-items-center">
 
                             <h1 class="justify-content-center align-items-center d-flex my-3">Register</h1>
@@ -264,7 +262,7 @@
                                 </div>
                                 <div class="justify-content-center align-items-center d-flex my-2">
                                     <button name="" type="submit" class="btn btn-outline buttonReg"
-                                        [disabled]="myForm.invalid" (click)="click()">Register</button>
+                                        (click)="click()">Register</button>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center gap-2">

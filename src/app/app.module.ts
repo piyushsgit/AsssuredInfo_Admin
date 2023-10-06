@@ -5,23 +5,24 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './Components/login/login.component';
 import { RegisterComponent } from './Components/register/register.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NgFor, AsyncPipe} from '@angular/common';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgFor, AsyncPipe } from '@angular/common';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './Components/ProfileComponents/profile/profile.component';
 import { AboutComponent } from './Components/ProfileComponents/about/about.component';
 import { AddressComponent } from './Components/ProfileComponents/address/address.component';
 import { HomeModule } from './home/home.module';
 import { PostsComponent } from './Components/ProfileComponents/posts/posts.component';
-
-import { PollsComponent } from './Components/ProfileComponents/polls/polls.component';
-
-
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { PollsComponent } from './Components/ProfileComponents/polls/polls.component';  
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { HomeRoutingModule } from './home/home-routing.module';
+import { SharedModule } from './Components/shared/shared.module';
+ 
 
 
 @NgModule({
@@ -33,13 +34,13 @@ import { MessageService } from 'primeng/api';
     AboutComponent,
     AddressComponent,
     PostsComponent,
-    PollsComponent
+    PollsComponent, 
+ 
 
-    
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule ,
+    AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
@@ -47,12 +48,14 @@ import { MessageService } from 'primeng/api';
     MatAutocompleteModule,
     ReactiveFormsModule,
     NgFor,
-    AsyncPipe, 
+    AsyncPipe,
     HttpClientModule,
+    ToastModule,
+    SharedModule,
     HomeModule,
-    ToastModule
+    ConfirmDialogModule
   ],
-  providers: [MessageService],
+  providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

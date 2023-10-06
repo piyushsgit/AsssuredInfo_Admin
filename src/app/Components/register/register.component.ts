@@ -4,7 +4,7 @@ import { Observable, map, startWith } from 'rxjs';
 import { User } from 'src/app/Models/user';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http'
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
 import { ApiCallService } from '../Services/api-call.service';
 import { Router } from '@angular/router'; 
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
@@ -71,12 +71,31 @@ export class RegisterComponent {
     myControl = new FormControl<string | User>('');
     filteredOptions: Observable<User[]>;
 
-  constructor( private http: HttpClient,private fb: FormBuilder,private api:ApiCallService,private rout :Router,private messageService: MessageService) {  
+  constructor( private http: HttpClient,private fb: FormBuilder,private api:ApiCallService,private rout :Router,private messageService: MessageService,private confirmationService: ConfirmationService) {  
     this.filteredOptions = new Observable<User[]>();
     this.myForm=new FormGroup({})
    
   }
-  
+    confirm1() {
+    this.confirmationService.confirm({
+        message: 'Are you sure that you want to proceed?',
+        header: 'Confirmation',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+            this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
+        },
+        reject: (type: any) => {
+            switch (type) {
+                case ConfirmEventType.REJECT:
+                    this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
+                    break;
+                case ConfirmEventType.CANCEL:
+                    this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled' });
+                    break;
+            }
+        }
+    });
+}
   ngOnInit() { 
     this.myForm = this.fb.group({ 
       avtar_url:['https://www.lightningdesignsystem.com/assets/images/avatar2.jpg'] ,
@@ -103,6 +122,12 @@ export class RegisterComponent {
       this.hideComponent = true;
     }
   }
+
+
+
+
+
+
   ConfirmedValidator(controlName: string, matchingControlName: string) {
     return (formGroup: FormGroup) => {
       const control = formGroup.controls[controlName];
@@ -210,8 +235,8 @@ export class RegisterComponent {
     }
   }
 click() {
- 
-  console.log(this.myForm.value); 
+  this.myForm.markAllAsTouched(); 
+  
   this.api.Registraion(this.myForm.value).subscribe(
     (response: any) => {
       console.log(response);
