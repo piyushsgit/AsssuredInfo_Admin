@@ -10,13 +10,15 @@ import { ApiCallService } from '../../Services/api-call.service';
 export class PostsComponent {
   temp:any
   article:any
+  tempid = localStorage.getItem('userId');
+  id = this.tempid !== null ? parseInt(this.tempid) : 0;
   constructor(private router:Router,private apicall:ApiCallService,private renderer: Renderer2){}
   ngOnInit(){
     this.getArticle();
   }
 
   getArticle(){
-    this.apicall.GetArticleByUserId(27).subscribe({
+    this.apicall.GetArticleByUserId(this.id).subscribe({
       next:(dataObj)=>{
           this.temp=dataObj
           if(this.temp.success){

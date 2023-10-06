@@ -16,13 +16,14 @@ import { AboutComponent } from './Components/ProfileComponents/about/about.compo
 import { AddressComponent } from './Components/ProfileComponents/address/address.component';
 import { HomeModule } from './home/home.module';
 import { PostsComponent } from './Components/ProfileComponents/posts/posts.component';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { PollsComponent } from './Components/ProfileComponents/polls/polls.component';  
+import { PollsComponent } from './Components/ProfileComponents/polls/polls.component';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { HomeRoutingModule } from './home/home-routing.module';
 import { SharedModule } from './Components/shared/shared.module';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
  
+
 
 
 @NgModule({
@@ -34,8 +35,8 @@ import { SharedModule } from './Components/shared/shared.module';
     AboutComponent,
     AddressComponent,
     PostsComponent,
-    PollsComponent, 
- 
+    PollsComponent,
+
 
   ],
   imports: [

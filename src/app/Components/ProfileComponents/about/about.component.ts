@@ -15,7 +15,8 @@ import { FormBuilder, Validators } from '@angular/forms';
   encapsulation: ViewEncapsulation.None,
 })
 export class AboutComponent {
-  id = 27;
+  tempid = localStorage.getItem('userId');
+  id = this.tempid !== null ? parseInt(this.tempid) : 0;
   temp: any;
   UserData: any;
   UserAddresses: any;

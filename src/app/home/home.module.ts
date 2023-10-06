@@ -5,16 +5,15 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { HomeArticleComponent } from './home-article/home-article.component';
 import { HomepollComponent } from './homepoll/homepoll.component';
 import { AuthGuard } from '../Components/Guard/auth.guard';
- 
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ToastModule } from 'primeng/toast';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { DialogService } from 'primeng/dynamicdialog';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { SharedModule } from '../Components/shared/shared.module';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
  
  
 @NgModule({
@@ -28,6 +27,8 @@ import { SharedModule } from '../Components/shared/shared.module';
   imports: [
     CommonModule,
     HomeRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
     ConfirmDialogModule,
     ToastModule,
     FormsModule,

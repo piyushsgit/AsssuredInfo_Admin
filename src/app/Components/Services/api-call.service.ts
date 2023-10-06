@@ -51,7 +51,12 @@ export class ApiCallService {
   {
    return this.http.get<any[]>(`http://localhost:5105/Posts/GetpollbyuserId?id=${id}`)
   }
-  
+
+  PollSubmit(obj:any)
+  {
+   return this.http.post('http://localhost:5105/Posts/PollSubmit',obj)
+  }
+ 
   EmailVerification(obj:any)
   {
    return this.http.post('http://localhost:5105/User/SendOTP',obj)

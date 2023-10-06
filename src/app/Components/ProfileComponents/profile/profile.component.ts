@@ -9,7 +9,8 @@ import { ApiCallService } from '../../Services/api-call.service';
   encapsulation: ViewEncapsulation.None
 })
 export class ProfileComponent {
-   id=27
+  tempid = localStorage.getItem('userId');
+  id = this.tempid !== null ? parseInt(this.tempid) : 0;
   tabChanges:number=1;
  temp:any
  UserData:any
@@ -62,7 +63,7 @@ GetUserById(){
     var about =document.getElementById('about') 
     about?.classList.add("active")
   }
-  progressValue: number = 67; 
+  progressValue: number = 90; 
 
   getProgressColorClass(): string {
     if (this.progressValue < 20) {

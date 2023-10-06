@@ -1,0 +1,90 @@
+<div class="row">
+
+    <div class="col-1"></div>
+    <div class="col-10">
+        <form [formGroup]="myForm" (submit)="PostButton()"  >
+            <div class="row">
+                <div class="col-9 col-xl-9 col-sm-12 " >
+                    <h2 class="d-flex justify-content-center align-item-center mt-3" style="color: rgba(94,113,175,255);">Add
+                        New
+                         Poll</h2>
+                        
+                            <div class="row">
+                                <div class="col-2"></div>
+        
+                                <div class="col-8 px-5 mt-5"  >
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1"><span
+                                                class="material-symbols-outlined p-1"> not_listed_location</span></span>
+                                        <textarea type="text" class="form-control customcss" maxlength="299" placeholder="Write Yoour Question"
+                                            formControlName="question" aria-describedby="basic-addon1"></textarea>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">opt1
+                                        </span>
+                                        <input type="text" class="form-control customcss" placeholder="Option 1"
+                                            formControlName="opt1" aria-label="Username" maxlength="49" aria-describedby="basic-addon1">
+                                    </div>
+        
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">opt2
+                                        </span>
+                                        <input type="text" class="form-control customcss" placeholder="Option 2"
+                                            formControlName="opt2" aria-label="Username" maxlength="49" aria-describedby="basic-addon1">
+                                    </div>
+        
+                                    <div formArrayName="options">
+                                        <div *ngFor="let option of optionsFormArray.controls; let i = index">
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1">opt{{ i + 3 }}</span>
+                                                <input type="text" class="form-control customcss" [formControlName]="i"
+                                                    placeholder="Option {{ i + 3 }}" maxlength="49" aria-describedby="basic-addon1">
+                                                <button type="button" class="border-0" style="background-color: transparent ;"
+                                                    (click)="removeoption()"><span style="color: red;"
+                                                        class="material-symbols-outlined">
+                                                        remove</span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="enable" class="d-flex justify-content-end"> <button type="button" id="add"
+                                            class="border-0" style="background-color: transparent ;" (click)="addOption()">
+                                            <span style="color: rgba(94, 113, 175, 255); "
+                                                class="material-symbols-outlined ">add</span></button></div>
+                                </div>
+                                <div class="col-2"></div>
+                            </div>
+                   
+                    <div class="input-group mx-5 d-flex align-item-center justify-content-center">
+                        <button  type="submit"  id="Post">Add New Poll</button>
+                    </div>
+                </div>
+                <div class="col-3 mt-5 col-xl-3 col-sm-12">
+                    <h2 class="d-flex justify-content-center align-item-center" style="color: rgba(94,113,175,255);">
+                        Select
+                        An Address to Post</h2>
+                    <div *ngFor="let item of UserAddresses; let first = first;let i=index">
+                        <div class="card border mb-4 element-to-change" id="Checked{{i+1}}"
+                            [class.selected-card]="item.id === selectedAddressId">
+                            <div class="card-body">
+                                <label>
+                                    <div class="d-flex">
+                                        <input class="mx-2 form-check-input" type="radio" name="address"
+                                            [value]="item.id" [checked]="item.isPrimary"
+                                            (change)="onRadioChange(item.id)" />
+                                        <div>
+                                            <p class="p-0 m-0">{{ item.fullAddress }}, {{ item.district }}</p>
+                                            <p class="m-0 p-0">{{ item.state }}, India, {{ item.pinccode }}</p>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+
+    <div class="col-1"></div>
+</div>
