@@ -13,7 +13,7 @@
         </li>
       </ul>
       <div class="d-flex justify-content-center" style=" width: 100%;">
-        <form class="d-flex align-items-center rounded-pill change" style="width: 60%; min-width: 250px; border: 1px solid white;">
+        <form class="d-flex align-items-center rounded-pill change" style="width: 80%; min-width: 250px; border: 1px solid white;">
           <button class="material-symbols-outlined border-0"
             style="background-color: transparent; color: rgb(255, 255, 255);">
             search
@@ -75,11 +75,11 @@
 
             </li>
             <li>
-              <div class="dropdown-item d-flex gap-2">
+              <div class="dropdown-item d-flex gap-2"  (click)="this.auth.logout()">
                 <a class="material-symbols-outlined " style="color: white;">
                   logout
                 </a>
-                <a class="my-auto text-light" href="#" (click)="this.auth.logout()">Sign out</a>
+                <a class="my-auto text-light" href="#">Sign out</a>
               </div>
             </li>
           </ul>

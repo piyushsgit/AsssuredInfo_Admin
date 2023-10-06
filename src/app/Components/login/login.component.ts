@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../Services/auth.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+ 
+import { ConfirmService } from '../shared/confirm.service';
 
 @Component({
   selector: 'app-login',
@@ -11,25 +13,21 @@ import { MessageService } from 'primeng/api';
 })
 export class LoginComponent {
   myForm: FormGroup;
-  hide=false;
-  
-  constructor(private fb: FormBuilder,private authService :AuthService,private router:Router,private messageService: MessageService) {
-    this.myForm=new FormGroup({})
+  hide = false;
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private messageService: MessageService,private con: ConfirmService) {
+    this.myForm = new FormGroup({})
   }
   ngOnInit() {
-    this.myForm = this.fb.group({ 
+    this.myForm = this.fb.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
-
- 
   login() {
-    this.myForm.markAllAsTouched(); 
-  
+    this.myForm.markAllAsTouched();
     if (this.myForm.valid) {
       const val = this.myForm.value;
-      
+
       this.authService.login(val.email, val.password).subscribe(
         (response) => {
           if (response.message === "login Failed") {
@@ -42,8 +40,10 @@ export class LoginComponent {
       );
     }
   }
-show() {
-  this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Credentials' });
-}
-
+  forgotPassword(){
+    this.con.confirm()
+  }
+  show() {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Credentials' });
+  }
 }
