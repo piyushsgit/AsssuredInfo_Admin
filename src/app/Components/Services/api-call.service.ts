@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -51,10 +51,18 @@ export class ApiCallService {
   {
    return this.http.get<any[]>(`http://localhost:5105/Posts/GetpollbyuserId?id=${id}`)
   }
+
   PollSubmit(obj:any)
   {
    return this.http.post('http://localhost:5105/Posts/PollSubmit',obj)
   }
+ 
+  EmailVerification(obj:any)
+  {
+   return this.http.post('http://localhost:5105/User/SendOTP',obj)
+  }
+  OtpVerification(obj:any)
+  {
+   return this.http.post('http://localhost:5105/User/CheckOTP',obj)
+  }
 }
-
-
