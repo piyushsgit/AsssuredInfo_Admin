@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ConfirmComponent } from './confirm/confirm.component';
+ 
 
 @Injectable({
   providedIn: 'root',
@@ -12,9 +13,9 @@ export class ConfirmService {
   }
 
  
-  confirm() {
+  confirm(page:string) {
     if (this.confirmComponent) {
-      this.confirmComponent.confirm();
+      this.confirmComponent.confirm(page);
     }
   }
 }
