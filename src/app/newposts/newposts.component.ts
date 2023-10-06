@@ -15,7 +15,8 @@ import { Router } from '@angular/router';
 })
 export class NewpostsComponent {
   formGroup: any ;
-  id:any=27
+  tempid = localStorage.getItem('userId');
+  id = this.tempid !== null ? parseInt(this.tempid) : 0;
   temp:any
   UserAddresses:any
   selectedAddressId: number | undefined;
@@ -40,7 +41,7 @@ export class NewpostsComponent {
       const obj={
         mainContent: this.formGroup.value.text,
         tittle:this.formGroup.value.tittle,
-        UserId:27,
+        UserId:this.id,
         AddresssId:this.selectedAddressId
       }
       this.ApiService.AddnewArticle(obj).subscribe({
@@ -53,7 +54,6 @@ export class NewpostsComponent {
           else{
             alert("something went wrrong")
           }
-          
           
         },
         error: (e:any) => {

@@ -2,8 +2,7 @@
     <div class="col-md-2 mb-4 ">
         <div class="card mb-4 mb-md-0 ">
 
-            <div class="card-body" style="background-color: rgba(94,113,175,255);" data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop">
+            <div class="card-body" style="background-color: rgba(94,113,175,255);" (click)="NewPolls()" >
                 <h1 class="d-flex justify-content-center align-item-center text-light p-3">+</h1>
                 <h3 class="d-flex align-item-center text-light p-1">Add / Share New Poll</h3>
             </div>
@@ -13,109 +12,42 @@
 
 
 <div class="row">
-<div  *ngFor="let item of formattedPolls let i=index" >
-    <div class="card mb-2 ml-2" style="width:15rem; background-color: rgba(189, 195, 209, 0.99);;">
-        <div class="card-body ">
-            <h4 class="card-title" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;  color: rgb(0 14 122);">{{item.question}}</h4>
-            <div class="form-check" *ngIf="item.isMultipleSelect==true">
-                <div *ngFor="let opt of formattedPolls[i].options">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label text-muted" for="flexCheckDefault" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        {{opt}}
-                    </label>
-                </div>
-            </div>
-            <div class="form-check" *ngIf="item.isMultipleSelect==false">
-                <div *ngFor="let opt of formattedPolls[i].options">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                    <label class="form-check-label text-muted" for="flexRadioDefault1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        {{opt}}
-                    </label>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-<!-- data-bs-toggle="modal" data-bs-target="#staticBackdrop" -->
-<!-- Modal -->
-<div class="modal fade"   id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content " style="background-color: #dcdcdc;">
-            <div class="modal-header" style="background-color:  rgba(189, 195, 209, 0.99);">
-                <h3 class="d-flex align-items-center justify-content-between modal-title fs-3 m-0"
-                    id="staticBackdropLabel" style="color: rgba(94,113,175,255);">Add Polls</h3>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body ">
-                <!-- [formGroup]="myForm" (ngSubmit)="onEditSubmit()" -->
-                <form [formGroup]="myForm" (submit)="createPoll()">
-                    <div class="row">
-                        <div class="col-2"></div>
-
-                        <div class="col-8">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1"><span
-                                        class="material-symbols-outlined p-1"> not_listed_location</span></span>
-                                <textarea type="text" class="form-control customcss" placeholder="Write Yoour Question"
-                                    formControlName="question" aria-describedby="basic-addon1"></textarea>
-                            </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1">opt1
-                                </span>
-                                <input type="text" class="form-control customcss" placeholder="Option 1"
-                                    formControlName="opt1" aria-label="Username" aria-describedby="basic-addon1">
-                            </div>
-
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1">opt2
-                                </span>
-                                <input type="text" class="form-control customcss" placeholder="Option 2"
-                                    formControlName="opt2" aria-label="Username" aria-describedby="basic-addon1">
-                            </div>
-
-                            <div formArrayName="options">
-                                <div *ngFor="let option of optionsFormArray.controls; let i = index">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">opt{{ i + 3 }}</span>
-                                        <input type="text" class="form-control customcss" [formControlName]="i"
-                                            placeholder="Option {{ i + 3 }}" aria-describedby="basic-addon1">
-                                        <button type="button" class="border-0" style="background-color: transparent ;"
-                                            (click)="removeoption()"><span style="color: red;"
-                                                class="material-symbols-outlined">
-                                                remove</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div *ngIf="enable" class="d-flex justify-content-end"> <button type="button" id="add"
-                                    class="border-0" style="background-color: transparent ;" (click)="addOption()">
-                                    <span style="color: rgba(94, 113, 175, 255); "
-                                        class="material-symbols-outlined ">add</span></button></div>
-                            <div class="form-check d-flex align-item-center justify-content-center mt-3">
-                                <input class="form-check-input mx-1 mb-1" type="checkbox" id="exampleCheckbox"
-                                    formControlName="isChecked" name="exampleCheckbox">
-                                <label class="form-check-label" for="exampleCheckbox"
-                                    style="color: rgba(94, 113, 175, 255);;">Allow Multiple Selection</label>
-                            </div>
-                            <div class="input-group mb-3 d-flex align-items-center justify-content-center">
-                                <button type="submit" id="poll">Add Poll</button>
+    <div *ngFor="let item of formattedPolls; let i=index" class="col-lg-4 mb-3">
+        <div class="card h-100" style="background-color: rgba(189, 195, 209, 0.99);">
+            <div class="card-body">
+                <h4 class="card-title" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: rgb(0 14 122);">
+                    {{ item.question }}
+                </h4>
+                <p class="card-text text-muted">Total Response: {{ item.TotalParticipants }}</p>
+                <p class="card-text text-muted">Created On: {{ item.createdOn | date: 'medium' }}</p>
+                <p class="card-text text-muted">Address: {{ item.fulladdress }}</p>
+                <div class="d-flex flex-wrap align-items-center">
+                    <div *ngFor="let option of item.options; let j=index" class="mb-2 me-2">
+                        <label class="form-check-label text-muted" for="flexRadioDefault{{ j }}"
+                            style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            {{ option }}
+                        </label>
+                        <div class="progress" style="width: 100px;">
+                            <div class="progress-bar" [style.width.%]="formattedPolls[i].optionpercentage[j]"
+                                [ngClass]="getProgressColorClass(formattedPolls[i].optionpercentage[j])"
+                                role="progressbar">
+                                {{ formattedPolls[i].optionpercentage[j] }}%
                             </div>
                         </div>
-                        <div class="col-2"></div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+

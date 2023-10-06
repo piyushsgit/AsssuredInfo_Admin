@@ -7,6 +7,7 @@ import { AboutComponent } from './Components/ProfileComponents/about/about.compo
 import { PostsComponent } from './Components/ProfileComponents/posts/posts.component';
 import { NewpostsComponent } from './newposts/newposts.component';
 import { AuthGuard } from './Components/Guard/auth.guard';
+import { NewpollComponent } from './newpoll/newpoll.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./home/home-routing.module').then((m) => m.HomeRoutingModule)
   },
-  {path:'newpost',component:NewpostsComponent, canActivate: [AuthGuard] }
+  {path:'newpost',component:NewpostsComponent },
+  {path:'newpoll',component:NewpollComponent }
 ];
 
 @NgModule({

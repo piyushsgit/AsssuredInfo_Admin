@@ -6,6 +6,8 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { HomeArticleComponent } from './home-article/home-article.component';
 import { HomepollComponent } from './homepoll/homepoll.component';
 import { AuthGuard } from '../Components/Guard/auth.guard';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { AuthGuard } from '../Components/Guard/auth.guard';
   providers: [AuthGuard],
   imports: [
     CommonModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class HomeModule { }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl } from '@angular/forms';
 import { ApiCallService } from '../../Services/api-call.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-polls',
@@ -8,25 +9,28 @@ import { ApiCallService } from '../../Services/api-call.service';
   styleUrls: ['./polls.component.css']
 })
 export class PollsComponent {
-  constructor(private fb: FormBuilder,private apicall:ApiCallService) {}
+  constructor(private fb: FormBuilder,private apicall:ApiCallService,private router:Router) {}
   myForm:any
   opt:number=1
   enable=true
   options:any
-  id=27
+  optionsPercentage:any
+  tempid = localStorage.getItem('userId');
+  id = this.tempid !== null ? parseInt(this.tempid) : 0;
   formattedPolls:any
-  Optionsformated:any
+
   ngOnInit() {
     this.myForm = this.fb.group({
       question: '',
       opt1:'',
       opt2:'',
-      isChecked:false,
       options: this.fb.array([]),
     });
     this.GetPollsByuserId()
   }
-
+  NewPolls(){
+    this.router.navigate(['newpoll'])
+  }
   get optionsFormArray() {
     return this.myForm.get('options') as FormArray;
   }
@@ -52,10 +56,9 @@ export class PollsComponent {
   temp:any
   createPoll() {
    const obj={
-   UserId :27,
+   UserId :this.id,
    AddressId :5,
    Question:this.myForm.value.question,
-   IsMultipleSelect:this.myForm.value.isChecked,
    Opt1:this.myForm.value.opt1,
    Opt2:this.myForm.value.opt2,
    Opt3:this.myForm.value?.options[0],
@@ -86,30 +89,31 @@ export class PollsComponent {
       next: (dataobj) => {
         this.temp = dataobj;
         const Polls=this.temp.data
+        console.log(Polls);
+        
         console.log(this.temp.data);
          this.formattedPolls = Polls.map((poll:any) => {
           this.options = [];
-          const optionLikes = [];
+          this.optionsPercentage=[];
           for (let i = 1; i <= 4; i++) {
             const optionKey = `opt${i}`;
-            const optionLikeKey = `opt${i}Like`;
+            const optionPercentageKey = `opt${i}Percentage` ;
             if (poll[optionKey] !== null) {
               this.options.push(poll[optionKey]);
-              optionLikes.push(poll[optionKey]);
+              this.optionsPercentage.push(poll[optionPercentageKey])
             }
           }
           return {
-            id: poll.id,
-            addressId: poll.addressId,
+            id: poll.pollId,
             createdOn: poll.createdOn,
-            isMultipleSelect: poll.isMultipleSelect,
             question: poll.question,
             options: this.options,
-            optionLikes: optionLikes,
+            fulladdress:poll.fulladdress,
+            TotalParticipants:poll.totalParticipants,
+            optionpercentage:this.optionsPercentage
           };
-        });    
+        }); 
         console.log(this.formattedPolls);
-        console.log(this.formattedPolls.options);
          
       },
       error: (e:any) => {
@@ -117,4 +121,14 @@ export class PollsComponent {
       },
     });
   }
+  
+  getProgressColorClass(progressValue:any): string {
+    if (progressValue < 20) {
+      return 'bg-danger'; 
+    } else if (progressValue < 80) {
+      return 'bg-warning'; 
+    } else {
+      return 'bg-success'; 
+    }
+}
 }

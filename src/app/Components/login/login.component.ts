@@ -36,7 +36,7 @@ export class LoginComponent {
             this.router.navigateByUrl('');
             this.show();
           } else {
-            this.router.navigateByUrl('home');
+            this.router.navigateByUrl('homepage');
           }
         }
       );

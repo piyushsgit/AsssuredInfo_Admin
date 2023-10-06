@@ -17,6 +17,8 @@ export class AddressComponent {
   loaderActive = false;
   pincode:any
   isChecked=false;
+  tempid = localStorage.getItem('userId');
+  id = this.tempid !== null ? parseInt(this.tempid) : 0;
   temp:any
   temp2:any
   PincodeData:any
@@ -98,7 +100,7 @@ export class AddressComponent {
       this.temp=''
     }
    const  obj={
-    user_Id:27,
+    user_Id:this.id,
     pincode: this.SelectedPostalCodeData.Pincode,
     postalCode:this.SelectedPostalCodeData.Name,
     fullAddress:  this.fullAddress,

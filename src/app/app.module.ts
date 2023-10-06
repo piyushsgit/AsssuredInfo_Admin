@@ -19,9 +19,9 @@ import { PostsComponent } from './Components/ProfileComponents/posts/posts.compo
 
 import { PollsComponent } from './Components/ProfileComponents/polls/polls.component';
 
-
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+
 
 
 @NgModule({
@@ -33,7 +33,8 @@ import { MessageService } from 'primeng/api';
     AboutComponent,
     AddressComponent,
     PostsComponent,
-    PollsComponent
+    PollsComponent,
+
 
     
   ],
