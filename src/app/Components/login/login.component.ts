@@ -31,17 +31,19 @@ export class LoginComponent {
       this.authService.login(val.email, val.password).subscribe(
         (response) => {
           if (response.message === "login Failed") {
-            this.router.navigateByUrl('');
+            this.router.navigateByUrl(''); 
             this.show();
           } else {
-            this.router.navigateByUrl('homepage');
+            this.router.navigateByUrl('homepage'); 
+            if(response.data.emailVerified==false)
+              this.con.confirm('login') 
           }
         }
       );
     }
   }
   forgotPassword(){
-    this.con.confirm()
+    this.con.confirm('forgot')
   }
   show() {
     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Credentials' });

@@ -2,6 +2,9 @@ import { Component, Input } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ConfirmService } from '../confirm.service';
+import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ApiCallService } from '../../Services/api-call.service';
 
 @Component({
   selector: 'app-confirm',
@@ -9,19 +12,26 @@ import { ConfirmService } from '../confirm.service';
   styleUrls: ['./confirm.component.css']
 })
 export class ConfirmComponent {
-  @Input() inputData: any;
-
+  @Input() inputData: any; 
   ref: DynamicDialogRef | undefined;
+  headerText: string = '';
+  showlogin:boolean=true;
+
   otpValue: string = '';
   userInput: string = '';
-
-  constructor(public dialogService: DialogService, public messageService: MessageService, private confirmService: ConfirmService) {
+  constructor(public dialogService: DialogService, public messageService: MessageService, private confirmService: ConfirmService, private router: ActivatedRoute) {
     this.confirmService.setConfirmComponent(this);
-  }
+  } 
+  confirm(page:string) {
+    if (page=='login') {
+      this.headerText = 'Verify your email';
+      this.showlogin =false
 
-  confirm() {
+    } else {
+      this.headerText = 'Please enter your email';
+    }
     this.ref = this.dialogService.open(DynamicInputDialogComponent, {
-      header: 'Verify your email ',
+      header: this.headerText,
       width: '30%',
       baseZIndex: 10000,
       contentStyle: { overflow: 'auto' }
@@ -34,22 +44,29 @@ export class ConfirmComponent {
     });
   }
 }
-
 @Component({
   selector: 'app-dynamic-input-dialog',
   template: `
       <div>
+      <form [formGroup]="form" class="my-3" *ngIf="!showComponent" >
+  <input type="email" formControlName="email" class="form-control" />
+  <div *ngIf="form.get('email')?.invalid && (form.get('email')?.dirty || form.get('email')?.touched)">
+  <p class="text-danger"> 
+    Please enter a valid email address.
+  </p> 
+  </div>
+</form>
   <div *ngIf="showComponent">
     <div class="container  d-flex flex-column justify-content-center align-items-center">
       <div class="d-flex flex-column justify-content-center"> 
-          <h4 style=" font-weight: bold; margin: 2px; ">Please enter the one-time password <br> to verify your account</h4> 
-             <span class="my-2">A code has been sent to {{email}} <p *ngIf="remainingTime === 0" class="text-danger my-auto">Otp Expired</p></span>  
-            
+          <h4 style=" font-weight: bold; margin: 2px; ">Please enter the one-time password <br> to verify your account</h4>  
+             <span class="my-2">A code has been sent to {{form.value.email}} <p *ngIf="remainingTime === 0" class="text-danger my-auto">Otp Expired</p></span>   
             <div>
             <ng-otp-input  (onInputChange)="onOtpChange($event)" [config]="{ length: 6 }"></ng-otp-input>
+            <div *ngIf="showerror"><p class="text-danger">The Entered Otp is not valid</p></div>
             </div>
           <div class="my-2 d-flex justify-content-between"> 
-        <button   class="btn btn-danger validate" (click)="onValidate()">Validate</button> 
+        <button  *ngIf="remainingTime !== 0"  class="btn btn-danger validate" (click)="onValidate()">Validate</button> 
         <div *ngIf="showComponent && remainingTime === 0" class="d-flex gap-2">
           
                 <button pButton type="button" class="btn btn-primary" (click)="resendOTP()">Resend Otp ?</button>
@@ -58,25 +75,31 @@ export class ConfirmComponent {
       OTP expires in: {{ remainingTime }} Seconds
     </div>
   </div>
-    </div>
-   
+    </div> 
 </div>
 </div>
 </div> 
 <div *ngIf="!showComponent">
-  <button pButton type="button" class="btn btn-primary"  (click)="toggleComponentVisibility()">Send Otp ?</button>
+  <button pButton type="button" class="btn btn-primary"  (click)="toggleComponentVisibility(1)">Send Otp ?</button>
 </div>
     `
 })
 export class DynamicInputDialogComponent {
   userInput: string = '';
-  showResendButton: boolean = true;
-  email: string = 'srbhgjbh@gmail.com'
+  form: FormGroup;
+  otp:any;
+  showerror:boolean= false;
+  showResendButton: boolean = true; 
   showComponent: boolean = false;
   enteredOTP: any;
-  remainingTime: number = 10;
+ 
+  remainingTime: number = 5;
   countdownInterval: any;
-  constructor(public ref: DynamicDialogRef) { }
+  constructor(public ref: DynamicDialogRef,private fb: FormBuilder,private apiservice :ApiCallService) {
+     this.form = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+    });
+  }
 
   onConfirm() {
     this.ref.close(this.userInput);
@@ -84,39 +107,60 @@ export class DynamicInputDialogComponent {
   onOtpChange(otpValue: any) {
     this.enteredOTP = otpValue;
   }
-  resendOTP() {
-
-    this.remainingTime = 120;
+  resendOTP() { 
+    this.remainingTime = 15;
     this.startCountdown();
-    this.showResendButton = false;
-
+    this.toggleComponentVisibility(0);
+    this.showResendButton = false; 
   }
   onValidate() {
-    const expectedOTP = '123456';
-    if (this.enteredOTP === expectedOTP) {
-
-      this.ref.close('Validation Successful');
-    } else {
-
-      this.ref.close('Validation Failed');
+    const obj={
+      email:this.form.value.email,
+      otp: this.enteredOTP,
+      type:false
     }
+    console.log(obj);
+    
+    this.apiservice.OtpVerification(obj).subscribe({
+      next:(response:any)=>{  
+        if(response.success){
+          this.ref.close('Validation Successful'); }
+        else
+         {
+          this.showerror=true;
+         } 
+      }
+    }) 
   }
-  toggleComponentVisibility() {
-    this.showComponent = !this.showComponent;
+  toggleComponentVisibility(resent:number) {
+    this.form.markAllAsTouched();
+    if(this.form.valid){
+      const obj={
+        email:this.form.value.email,
+        type:false
+      } 
+      this.apiservice.EmailVerification(obj).subscribe({
+        next:(response)=>{ 
+          console.log(response);
+          this.otp = response;
+        }
+      })
+   if(resent==1){
+    this.showComponent=!this.showComponent;
+   }
     if (this.showComponent) {
       this.startCountdown();
     } else {
       this.stopCountdown();
     }
   }
+  }
   startCountdown() {
     this.countdownInterval = setInterval(() => {
-      if (this.remainingTime > 0) {
-
+      if (this.remainingTime > 0) { 
         this.remainingTime--;
       } else {
         this.stopCountdown();
-
       }
     }, 1000);
   }

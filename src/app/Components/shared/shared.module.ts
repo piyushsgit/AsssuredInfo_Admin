@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ConfirmComponent, DynamicInputDialogComponent } from './confirm/confirm.component';
+ 
 import { NgOtpInputModule } from 'ng-otp-input';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ConfirmComponent, DynamicInputDialogComponent } from './confirm/confirm.component';
 
 
 
@@ -16,7 +18,9 @@ import { ToastModule } from 'primeng/toast';
     CommonModule,
     NgOtpInputModule,
     ConfirmDialogModule,
-    ToastModule
+    ToastModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports:[ConfirmComponent,DynamicInputDialogComponent]
   ,
