@@ -1,1 +1,6 @@
+.disabled-input {
+    background-color: #cec9c9;  
+    color: #000000;  
  
+    cursor: not-allowed; 
+  }

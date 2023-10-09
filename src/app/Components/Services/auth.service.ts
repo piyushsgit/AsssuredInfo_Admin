@@ -38,11 +38,13 @@ export class AuthService {
     localStorage.setItem('id_token', authResult.data.jwtToken);
     localStorage.setItem('expires_at', expiresAt.toString()||'0001-01-01T00:00:00');
     localStorage.setItem('userId', authResult.data.userId.toString());
+    localStorage.setItem('email',authResult.data.email)
   } 
 logout() {
     localStorage.removeItem("id_token");
     localStorage.removeItem("expires_at");
     localStorage.removeItem("userId");
+    localStorage.removeItem("email");
     this.router.navigateByUrl('');
 }
 

@@ -18,3 +18,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 body{
     background-color: #eee;
 }
+.buttonReg{
+    background-color: transparent;
+    border: #ffffff solid 2px;
+    color: white;
+      }
+      .buttonReg:hover{
+        background-color:  rgba(94,113,175,255);
+      }
+      
