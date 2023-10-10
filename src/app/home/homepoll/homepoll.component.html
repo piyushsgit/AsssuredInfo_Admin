@@ -1,29 +1,32 @@
-<div style="background-color:rgba(189, 195, 209, 0.99); height: 100vh;">
-
-
-  
-  <div *ngFor="let item of formattedPolls; let i = index">
-        <div class="card" style="width:18rem;">
-            <div class="card-body">
-           <h3>{{item.question}}</h3>
-              <div class="form-check">
-                <div *ngFor="let opt of formattedPolls[i].options">
-                  <input class="form-check-input" type="radio" [(ngModel)]="radioValues[i]" [value]="opt" name="flexRadioDefault{{i}}">
-                  <label class="form-check-label text-muted">
-                    {{ opt }}
-                  </label>
-                  <div class="progress">
-                    <div class="progress-bar" [style.width.%]="progressValue" [ngClass]="getProgressColorClass()" role="progressbar">
-                      {{ progressValue }}%
-                    </div>
-                  </div>
-                </div>
-                <button type="button" class="btn btn-primary" (click)="onPollSubmit(i,item)">Save</button>
+<div class=" align-item-center justify-content-center p-4" >
+  <p-toast></p-toast>
+  <div class="p-3" *ngFor="let item of formattedPolls; let i = index">
+    <div class="card">
+      <div class="card-body">
+        <h3>{{item.question}}</h3>
+        <div class="form-check">
+          <div *ngFor="let option of item.options; let j=index">
+            <input class="form-check-input" type="radio" [(ngModel)]="radioValues[i]" [value]="option" name="flexRadioDefault{{i}}">
+            <label class="form-check-label text-muted">
+              {{ option }}
+            </label>
+            <div class="progress">
+              <div class="progress-bar"  [style.width.%]="formattedPolls[i].optionpercentage[j]"
+              [ngClass]="getProgressColorClass(formattedPolls[i].optionpercentage[j])" role="progressbar">
+                {{ formattedPolls[i].optionpercentage[j] }}%
               </div>
-            
             </div>
+          </div>
+         <div class="p-2 d-flex justify-content-center align-items-center">
+          <button type="button" class="border-0 p-2 "
+          style="background-color: rgba(189, 195, 209, 0.99); border-radius: 4px;" (click)="onPollSubmit(i,item)">
+          Save
+        </button>
+         </div>
+        </div>
       </div>
     </div>
-      
+  </div>
+  
 
 </div>
