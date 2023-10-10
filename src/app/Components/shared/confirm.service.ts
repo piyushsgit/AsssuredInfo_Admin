@@ -11,8 +11,7 @@ export class ConfirmService {
   setConfirmComponent(confirmComponent: ConfirmComponent) {
     this.confirmComponent = confirmComponent;
   }
-
- 
+  
   confirm(page:string) {
     if (this.confirmComponent) {
       this.confirmComponent.confirm(page);

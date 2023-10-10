@@ -10,7 +10,7 @@ import { NgFor, AsyncPipe } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './Components/ProfileComponents/profile/profile.component';
 import { AboutComponent } from './Components/ProfileComponents/about/about.component';
 import { AddressComponent } from './Components/ProfileComponents/address/address.component';
@@ -22,6 +22,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { HomeRoutingModule } from './home/home-routing.module';
 import { SharedModule } from './Components/shared/shared.module';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { LoaderComponent } from './Components/loader/loader.component';
+import { LoaderInterceptor } from './Components/Services/loader-interceptor.service';
  
 
 
@@ -36,6 +38,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     AddressComponent,
     PostsComponent,
     PollsComponent,
+    LoaderComponent,
 
 
   ],
@@ -56,7 +59,11 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     HomeModule,
     ConfirmDialogModule
   ],
-  providers: [MessageService, ConfirmationService],
+  providers: [MessageService, ConfirmationService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: LoaderInterceptor,
+    multi: true,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
