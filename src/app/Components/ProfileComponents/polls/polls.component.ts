@@ -113,7 +113,6 @@ export class PollsComponent {
             optionpercentage:this.optionsPercentage
           };
         }); 
-        console.log(this.formattedPolls);
          
       },
       error: (e:any) => {

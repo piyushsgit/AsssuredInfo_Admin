@@ -22,13 +22,14 @@
             <div [innerHTML]="item.showFullContent ? item.mainContent : (item.mainContent | slice: 0:400)"
                  [style.color]="item.showFullContent ? 'color' : 'rgba(94, 113, 175, 255)'">
             </div>
+            
             <a  class="text-muted" (click)="toggleFullContent(item)">
               {{item.showFullContent ? 'View Less' : 'View More'}}
             </a>
             <footer class="blockquote-footer pt-4 mt-4 border-top">Someone famous in
               <cite title="Source Title">Source Title</cite>
             </footer>
-          </blockquote><!-- END -->
+          </blockquote>
         </div>
       </div>
     </div>
