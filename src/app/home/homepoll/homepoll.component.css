@@ -32,10 +32,43 @@ button {
     background-color: rgba(159, 0, 0, 0.603);
   }
   
-  .bg-warning {
-    background-color: rgba(94,113,175,255);
+  .backgroundmedium {
+    background-color: rgba(189, 195, 209, 0.99);
   }
   
-  .bg-success {
-    background-color: rgba(22,37,77,255);
+  .backgroundhigh {
+    background-color: rgba(94, 113, 175, 255);
   }
+  .red
+
+  /* CSS in your component's styles file (styles.css or styles.scss) */
+
+/* Styling for the button */
+.border-0 {
+  border: none;
+}
+
+.p-2 {
+  padding: 0.5rem;
+}
+
+/* Default styles for the icons */
+.material-symbols-outlined {
+  /* Define your default icon styles here */
+  font-size: 1.2rem; /* Change the font size of the icons */
+  transition: color 0.3s ease; /* Smooth transition for icon color change */
+}
+
+/* Styles for the confirm icon when button is clicked */
+.confirm-icon {
+  color: green; /* Change icon color to green when clicked */
+  transform: scale(1.2); /* Increase icon size when clicked */
+  /* Add any additional styles for the confirm icon */
+}
+
+/* Styles for the check icon when button is not clicked */
+.check-icon {
+  color: blue; /* Change icon color to blue when not clicked */
+  /* Add any additional styles for the check icon */
+}
+

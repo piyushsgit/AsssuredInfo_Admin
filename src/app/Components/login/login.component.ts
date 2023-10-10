@@ -13,7 +13,8 @@ import { ConfirmService } from '../shared/confirm.service';
 export class LoginComponent {
   myForm: FormGroup;
   hide = false;
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private messageService: MessageService,private con: ConfirmService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, 
+    private messageService: MessageService,private con: ConfirmService) {
     this.myForm = new FormGroup({})
   }
   ngOnInit() {
