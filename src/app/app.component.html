@@ -29,7 +29,7 @@
           <a class="material-symbols-outlined ">
             Poll
           </a>
-          <a >
+          <a href="#">
             Poll
           </a>
         </div>
@@ -89,4 +89,5 @@
     </div>
   </div>
 </nav>
+<app-loader *ngIf="isLoading | async"></app-loader>
 <router-outlet></router-outlet>

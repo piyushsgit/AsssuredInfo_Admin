@@ -11,22 +11,22 @@ import { ApiCallService } from '../../Services/api-call.service';
   templateUrl: './confirm.component.html',
   styleUrls: ['./confirm.component.css']
 })
-export class ConfirmComponent {
+export class ConfirmComponent  {
   @Input() inputData: any; 
   ref: DynamicDialogRef | undefined;
   headerText: string = '';
   showlogin:boolean=true;
-
   otpValue: string = '';
   userInput: string = '';
+  ishomepage=false
   constructor(public dialogService: DialogService, public messageService: MessageService, private confirmService: ConfirmService, private router: ActivatedRoute) {
     this.confirmService.setConfirmComponent(this);
   } 
   confirm(page:string) {
-    if (page=='login') {
-      this.headerText = 'Verify your email';
-      this.showlogin =false
-
+    if (page=='home') {
+      this.headerText = 'Verify your email'; 
+      this.showlogin =false;
+      
     } else {
       this.headerText = 'Please enter your email';
     }
@@ -46,10 +46,17 @@ export class ConfirmComponent {
 }
 @Component({
   selector: 'app-dynamic-input-dialog',
+  styleUrls: ['./confirm.component.css'],
   template: `
       <div>
       <form [formGroup]="form" class="my-3" *ngIf="!showComponent" >
-  <input type="email" formControlName="email" class="form-control" />
+      <input
+  type="email"
+  formControlName="email"
+  class="form-control"
+  [readonly]="localStorageEmailPresent()"
+  [ngClass]="{ 'disabled-input': localStorageEmailPresent() }"
+/>
   <div *ngIf="form.get('email')?.invalid && (form.get('email')?.dirty || form.get('email')?.touched)">
   <p class="text-danger"> 
     Please enter a valid email address.
@@ -63,13 +70,13 @@ export class ConfirmComponent {
              <span class="my-2">A code has been sent to {{form.value.email}} <p *ngIf="remainingTime === 0" class="text-danger my-auto">Otp Expired</p></span>   
             <div>
             <ng-otp-input  (onInputChange)="onOtpChange($event)" [config]="{ length: 6 }"></ng-otp-input>
-            <div *ngIf="showerror"><p class="text-danger">The Entered Otp is not valid</p></div>
+            <div *ngIf="showError&& remainingTime !== 0"><p class="text-danger">The Entered Otp is not valid</p></div>
             </div>
           <div class="my-2 d-flex justify-content-between"> 
         <button  *ngIf="remainingTime !== 0"  class="btn btn-danger validate" (click)="onValidate()">Validate</button> 
         <div *ngIf="showComponent && remainingTime === 0" class="d-flex gap-2">
           
-                <button pButton type="button" class="btn btn-primary" (click)="resendOTP()">Resend Otp ?</button>
+                <button pButton type="button" class="btn btn-primary" (click)="resendOTP()">Resend Otp</button>
               </div>
           <div class="countdown-timer" *ngIf="remainingTime !== 0">
       OTP expires in: {{ remainingTime }} Seconds
@@ -80,7 +87,7 @@ export class ConfirmComponent {
 </div>
 </div> 
 <div *ngIf="!showComponent">
-  <button pButton type="button" class="btn btn-primary"  (click)="toggleComponentVisibility(1)">Send Otp ?</button>
+  <button pButton type="button" class="btn btn-primary"  (click)="toggleComponentVisibility(1)">Send Otp</button>
 </div>
     `
 })
@@ -88,49 +95,51 @@ export class DynamicInputDialogComponent {
   userInput: string = '';
   form: FormGroup;
   otp:any;
-  showerror:boolean= false;
+  showError: boolean = false; 
   showResendButton: boolean = true; 
   showComponent: boolean = false;
   enteredOTP: any;
- 
-  remainingTime: number = 5;
-  countdownInterval: any;
+  countdownInterval: any = null; 
+  remainingTime: number = 120; 
   constructor(public ref: DynamicDialogRef,private fb: FormBuilder,private apiservice :ApiCallService) {
      this.form = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: [''||localStorage.getItem('email'), [Validators.required, Validators.email]],
     });
-  }
-
+  } 
   onConfirm() {
     this.ref.close(this.userInput);
   }
   onOtpChange(otpValue: any) {
     this.enteredOTP = otpValue;
   }
-  resendOTP() { 
-    this.remainingTime = 15;
-    this.startCountdown();
+
+  resendOTP() {
+    this.remainingTime = 120;
     this.toggleComponentVisibility(0);
-    this.showResendButton = false; 
+    this.showResendButton = false;
+    this.showError = false; 
   }
   onValidate() {
-    const obj={
-      email:this.form.value.email,
+    const obj = {
+      email: this.form.value.email,
       otp: this.enteredOTP,
-      type:false
-    }
-    console.log(obj);
-    
+      type: false
+    };
+
     this.apiservice.OtpVerification(obj).subscribe({
-      next:(response:any)=>{  
-        if(response.success){
-          this.ref.close('Validation Successful'); }
-        else
-         {
-          this.showerror=true;
-         } 
+      next: (response: any) => {
+        if (response.success) {
+          this.ref.close('Validation Successful');
+        } else {
+          this.showError = true;
+        }
       }
-    }) 
+    });
+  }
+  localStorageEmailPresent(): boolean {
+    const emailFromLocalStorage = localStorage.getItem('email');
+     
+    return !!emailFromLocalStorage;   
   }
   toggleComponentVisibility(resent:number) {
     this.form.markAllAsTouched();
@@ -146,6 +155,7 @@ export class DynamicInputDialogComponent {
         }
       })
    if(resent==1){
+    
     this.showComponent=!this.showComponent;
    }
     if (this.showComponent) {
@@ -156,18 +166,21 @@ export class DynamicInputDialogComponent {
   }
   }
   startCountdown() {
-    this.countdownInterval = setInterval(() => {
-      if (this.remainingTime > 0) { 
-        this.remainingTime--;
-      } else {
-        this.stopCountdown();
-      }
-    }, 1000);
-  }
-
-  stopCountdown() {
-    if (this.countdownInterval) {
-      clearInterval(this.countdownInterval);
+    if (this.countdownInterval === null) {
+      this.countdownInterval = setInterval(() => {
+        if (this.remainingTime > 0) {
+          this.remainingTime--;
+        } else {
+          this.stopCountdown();
+        }
+      }, 1000);
     }
   }
+  stopCountdown() {
+    if (this.countdownInterval !== null) {
+      clearInterval(this.countdownInterval);
+      this.countdownInterval = null;  
+    }
+  }
+
 }

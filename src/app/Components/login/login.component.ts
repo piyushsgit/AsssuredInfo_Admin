@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../Services/auth.service';
 import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
- 
+import { MessageService } from 'primeng/api'; 
 import { ConfirmService } from '../shared/confirm.service';
 
 @Component({
@@ -34,9 +33,11 @@ export class LoginComponent {
             this.router.navigateByUrl(''); 
             this.show();
           } else {
+            console.log(response);
+            
             this.router.navigateByUrl('homepage'); 
             if(response.data.emailVerified==false)
-              this.con.confirm('login') 
+              this.con.confirm('home') 
           }
         }
       );

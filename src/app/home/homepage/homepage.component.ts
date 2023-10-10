@@ -10,8 +10,4 @@ import { ConfirmService } from 'src/app/Components/shared/confirm.service';
 })
 export class HomepageComponent {
  
-
-  constructor(private con: ConfirmService) { }
-
- 
 }
