@@ -26,4 +26,11 @@ body{
       .buttonReg:hover{
         background-color:  rgba(94,113,175,255);
       }
-      
+      .main-container {
+        overflow: hidden;
+      }    
+      @media (max-width: 992px) {
+        .main-container {
+          overflow:  auto;
+        }  
+      }

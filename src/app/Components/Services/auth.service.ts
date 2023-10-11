@@ -19,7 +19,10 @@ export class AuthService {
     return this.http.post<User>('http://localhost:5105/User/Login', { userNameOrEmail, password })
       .pipe(
         tap((response: any) => {
-          this.setSession(response);
+          if(response.success){
+            this.setSession(response);
+          }
+          
         }),
         shareReplay()
       );

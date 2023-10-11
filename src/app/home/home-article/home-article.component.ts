@@ -1,4 +1,4 @@
-import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { Component} from '@angular/core';
 import { ApiCallService } from 'src/app/Components/Services/api-call.service';
 import { ApicallService } from '../service/apicall.service';
 
@@ -8,7 +8,9 @@ import { ApicallService } from '../service/apicall.service';
   styleUrls: ['./home-article.component.css']
 })
 export class HomeArticleComponent {
-
+  pageIndex = 1; 
+  AricleResult: any[] = []; 
+  isLoading = false; 
   tempid = localStorage.getItem('userId');
   id = this.tempid !== null ? parseInt(this.tempid) : 0;
   temp:any
@@ -16,12 +18,11 @@ export class HomeArticleComponent {
   UserAddresses:any
   primaryAddress:any
   temporayAddress:any
-  AricleResult:any
+
   isGreen: boolean = false;
   isRed: boolean = false;
-
   bookmarkStatus: { [key: string]: boolean } = {};
- constructor(private ApiService:ApiCallService,private homeapiserv:ApicallService,private renderer: Renderer2, private el: ElementRef   ){}
+ constructor(private ApiService:ApiCallService,private homeapiserv:ApicallService){}
  
   ngOnInit(){
    this.GetUserAddrssById()
@@ -47,26 +48,48 @@ export class HomeArticleComponent {
     });
   }
 
-  getArticleByAddressid(addresstype:any){
-    if(addresstype=='primary'){
-       this.obj={
-         addressId : this.primaryAddress.mainaddressid,
-          searchText : '' ,
-         pageSize : 10,
-         pageIndex : 1,
-          filter : 1
+  getArticleByAddressid(addresstype: any) {
+    if (addresstype == 'primary') {
+      this.obj = {
+        addressId: this.primaryAddress.mainaddressid,
+        searchText: '',
+        pageSize: 10,
+        pageIndex: this.pageIndex,
+        filter: 1
+      };
+    } 
+    this.isLoading = true;
+  
+    this.homeapiserv.GetArticle(this.obj).subscribe({
+      next: (dataobj) => {
+        this.temp = dataobj;
+        this.AricleResult = this.AricleResult.concat(this.temp.data);  
+        console.log(this.AricleResult);
+        this.getArticleDetailLikeDislike();
+        this.isLoading = false; 
+      },
+      error: (error) => { 
+        this.isLoading = false; 
       }
-    }
-      this.homeapiserv.GetArticle(this.obj).subscribe({
-        next:(dataobj)=>{
-          this.temp=dataobj
-          this.AricleResult=this.temp.data
-          this.getArticleDetailLikeDislike()
-        }
-      })
+    });
   }
 
- 
+  onScroll() {
+    // Detect scroll to bottom and load more data
+    const container = document.getElementById('paggi');
+    if (container) {
+      if (
+        container.scrollTop + container.clientHeight >=
+        container.scrollHeight
+      ) {
+        if (!this.isLoading) {
+          this.pageIndex++;
+          this.getArticleByAddressid('primary');
+        }
+      }
+    }
+  }
+
   toggleLike(item: any) {
 
     if (!item.isLiked) {

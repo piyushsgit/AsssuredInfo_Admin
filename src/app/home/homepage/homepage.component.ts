@@ -1,7 +1,5 @@
-import { Component } from '@angular/core';
-import { ConfirmService } from 'src/app/Components/shared/confirm.service';
- 
- 
+import { Component, ViewChild } from '@angular/core';
+import { HomeArticleComponent } from '../home-article/home-article.component';
 
 @Component({
   selector: 'app-homepage',
@@ -9,5 +7,8 @@ import { ConfirmService } from 'src/app/Components/shared/confirm.service';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent {
- 
+  @ViewChild(HomeArticleComponent) childComponent!: HomeArticleComponent; 
+  onParentScroll() {
+    this.childComponent.onScroll();
+  }
 }
