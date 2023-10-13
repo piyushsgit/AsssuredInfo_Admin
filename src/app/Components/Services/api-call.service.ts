@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -34,9 +34,8 @@ export class ApiCallService {
   Registraion(obj: any) {
     return this.http.post('http://localhost:5105/User/Registration', obj)
   }
-  AddnewArticle(obj:any)
-  {
-   return this.http.post('http://localhost:5105/Posts/AddnewArticle',obj)
+  AddnewArticle(formData: FormData) {
+    return this.http.post('http://localhost:5105/Posts/AddnewArticle', formData);
   }
 
   GetArticleByUserId(id:any):Observable<any[]>

@@ -15,7 +15,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
 import { SharedModule } from '../Components/shared/shared.module';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ScrollToBottomDirective } from './scroll-to-bottom.directive';
-import { PaginationComponent } from './service/pagination/pagination.component';
+ 
  
  
 @NgModule({
@@ -23,9 +23,7 @@ import { PaginationComponent } from './service/pagination/pagination.component';
     HomepageComponent,
     HomeArticleComponent,
     HomepollComponent,
-    ScrollToBottomDirective,
-    PaginationComponent,
-    
+    ScrollToBottomDirective, 
   ],
   providers: [AuthGuard, MessageService, ConfirmationService,DialogService],
   imports: [

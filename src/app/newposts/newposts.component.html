@@ -1,83 +1,98 @@
 <div class="row">
-
-    <div class="col-1"></div>
-    <div class="col-10">
-        <form [formGroup]="formGroup" (submit)="PostButton()">
-            <div class="row">
-                <div class="col-9 col-xl-9 col-sm-12">
-                    <h2 class="d-flex justify-content-center align-item-center" style="color: rgba(94,113,175,255);">Add
-                        New
-                        Posts</h2>
-                        
-                    <div class="tittle mb-4">
-                        <div class=" inputGroup  p-0 m-0">
-                            <input class="form-control custom border-0" id="title" formControlName="tittle" rows="1"
-                                placeholder="Tittle" maxlength="45"  >
-                                <div class="material-symbols-outlined my-auto pe-2" style="color: rgb(212, 16, 16);"
-                                    data-toggle="tooltip" data-placement="right"
-                                    [ngClass]="{'d-none': !formGroup.get('tittle')?.invalid || !(formGroup.get('tittle')?.dirty
-                                     || formGroup.get('tittle')?.touched)}">
-                                    error
-                                </div>
-                            </div>
-                            <label for="" [ngClass]="{'d-none': !formGroup.get('tittle')?.invalid || !(formGroup.get('tittle')?.dirty
-                            || formGroup.get('tittle')?.touched)}" class="text-danger">Please enter the tittle</label>
-                    </div>
-                    <div class="editor">
-                        <p-editor #editor formControlName="text" required name="comment" class="pEditor" [style]="{ height: '520px', 'font-size': '1.3em' }">
-                            <p-header >
-                              <span class="ql-formats">
-                                      <select class="ql-header" tabindex="-1">
-                                        <option value="1" tabindex="-1">Heading</option>
-                                        <option value="2" tabindex="-1">SubHeading</option>
-                                        <option selected tabindex="-1">Normal</option>
-                                      </select>
-                                    </span>
-                              <span class="ql-formats">
-                                      <button class="ql-bold" aria-label="Bold" tabindex="-1"></button>
-                                      <button class="ql-italic" aria-label="Italic" tabindex="-1"></button>
-                                      <button class="ql-underline" aria-label="Underline" tabindex="-1"></button>
-                                    </span>
-                              <span class="ql-formats">
-                                      <button class="ql-list" value="ordered" aria-label="Ordered List" tabindex="-1"></button>
-                                      <button class="ql-list" value="bullet" aria-label="Unordered List" tabindex="-1"></button> 
-                                    </span>
-                            </p-header>
-                          </p-editor>
-                    <label for="" [ngClass]="{'d-none': !formGroup.get('text')?.invalid || !(formGroup.get('text')?.dirty
-                    || formGroup.get('text')?.touched)}" class="text-danger">Please enter the article</label>
-                    </div>
-                    <div class="input-group mt-4 d-flex align-item-center justify-content-center">
-                        <button  type="submit"  id="Post">Post</button>
-                    </div>
+  <div class="col-1"></div>
+  <div class="col-10">
+    <form [formGroup]="formGroup" (submit)="PostButton()">
+      <div class="row">
+        <div class="col-9 col-xl-9 col-sm-12" >
+          <h2 class="d-flex justify-content-center align-item-center" style="color: rgba(94,113,175,255);">Add
+            New
+            Posts</h2>
+          <div class="scroll">
+            <div class="tittle mb-4">
+              <div class="d-flex justify-content-center">
+                <label for="" [ngClass]="{'d-none': !formGroup.get('tittle')?.invalid || !(formGroup.get('tittle')?.dirty
+                                  || formGroup.get('tittle')?.touched)}" class="text-danger position-absolute"
+                 style="margin-top: -20px;" >Please enter the title</label>
+              </div>
+              <div class="d-flex row  justify-content-center align-item-center " style="width: 100%;">
+                <div class="inputGroup col-12 p-0 m-0">
+                  <input class="form-control custom border-0" id="title" formControlName="tittle" rows="1"
+                    placeholder="Tittle" maxlength="45">
+                  <div class="material-symbols-outlined my-auto pe-2" style="color: rgb(212, 16, 16);"
+                    data-toggle="tooltip" data-placement="right" [ngClass]="{'d-none': !formGroup.get('tittle')?.invalid || !(formGroup.get('tittle')?.dirty
+                                        || formGroup.get('tittle')?.touched)}">
+                    error
+                  </div>
                 </div>
-                <div class="col-3 mt-5 col-xl-3 col-sm-12">
-                    <h2 class="d-flex justify-content-center align-item-center" style="color: rgba(94,113,175,255);">
-                        Select
-                        An Address to Post</h2>
-                    <div *ngFor="let item of UserAddresses; let first = first;let i=index">
-                        <div class="card border mb-4 element-to-change" id="Checked{{i+1}}"
-                            [class.selected-card]="item.id === selectedAddressId">
-                            <div class="card-body">
-                                <label>
-                                    <div class="d-flex">
-                                        <input class="mx-2 form-check-input" type="radio" name="address"
-                                            [value]="item.id" [checked]="item.isPrimary"
-                                            (change)="onRadioChange(item.id)" />
-                                        <div>
-                                            <p class="p-0 m-0">{{ item.fullAddress }}, {{ item.district }}</p>
-                                            <p class="m-0 p-0">{{ item.state }}, India, {{ item.pinccode }}</p>
-                                        </div>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
+               
+              </div>
             </div>
-            
-        </form>
-    </div>
-
-    <div class="col-1"></div>
+            <div class="editor">
+              <p-editor #editor formControlName="text" required name="comment" class="pEditor"
+                [style]="{ height: '520px', 'font-size': '1.3em' }">
+                <p-header>
+                  <span class="ql-formats">
+                    <select class="ql-header" tabindex="-1">
+                      <option value="1" tabindex="-1">Heading</option>
+                      <option value="2" tabindex="-1">SubHeading</option>
+                      <option selected tabindex="-1">Normal</option>
+                    </select>
+                  </span>
+                  <span class="ql-formats">
+                    <button class="ql-bold" aria-label="Bold" tabindex="-1"></button>
+                    <button class="ql-italic" aria-label="Italic" tabindex="-1"></button>
+                    <button class="ql-underline" aria-label="Underline" tabindex="-1"></button>
+                  </span>
+                  <span class="ql-formats">
+                    <button class="ql-list" value="ordered" aria-label="Ordered List" tabindex="-1"></button>
+                    <button class="ql-list" value="bullet" aria-label="Unordered List" tabindex="-1"></button>
+                  </span>
+                  <span class="ql-formats">
+                    <input type="file" class="d-none custom-file-input" id="image" formControlName="image" (change)="onFileSelected($event)" accept="image/*" multiple>
+                    <label class="custom-file-label" for="image"><i class="material-symbols-outlined">image</i></label>
+                  </span>
+                  <div class="p-auto" style="background-color: rgb(186, 161, 255);">
+                    <div class="image-preview d-flex justify-content-start align-item-center" style="overflow-x: auto; " >
+                      <div *ngFor="let file of selectedFiles" >
+                        <img [src]="file.url" alt="Selected Image" style="width: 150px; height: 150px; border-radius: 20px; object-fit: cover;" class="selected-image  m-2">
+                      </div>
+                    </div>
+                  </div>
+                </p-header>
+              </p-editor>
+              <label for=""
+                [ngClass]="{'d-none': !formGroup.get('text')?.invalid || !(formGroup.get('text')?.dirty || formGroup.get('text')?.touched)}"
+                class="text-danger position-absolute">Please enter the article</label>
+            </div>
+            <div class="input-group  d-flex align-item-end justify-content-end mt-3">
+              <button type="submit" class="btn border-0" id="Post">Post</button>
+            </div>  
+          </div>
+        </div>
+        <div class="col-3 mt-5 col-xl-3 col-sm-12">
+          <h2 class="d-flex justify-content-center align-item-center" style="color: rgba(94,113,175,255);">
+            Select An Address to Post</h2>
+          <div *ngFor="let item of UserAddresses; let first = first;let i=index">
+            <div class="card border mb-4 element-to-change" id="Checked{{i+1}}"
+              [class.selected-card]="item.id === selectedAddressId">
+              <div class="card-body">
+                <label>
+                  <div class="d-flex">
+                    <input class="mx-2 form-check-input" type="radio" name="address" [value]="item.id"
+                      [checked]="item.isPrimary" (change)="onRadioChange(item.id)" />
+                    <div>
+                      <p class="p-0 m-0">{{ item.fullAddress }}, {{ item.district }}</p>
+                      <p class="m-0 p-0">{{ item.state }}, India, {{ item.pinccode }}</p>
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </form>
+  </div> 
+  <div class="col-1"></div>
 </div>

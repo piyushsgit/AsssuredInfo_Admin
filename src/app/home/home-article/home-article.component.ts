@@ -1,7 +1,7 @@
 import { Component} from '@angular/core';
 import { ApiCallService } from 'src/app/Components/Services/api-call.service';
 import { ApicallService } from '../service/apicall.service';
-
+import Swiper from 'swiper';
 @Component({
   selector: 'app-home-article',
   templateUrl: './home-article.component.html',
@@ -27,6 +27,15 @@ export class HomeArticleComponent {
   ngOnInit(){
    this.GetUserAddrssById()
    
+  }
+  ngAfterViewInit() {
+    const swiper = new Swiper('.swiper-container', {
+      // Swiper options here
+      // For example, you can enable pagination:
+      pagination: {
+        el: '.swiper-pagination',
+      },
+    });
   }
   toggleFullContent(item: any) {
     item.showFullContent = !item.showFullContent;

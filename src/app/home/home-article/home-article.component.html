@@ -26,7 +26,18 @@
             [style.color]="
               item.showFullContent ? 'color' : 'rgba(94, 113, 175, 255)'
             "
-          ></div>
+          >
+        </div>
+        <div class="d-flex justify-content-start align-item-center" style="overflow-x: auto;">
+
+          <div *ngFor="let imageName of item.idata.split(', ')">
+            <div class="d-flex flex-column" style="width: 100%; height: 500px; margin: 10px;">
+              <img [src]="'http://localhost:5105/uploads/' + imageName" alt="Image" style="width: 150px; height: 150px; border-radius: 20px; object-fit: cover;">
+              
+            </div>
+          </div>
+          
+        </div>  
           <div class="d-flex justify-content-between">
             <a class="text-muted" (click)="toggleFullContent(item)">
               {{ item.showFullContent ? "View Less" : "View More" }}
