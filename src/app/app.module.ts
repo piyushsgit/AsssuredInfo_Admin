@@ -57,7 +57,8 @@ import { LoaderInterceptor } from './Components/Services/loader-interceptor.serv
     ToastModule,
     SharedModule,
     HomeModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    
   ],
   providers: [MessageService, ConfirmationService, {
     provide: HTTP_INTERCEPTORS,

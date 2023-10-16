@@ -15,7 +15,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
 import { SharedModule } from '../Components/shared/shared.module';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ScrollToBottomDirective } from './scroll-to-bottom.directive';
- 
+import { CarouselModule } from 'ngx-owl-carousel-o';
  
  
 @NgModule({
@@ -38,7 +38,8 @@ import { ScrollToBottomDirective } from './scroll-to-bottom.directive';
     InputTextModule,
     NgOtpInputModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule, 
+    CarouselModule
   ]
 })
 export class HomeModule { }
