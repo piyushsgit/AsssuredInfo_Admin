@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomepageComponent } from './homepage/homepage.component';
 import { AuthGuard } from '../Components/Guard/auth.guard';
 
+
 const routes: Routes = [
 
  {path:'homepage',component:HomepageComponent ,canActivate: [AuthGuard]}
@@ -11,7 +12,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(routes),
+    ],
   exports: [RouterModule]
 })
 export class HomeRoutingModule { }

@@ -66,12 +66,12 @@ GetUserById(){
   progressValue: number = 90; 
 
   getProgressColorClass(): string {
-    if (this.progressValue < 20) {
-      return 'bg-danger'; 
+    if (this.progressValue < 40) {
+      return 'backgroundlow'; 
     } else if (this.progressValue < 80) {
-      return 'bg-warning'; 
+      return 'backgroundmedium'; 
     } else {
-      return 'bg-success'; 
+      return 'backgroundhigh'; 
     }
 }
 

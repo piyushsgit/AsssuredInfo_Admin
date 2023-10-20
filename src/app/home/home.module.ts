@@ -14,6 +14,8 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { SharedModule } from '../Components/shared/shared.module';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ScrollToBottomDirective } from './scroll-to-bottom.directive';
+import { CarouselModule } from 'ngx-owl-carousel-o';
  
  
 @NgModule({
@@ -21,7 +23,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     HomepageComponent,
     HomeArticleComponent,
     HomepollComponent,
-    
+    ScrollToBottomDirective, 
   ],
   providers: [AuthGuard, MessageService, ConfirmationService,DialogService],
   imports: [
@@ -36,7 +38,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     InputTextModule,
     NgOtpInputModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule, 
+    CarouselModule
   ]
 })
 export class HomeModule { }

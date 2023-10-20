@@ -1,32 +1,44 @@
-<div class=" align-item-center justify-content-center p-4" >
+<div class=" align-item-center justify-content-center p-4">
   <p-toast></p-toast>
+  <h2 class="text-center">The Information Of These Polls Are Based On Your Current Address.</h2>
   <div class="p-3" *ngFor="let item of formattedPolls; let i = index">
     <div class="card">
       <div class="card-body">
-        <h3>{{item.question}}</h3>
+        <h4 style="white-space: nowrap; font-weight:500;">
+          <span style="white-space: nowrap;"> Q] </span>
+          <span style="white-space: normal;">{{item.question}}</span>
+        </h4>
         <div class="form-check">
-          <div *ngFor="let option of item.options; let j=index">
-            <input class="form-check-input" type="radio" [(ngModel)]="radioValues[i]" [value]="option" name="flexRadioDefault{{i}}">
-            <label class="form-check-label text-muted">
-              {{ option }}
+          <div *ngFor="let option of item.options; let j=index" class="m-2">
+            <input class="form-check-input" type="radio" [(ngModel)]="radioValues[i]" [value]="option"
+              name="flexRadioDefault{{i}}">
+            <label class="form-check-input__label" for="flexRadioDefault{{i}}">
+              <span class="form-check-input__custom"></span>  
             </label>
+            <h5 style="  margin-left: 1px;
+            white-space: nowrap; 
+            font-size: 14px;
+            margin-top: -20px;">  
+              <span style="white-space: nowrap;">{{j + 1}} ]</span>
+              <span style="white-space: normal;">{{ option }}</span>
+            </h5> 
             <div class="progress">
-              <div class="progress-bar"  [style.width.%]="formattedPolls[i].optionpercentage[j]"
-              [ngClass]="getProgressColorClass(formattedPolls[i].optionpercentage[j])" role="progressbar">
-                {{ formattedPolls[i].optionpercentage[j] }}%
+              <div class="progress-bar" [style.width.%]="formattedPolls[i].optionpercentage[j]"
+                [ngClass]="getProgressColorClass(formattedPolls[i].optionpercentage[j])" role="progressbar">
               </div>
+            </div> 
+            <div class="justify-content-end d-flex">
+              {{ formattedPolls[i].optionpercentage[j] }}%
             </div>
           </div>
-         <div class="p-2 d-flex justify-content-center align-items-center">
-          <button type="button" class="border-0 p-2 "
-          style="background-color: rgba(189, 195, 209, 0.99); border-radius: 4px;" (click)="onPollSubmit(i,item)">
-          Save
-        </button>
-         </div>
+          <div class="p-2 d-flex justify-content-center align-items-center">
+            <button type="button" class=" p-2 btn btn-outline-light" style="min-width: 150px; border-radius: 0%;"
+              (click)="onPollSubmit(i,item)">
+              Save
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  
-
 </div>

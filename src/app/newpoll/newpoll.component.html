@@ -5,7 +5,7 @@
         <form [formGroup]="myForm" (submit)="PostButton()"  >
             <div class="row">
                 <div class="col-9 col-xl-9 col-sm-12 " >
-                    <h2 class="d-flex justify-content-center align-item-center mt-3" style="color: rgba(94,113,175,255);">Add
+                    <h2 class="d-flex justify-content-center align-item-center mt-3" style="color:  var(--LBlue);">Add
                         New
                          Poll</h2>
                         
@@ -48,7 +48,7 @@
                                     </div>
                                     <div *ngIf="enable" class="d-flex justify-content-end"> <button type="button" id="add"
                                             class="border-0" style="background-color: transparent ;" (click)="addOption()">
-                                            <span style="color: rgba(94, 113, 175, 255); "
+                                            <span style="color:   var(--LBlue);  "
                                                 class="material-symbols-outlined ">add</span></button></div>
                                 </div>
                                 <div class="col-2"></div>
@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="col-3 mt-5 col-xl-3 col-sm-12">
-                    <h2 class="d-flex justify-content-center align-item-center" style="color: rgba(94,113,175,255);">
+                    <h2 class="d-flex justify-content-center align-item-center" style="color:  var(--LBlue);">
                         Select
                         An Address to Post</h2>
                     <div *ngFor="let item of UserAddresses; let first = first;let i=index">

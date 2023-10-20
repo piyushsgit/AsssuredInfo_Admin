@@ -1,40 +1,112 @@
 
-<div class="scrollable-component">
 
-<div class="row mt-3" >
-    <div class="col-md-2 mb-4 " >
-      <div class="card mb-4 mb-md-0 ">
-
-        <div class="card-body" style="background-color: rgba(94,113,175,255);" (click)="NewPosts()" >
-          <h1 class="d-flex justify-content-center align-item-center text-light p-3">+</h1>
-          <h3 class="d-flex align-item-center text-light p-1">Add / Share New Posts</h3>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="scrollable-component">
   
-  <section class="pb-5">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12 mx-auto my-3" *ngFor="let item of article">
-          <blockquote class="blockquote blockquote-custom p-4 rounded" style="background-color: rgba(189, 195, 209, 0.99);">
-            <h2 class="d-flex align-item-center justify-content-center" style="color:rgba(94, 113, 175, 255)">{{item.tittle}}</h2>
-            <div [innerHTML]="item.showFullContent ? item.mainContent : (item.mainContent | slice: 0:400)"
-                 [style.color]="item.showFullContent ? 'color' : 'rgba(94, 113, 175, 255)'">
-            </div>
-            
-            <a  class="text-muted" (click)="toggleFullContent(item)">
-              {{item.showFullContent ? 'View Less' : 'View More'}}
-            </a>
-            <footer class="blockquote-footer pt-4 mt-4 border-top">Someone famous in
-              <cite title="Source Title">Source Title</cite>
-            </footer>
-          </blockquote>
+  <div class="row mt-3">
+      <div class="col-md-2 mb-4" >
+        <div class="card mb-4 mb-md-0"> 
+          <div class="card-body" style="background-color: var(--DBlue);" (click)="NewPosts()">
+            <h1 class="d-flex justify-content-center align-item-center text-light p-3">+</h1>
+            <h3 class="d-flex align-item-center text-light p-1">Add / Share New Posts</h3>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-</div>
+    </div> 
+    <section class="pb-5">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 mx-auto my-3" *ngFor="let item of article;let postIndex = index;">
+            <blockquote class="blockquote blockquote-custom p-4 rounded" style="background-color: rgba(255, 255, 255, 0.99);">
+              <h2 class="d-flex align-item-center justify-content-center" style="color: var(--LBlue);">
+                {{ item.tittle }}
+              </h2>
+            
+              <div class="d-flex row">
+                <div [id]="'myCarousel_' + postIndex" class="carousel slide col-6 " data-bs-ride="carousel">
+                  <ol class="carousel-indicators">
+                    <li [attr.data-bs-target]="'#myCarousel_' + postIndex"
+                      *ngFor="let item of item.idata.split(', ') ; let i = index;" [attr.data-bs-slide-to]="i"
+                      class="active"></li>
+                  </ol>
+                  <p class="carousel-control-prev" [attr.href]="'#myCarousel_' + postIndex" role="button"
+                    data-bs-slide="prev" >
+                    <i class="material-symbols-outlined" style="color: rgb(255, 255, 255);">
+                      arrow_Back_ios
+                    </i>
+                    <span class="visually-hidden">Previous</span>
+                  </p>
+                  <div class="carousel-inner">
+                    <div *ngFor="let imageName of item.idata.split(', '); let i = index;"
+                      [ngClass]="{'carousel-item': true, 'active': i === 0} ">
+                      <img [src]="'http://localhost:5105/uploads/' + imageName" alt="Image">
+                    </div>
+                  </div>
+                  <p class="carousel-control-next" [attr.href]="'#myCarousel_' + postIndex" role="button"
+                    data-bs-slide="next">
+                    <i class="material-symbols-outlined" style="color: rgb(255, 255, 255);">
+                      arrow_forward_ios
+                    </i>
+                    <span class="visually-hidden">Next</span>
+                  </p>
+                </div>
+                <div class="col-6 d-flex" style="height: 500px; overflow-y: auto;">
+                  <div class="d-flex flex-column justify-content-between">
+                    <div [innerHTML]="
+                      item.showFullContent
+                        ? item.mainContent
+                        : (item.mainContent | slice : 0 : 900)
+                    " [style.color]="
+                      item.showFullContent ? 'color' : 'var(--LBlue);;'
+                    ">
+                  </div>
+                  <div class="justify-content-end" *ngIf="item.mainContent.length > 1000">
+    
+                    <a class="text-muted" (click)="toggleFullContent(item)">
+                      {{ item.showFullContent ? "View Less" : "View More" }}
+                    </a>
+                  </div>
+    
+                  </div>
+                </div>
+                <div class="justify-content-end d-flex">
+                  <a class="text-muted" style="font-size: small">
+                    - {{ item.userName }} on {{ item.createdBy | date }}
+                  </a>
+                </div>
+              </div>
+              <footer class="py-4 mt-2 border-top d-flex align-item-center justify-content-between">
+                <div>
+                  <button class="btn" [class.green]="item.isLiked" (click)="toggleLike(item)">
+                    <i class="fa fa-thumbs-up fa-lg" aria-hidden="true"></i>
+                  </button>
+                   {{ item.likes }}
+                  <button class="btn" [class.red]="item.isDisliked" (click)="toggleDislike(item)">
+                    <i class="fa fa-thumbs-down fa-lg" aria-hidden="true"></i>
+                  </button>
+                  {{ item.dislikes }}
+                </div>
+                <label class="ui-bookmark">
+                  <input type="checkbox" [checked]="item.isBookmark" id="myCheckbox_{{item.articleid}}"
+                    [(ngModel)]="bookmarkStatus[generateKey(item.articleid, id)]"
+                    (click)="toggleBookmark(item.articleid, id)">
+                  <div class="bookmark" id="bookmark_{{item.articleid}}">
+                    <svg viewBox="0 0 32 32">
+                      <g>
+                        <path
+                          d="M27 4v27a1 1 0 0 1-1.625.781L16 24.281l-9.375 7.5A1 1 0 0 1 5 31V4a4 4 0 0 1 4-4h14a4 4 0 0 1 4 4z">
+                        </path>
+                      </g>
+                    </svg>
+                  </div>
+                </label>
+              </footer>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+ 
 
    
 <!-- <div class="card col" *ngFor="let item of article">
