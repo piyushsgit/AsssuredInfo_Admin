@@ -1,45 +1,66 @@
-<div class="row mt-3">
-    <div class="col-md-2 mb-4 ">
-        <div class="card mb-4 mb-md-0 ">
-
-            <div class="card-body" style="background-color: rgba(94,113,175,255);" (click)="NewPolls()" >
-                <h1 class="d-flex justify-content-center align-item-center text-light p-3">+</h1>
-                <h3 class="d-flex align-item-center text-light p-1">Add / Share New Poll</h3>
-            </div>
-        </div>
-    </div>
-</div>
 
 
-<div class="row">
-    <div *ngFor="let item of formattedPolls; let i=index" class="col-lg-4 mb-3">
-        <div class="card h-100" style="background-color: rgba(189, 195, 209, 0.99);">
-            <div class="card-body">
-                <h4 class="card-title" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: rgb(0 14 122);">
-                    {{ item.question }}
-                </h4>
-                <p class="card-text text-muted">Total Response: {{ item.TotalParticipants }}</p>
-                <p class="card-text text-muted">Created On: {{ item.createdOn | date: 'medium' }}</p>
-                <p class="card-text text-muted">Address: {{ item.fulladdress }}</p>
-                <div class="d-flex flex-wrap align-items-center">
-                    <div *ngFor="let option of item.options; let j=index" class="mb-2 me-2">
-                        <label class="form-check-label text-muted" for="flexRadioDefault{{ j }}"
-                            style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                            {{ option }}
-                        </label>
-                        <div class="progress" style="width: 100px;">
-                            <div class="progress-bar" [style.width.%]="formattedPolls[i].optionpercentage[j]"
-                                [ngClass]="getProgressColorClass(formattedPolls[i].optionpercentage[j])"
-                                role="progressbar">
-                                {{ formattedPolls[i].optionpercentage[j] }}%
-                            </div>
-                        </div>
-                    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-2 mb-4 ">
+            <div class="card mb-4 mb-md-0 ">
+    
+                <div class="card-body" style="background-color:   var(--DBlue);" (click)="NewPolls()" >
+                    <h1 class="d-flex justify-content-center align-item-center text-light p-3">+</h1>
+                    <h3 class="d-flex align-item-center text-light p-1">Add / Share New Poll</h3>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    
+    
+    <div class="row me-3">
+        <div *ngFor="let item of formattedPolls; let i=index" class="col-lg-4 mb-3 ">
+            <div class="card h-100" style="background-color: var(--DBlue);color: white;"[ngClass]="{'bg_blur':!item.showResponse}" >
+                <div class="card-body">
+                    <div class="d-flex flex-wrap align-items-center row p-1 my-auto  position-absolute" id="response{{i}}" [ngClass]="{'dropdownclosed': !item.showResponse,'dropdownopened':item.showResponse}">
+                        <div *ngFor="let option of item.options; let j=index" class="col-12" style="margin-top: -5px;">
+                            <label class="form-check-label" for="flexRadioDefault{{ j }}">
+                            </label>
+                            <h5 style="white-space: nowrap; margin-top: -10px;">
+                                <span style="white-space: nowrap;">{{j + 1}} ] </span>
+                                <span style="white-space: normal;">{{ option }}</span>
+                              </h5> 
+                              <div class="d-flex g-2 justify-content-between"> 
+                                  <div class="progress" style="margin-top: -10px; max-width: 80%;">
+                                    <div class="progress-bar" [style.width.%]="formattedPolls[i].optionpercentage[j]"
+                                    [ngClass]="getProgressColorClass(formattedPolls[i].optionpercentage[j])"
+                                    role="progressbar">
+                                </div>
+                            </div>
+                            <div style="width: 37px;"> 
+                                <p style="margin-top: -15px; margin-bottom: 0;">
+                                  {{ formattedPolls[i].optionpercentage[j] }}% 
+                                </p> 
+                            </div>
+                                    
+                              </div>
+                        </div>
+                    </div>
+                    <p class="card-text ">Created On: {{ item.createdOn | date: 'medium' }}</p>
+                    <h4 class="card-title" style="white-space:inherit;">
+                       Topic:- <br>
+                       {{ item.question }}
+                    </h4>
+                    <div class="justify-content-between d-flex"> 
+                    <p class="card-text">Total Response: {{ item.TotalParticipants }}</p>
+                    <button class="btn btn-outline-dark" (click)="toggleResponseDiv(item)" >
+                        {{item.Response}}
+                    </button>
+                </div>
+                
+                    <p class="card-text">Address: {{ item.fulladdress }}</p> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 
 

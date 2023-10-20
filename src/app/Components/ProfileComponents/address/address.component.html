@@ -1,7 +1,7 @@
 <div *ngIf="isformopen" class="col-md-12 d-flex justify-content-center align-item-center" style="background-color: rgba(189, 195, 209, 0.99);;">
     <div class="my-3">
         <div class="d-flex justify-content-between">
-        <h2 class="d-flex justify-content-center align-item-center my-2" style="color: rgba(94, 113, 175, 255);">Add New Address</h2>
+        <h2 class="d-flex justify-content-center align-item-center my-2" style="color:   var(--LBlue);">Add New Address</h2>
         <button type="button" class="close border-0 "  aria-label="Close" (click)="emitEvent()" >
             <span aria-hidden="true">&times;</span>
           </button>
@@ -16,7 +16,7 @@
                 <input style="width: 230px;" pattern="[0-9]{6}" maxlength="6"
                     (input)="fetchPostalCodeData(postalcode.value)"    #postalcode required name="postalcode" [ngModel]="pincode"
                     id="postalcode">
-                <label for="postalcode" style=" color:rgb(0 14 122);">Pincode</label>
+                <label for="postalcode" style=" color:  var(--DBlue);">Pincode</label>
                 <div class="mx-1 my-2">
                     <div class="jelly-triangle" *ngIf="responseStatus === 'loading'">
                         <div class="jelly-triangle__dot"></div>
@@ -59,7 +59,7 @@
         </div>
         <div class="d-flex justify-content-center flex-column "
             *ngIf="select.option !== 'Postal Address' && responseStatus === 'success'">
-            <h4 style=" color:rgb(0 14 122) !important;" class="m-0 p-0" for="name">Area/colony</h4>
+            <h4 style=" color:  var(--DBlue)!important;" class="m-0 p-0" for="name">Area/colony</h4>
             <div class="inputGroup m-0 p-0">
                 <div class="material-symbols-outlined mt-auto p-2">
                     home_pin
@@ -75,7 +75,7 @@
             </div>
             <div class="form-check d-flex align-item-center justify-content-center mt-3">
                 <input class="form-check-input mx-1 mb-1" type="checkbox" id="exampleCheckbox" [(ngModel)]="isChecked" name="exampleCheckbox">
-                <label class="form-check-label" for="exampleCheckbox" style="color: rgba(94, 113, 175, 255);;">Make this Primary</label>
+                <label class="form-check-label" for="exampleCheckbox" style="color:   var(--LBlue);">Make this Primary</label>
               </div>
         </div>
        <div class="justify-content-center align-items-center d-flex my-2">  

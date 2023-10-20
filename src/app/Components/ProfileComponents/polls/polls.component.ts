@@ -10,9 +10,10 @@ import { Router } from '@angular/router';
 })
 export class PollsComponent {
   constructor(private fb: FormBuilder,private apicall:ApiCallService,private router:Router) {}
-  myForm:any
-  opt:number=1
-  enable=true
+  myForm:any 
+  opt:number=1 
+  item: any
+  enable=true 
   options:any
   optionsPercentage:any
   tempid = localStorage.getItem('userId');
@@ -27,6 +28,7 @@ export class PollsComponent {
       options: this.fb.array([]),
     });
     this.GetPollsByuserId()
+    this.item.Response='See';
   }
   NewPolls(){
     this.router.navigate(['newpoll'])
@@ -34,7 +36,14 @@ export class PollsComponent {
   get optionsFormArray() {
     return this.myForm.get('options') as FormArray;
   }
-
+  toggleResponseDiv(items:any) {
+    items.showResponse = !items.showResponse;
+    if(items.showResponse==false)
+      items.Response='See';
+    else
+      items.Response='Hide'; 
+  }
+ 
   addOption() {
     if(this.opt<3){
       this.optionsFormArray.push(new FormControl(''));
@@ -123,11 +132,11 @@ export class PollsComponent {
   
   getProgressColorClass(progressValue:any): string {
     if (progressValue < 20) {
-      return 'bg-danger'; 
+      return 'backgroundlow'; 
     } else if (progressValue < 80) {
-      return 'bg-warning'; 
+      return 'backgroundmedium'; 
     } else {
-      return 'bg-success'; 
+      return 'backgroundhigh'; 
     }
 }
 }

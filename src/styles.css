@@ -15,6 +15,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     border-radius: 20px!important;
 }
 
+
+.scrollable-component {
+  height: 100vh; 
+  overflow-y:auto; 
+  overflow-x: hidden; 
+}
+
 body{
     background-color: #eee;
 }
@@ -34,3 +41,290 @@ body{
           overflow:  auto;
         }  
       }
+
+    
+
+      :root {
+        --DBlue: rgba(22,37,77,255);
+        --LBlue: rgba(94,113,175,255);
+      }
+
+
+      .carousel  img { 
+        max-height: 500px; 
+        height: 100%;
+        width: 100%;  
+        object-fit:cover; 
+        border-radius: 20px;
+        
+      }
+        
+      .carousel  {
+         background-color:  transparent;
+         justify-content: center;
+         align-items: center;
+         min-height: 520px; 
+         border-radius: 20px;
+         display: flex;
+         padding: 10px; 
+  
+      }
+      .carousel-inner{ 
+         border-radius: 20px;
+         align-items: center;
+         display: flex;
+      }
+       
+
+/* progressbars */ 
+      .backgroundlow {
+        background-color:rgb(218, 78, 78); 
+      }
+      .backgroundmedium { 
+        background-color:  rgba(42, 30, 214, 0.582); 
+      } 
+      .backgroundhigh { 
+        background-color:  rgba(210, 103, 214, 0.692); 
+      } 
+      .progress{
+        border: 1px solid black;
+        border-radius: 0%;
+        height: 5px;
+        width: 100%;
+        }
+         .progress-bar{
+          transition-delay: 250ms;
+          transition-property: margin-right;
+          width: auto;
+         }
+         
+/* progressbars ends*/
+        
+.blockquote-custom {
+  position: relative;
+  font-size: 1.1rem;
+} 
+.blockquote-custom-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -25px;
+  left: 50px;
+}
+button{
+  cursor: pointer;
+  outline: 0;
+  color: #AAA;
+}
+.green{
+  color: rgba(94, 113, 175, 255);
+}
+.red{
+  color: rgb(164, 4, 4);
+}
+ 
+.ui-bookmark {
+--icon-size: 24px;
+--icon-secondary-color: #AAA;
+--icon-hover-color: #AAA;
+--icon-primary-color: rgba(94, 113, 175, 255);
+--icon-circle-border: 1px solid var(--icon-primary-color);
+--icon-circle-size: 35px;
+--icon-anmt-duration: 0.3s;
+}
+
+.ui-bookmark input {
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+display: none;
+}
+.ui-bookmark.filled {
+--icon-primary-color: green; /* Change this to the desired primary color when bookmarked */
+}
+.ui-bookmark .bookmark {
+width: var(--icon-size);
+height: auto;
+fill: var(--icon-secondary-color);
+cursor: pointer;
+-webkit-transition: 0.2s;
+-o-transition: 0.2s;
+transition: 0.2s;
+display: -webkit-box;
+display: -ms-flexbox;
+display: flex;
+-webkit-box-pack: center;
+-ms-flex-pack: center;
+justify-content: center;
+-webkit-box-align: center;
+-ms-flex-align: center;
+align-items: center;
+position: relative;
+-webkit-transform-origin: top;
+-ms-transform-origin: top;
+transform-origin: top;
+}
+
+.bookmark::after {
+content: "";
+position: absolute;
+width: 10px;
+height: 10px;
+-webkit-box-shadow: 0 30px 0 -4px var(--icon-primary-color),
+  30px 0 0 -4px var(--icon-primary-color),
+  0 -30px 0 -4px var(--icon-primary-color),
+  -30px 0 0 -4px var(--icon-primary-color),
+  -22px 22px 0 -4px var(--icon-primary-color),
+  -22px -22px 0 -4px var(--icon-primary-color),
+  22px -22px 0 -4px var(--icon-primary-color),
+  22px 22px 0 -4px var(--icon-primary-color);
+box-shadow: 0 30px 0 -4px var(--icon-primary-color),
+  30px 0 0 -4px var(--icon-primary-color),
+  0 -30px 0 -4px var(--icon-primary-color),
+  -30px 0 0 -4px var(--icon-primary-color),
+  -22px 22px 0 -4px var(--icon-primary-color),
+  -22px -22px 0 -4px var(--icon-primary-color),
+  22px -22px 0 -4px var(--icon-primary-color),
+  22px 22px 0 -4px var(--icon-primary-color);
+border-radius: 50%;
+-webkit-transform: scale(0);
+-ms-transform: scale(0);
+transform: scale(0);
+}
+
+.bookmark::before {
+content: "";
+position: absolute;
+border-radius: 50%;
+border: var(--icon-circle-border);
+opacity: 0;
+}
+
+/* actions */
+
+.ui-bookmark:hover .bookmark {
+fill: var(--icon-hover-color);
+}
+
+.ui-bookmark input:checked + .bookmark::after {
+-webkit-animation: circles var(--icon-anmt-duration)
+  cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+animation: circles var(--icon-anmt-duration)
+  cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+-webkit-animation-delay: var(--icon-anmt-duration);
+animation-delay: var(--icon-anmt-duration);
+}
+
+.ui-bookmark input:checked + .bookmark {
+fill: var(--icon-primary-color);
+-webkit-animation: bookmark var(--icon-anmt-duration) forwards;
+animation: bookmark var(--icon-anmt-duration) forwards;
+-webkit-transition-delay: 0.3s;
+-o-transition-delay: 0.3s;
+transition-delay: 0.3s;
+}
+
+.ui-bookmark input:checked + .bookmark::before {
+-webkit-animation: circle var(--icon-anmt-duration)
+  cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+animation: circle var(--icon-anmt-duration)
+  cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+-webkit-animation-delay: var(--icon-anmt-duration);
+animation-delay: var(--icon-anmt-duration);
+}
+
+@-webkit-keyframes bookmark {
+50% {
+  -webkit-transform: scaleY(0.6);
+  transform: scaleY(0.6);
+}
+
+100% {
+  -webkit-transform: scaleY(1);
+  transform: scaleY(1);
+}
+}
+
+@keyframes bookmark {
+50% {
+  -webkit-transform: scaleY(0.6);
+  transform: scaleY(0.6);
+}
+
+100% {
+  -webkit-transform: scaleY(1);
+  transform: scaleY(1);
+}
+}
+
+@-webkit-keyframes circle {
+from {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+90% {
+  width: var(--icon-circle-size);
+  height: var(--icon-circle-size);
+  opacity: 1;
+}
+
+to {
+  opacity: 0;
+}
+}
+
+@keyframes circle {
+from {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+90% {
+  width: var(--icon-circle-size);
+  height: var(--icon-circle-size);
+  opacity: 1;
+}
+
+to {
+  opacity: 0;
+}
+}
+
+@-webkit-keyframes circles {
+from {
+  -webkit-transform: scale(0);
+  transform: scale(0);
+}
+
+40% {
+  opacity: 1;
+}
+
+to {
+  -webkit-transform: scale(0.8);
+  transform: scale(0.8);
+  opacity: 0;
+}
+}
+
+@keyframes circles {
+from {
+  -webkit-transform: scale(0);
+  transform: scale(0);
+}
+40% {
+  opacity: 1;
+}
+to {
+  -webkit-transform: scale(0.8);
+  transform: scale(0.8);
+  opacity: 0;
+}
+}

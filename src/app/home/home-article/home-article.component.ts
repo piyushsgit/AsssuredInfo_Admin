@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { ApiCallService } from 'src/app/Components/Services/api-call.service';
 import { ApicallService } from '../service/apicall.service';
-import { OwlOptions } from 'ngx-owl-carousel-o';
+ 
 
 @Component({
   selector: 'app-home-article',
@@ -89,7 +89,7 @@ export class HomeArticleComponent {
   }
 
   onScroll() {
-    // Detect scroll to bottom and load more data
+    
     const container = document.getElementById('paggi');
     if (container) {
       if (
@@ -172,11 +172,11 @@ export class HomeArticleComponent {
     });
   }
 
-  // Function to generate unique keys for user and article combinations
+ 
   generateKey(userId: number, articleId: number): string {
     return `${userId}_${articleId}`;
   }
-  // Function to toggle bookmark status for a specific user and article
+ 
   toggleBookmark(articleId: number, userId: number) {
     const key = this.generateKey(userId, articleId);
     this.bookmarkStatus[key] = !this.bookmarkStatus[key];

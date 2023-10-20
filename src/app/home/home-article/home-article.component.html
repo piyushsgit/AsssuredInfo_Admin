@@ -4,10 +4,10 @@
       <div class="col-lg-12">
         <blockquote class="blockquote blockquote-custom bg-white p-4 shadow rounded"
           *ngFor="let item of AricleResult; let postIndex = index">
-          <h2 class="d-flex align-item-center justify-content-center" style="color: rgba(94, 113, 175, 255)">
+          <h2 class="d-flex align-item-center justify-content-center" style="color: var(--LBlue);">
             {{ item.tital }}
           </h2>
-          <img class="blockquote-custom-icon bg-info shadow-sm" src="{{ item.avtar_url }}" alt="" />
+          <img class="blockquote-custom-icon bg-info shadow-sm" src="{{ item.avtar_url }}" alt=""/>
           <div class="d-flex row">
             <div [id]="'myCarousel_' + postIndex" class="carousel slide col-6 " data-bs-ride="carousel">
               <ol class="carousel-indicators">
@@ -15,47 +15,50 @@
                   *ngFor="let item of item.idata.split(', ') ; let i = index;" [attr.data-bs-slide-to]="i"
                   class="active"></li>
               </ol>
-              <a class="carousel-control-prev" [attr.href]="'#myCarousel_' + postIndex" role="button"
-                data-bs-slide="prev">
-                <i class="material-symbols-outlined" style="color: black;">
+              <p class="carousel-control-prev" [attr.href]="'#myCarousel_' + postIndex" role="button"
+                data-bs-slide="prev" >
+                <i class="material-symbols-outlined" style="color: rgb(255, 255, 255);">
                   arrow_Back_ios
                 </i>
                 <span class="visually-hidden">Previous</span>
-              </a>
+              </p>
               <div class="carousel-inner">
                 <div *ngFor="let imageName of item.idata.split(', '); let i = index;"
                   [ngClass]="{'carousel-item': true, 'active': i === 0} ">
                   <img [src]="'http://localhost:5105/uploads/' + imageName" alt="Image">
                 </div>
               </div>
-              <a class="carousel-control-next" [attr.href]="'#myCarousel_' + postIndex" role="button"
+              <p class="carousel-control-next" [attr.href]="'#myCarousel_' + postIndex" role="button"
                 data-bs-slide="next">
-                <i class="material-symbols-outlined" style="color: black;">
+                <i class="material-symbols-outlined" style="color: rgb(255, 255, 255);">
                   arrow_forward_ios
                 </i>
                 <span class="visually-hidden">Next</span>
-              </a>
+              </p>
             </div>
             <div class="col-6 d-flex" style="height: 500px; overflow-y: auto;">
-              <div [innerHTML]="
-                item.showFullContent
-                  ? item.mainContent
-                  : (item.mainContent | slice : 0 : 400)
-              " [style.color]="
-                item.showFullContent ? 'color' : 'rgba(94, 113, 175, 255)'
-              ">
+              <div class="d-flex flex-column justify-content-between">
+                <div [innerHTML]="
+                  item.showFullContent
+                    ? item.mainContent
+                    : (item.mainContent | slice : 0 : 990)
+                " [style.color]="
+                  item.showFullContent ? 'color' : '    var(--LBlue);;'
+                ">
               </div>
-              <div class="d-flex justify-content-between">
-                <a class="text-muted" (click)="toggleFullContent(item)">
+              <div class="justify-content-end" *ngIf="item.mainContent.length > 1000">
+
+                <a class="text-muted" style="cursor:pointer;" (click)="toggleFullContent(item)">
                   {{ item.showFullContent ? "View Less" : "View More" }}
                 </a>
+              </div>
 
               </div>
             </div>
             <div class="justify-content-end d-flex">
-              <p class="text-muted" style="font-size: small">
+              <a class="text-muted" style="font-size: small">
                 - {{ item.userName }} on {{ item.createdBy | date }}
-              </p>
+              </a>
             </div>
           </div>
           <footer class="py-4 mt-2 border-top d-flex align-item-center justify-content-between">

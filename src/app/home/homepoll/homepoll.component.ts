@@ -60,8 +60,7 @@ getPollByAddressid(addresstype:any){
     this.homeapiserv.Getpoll(this.obj).subscribe({
       next:(dataobj)=>{
         this.temp=dataobj
-        console.log(this.temp.data);
-        
+        console.log(this.temp.data); 
         const Polls=this.temp.data
         this.formattedPolls = Polls.map((poll:any) => {
           this.options = [];
@@ -119,16 +118,13 @@ else{
   this.messageService.add({ severity: 'error', summary: 'Poll', detail: 'Please Select an Option' });
 }
 }
-getProgressColorClass(progressValue:any): string {
-  if (progressValue < 20) {
+getProgressColorClass(progressValue:number): string {
+  if (progressValue < 40) {
     return 'backgroundlow';  
   } else if (progressValue < 80) {
     return 'backgroundmedium'; 
   } else {
     return 'backgroundhigh'; 
   }
-}
-
-
-
+}  
 }

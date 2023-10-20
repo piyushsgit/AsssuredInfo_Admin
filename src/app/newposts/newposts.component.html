@@ -4,7 +4,7 @@
     <form [formGroup]="formGroup" (submit)="PostButton()">
       <div class="row">
         <div class="col-9 col-xl-9 col-sm-12" >
-          <h2 class="d-flex justify-content-center align-item-center" style="color: rgba(94,113,175,255);">Add
+          <h2 class="d-flex justify-content-center align-item-center" style="color:var(--LBlue); ">Add
             New
             Posts</h2>
           <div class="scroll">
@@ -71,7 +71,7 @@
           </div>
         </div>
         <div class="col-3 mt-5 col-xl-3 col-sm-12">
-          <h2 class="d-flex justify-content-center align-item-center" style="color: rgba(94,113,175,255);">
+          <h2 class="d-flex justify-content-center align-item-center" style="color:   var(--LBlue); ">
             Select An Address to Post</h2>
           <div *ngFor="let item of UserAddresses; let first = first;let i=index">
             <div class="card border mb-4 element-to-change" id="Checked{{i+1}}"
