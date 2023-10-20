@@ -6,7 +6,7 @@ import { LoginComponent } from './Components/login/login.component';
 import { RegisterComponent } from './Components/register/register.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgFor, AsyncPipe } from '@angular/common';
+import { NgFor, AsyncPipe, CommonModule } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -24,6 +24,8 @@ import { SharedModule } from './Components/shared/shared.module';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { LoaderComponent } from './Components/loader/loader.component';
 import { LoaderInterceptor } from './Components/Services/loader-interceptor.service';
+import { HomepageComponent } from './home/homepage/homepage.component';
+import { SafeHtmlPipe } from './safe-html.pipe';
  
 
 
@@ -39,7 +41,7 @@ import { LoaderInterceptor } from './Components/Services/loader-interceptor.serv
     PostsComponent,
     PollsComponent,
     LoaderComponent,
-    
+    SafeHtmlPipe
 
 
   ],
@@ -55,11 +57,14 @@ import { LoaderInterceptor } from './Components/Services/loader-interceptor.serv
     NgFor,
     AsyncPipe,
     HttpClientModule,
+    CommonModule,
     ToastModule,
     SharedModule,
     HomeModule,
     ConfirmDialogModule,
-    
+    FormsModule,
+    CommonModule
+
   ],
   providers: [MessageService, ConfirmationService, {
     provide: HTTP_INTERCEPTORS,

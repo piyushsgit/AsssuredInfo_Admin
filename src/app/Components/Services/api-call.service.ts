@@ -9,59 +9,64 @@ export class ApiCallService {
 
   constructor(private http: HttpClient) { }
 
+  BaseUrl='http://localhost:5105/'
+
   GetUsersById(id: any): Observable<any[]> {
     return this.http.get<any[]>(`http://localhost:5105/User/GetUserBy_Id?id=${id}`)
   }
   GetUsersAddressById(id: any): Observable<any[]> {
-    return this.http.get<any[]>(`http://localhost:5105/User/GetUserAddres_Id?id=${id}`)
+    return this.http.get<any[]>(`${this.BaseUrl}User/GetUserAddres_Id?id=${id}`)
   }
   GetDetailByPincode(Pincode: any): Observable<any[]> {
     return this.http.get<any[]>(`https://api.postalpincode.in/pincode/${Pincode}`)
   }
   AddnewAddress(obj: any) {
-    return this.http.post('http://localhost:5105/User/AddnewAddress', obj)
+    return this.http.post(`${this.BaseUrl}User/AddnewAddress`, obj)
   }
 
   DeleteAddressById(id: any) {
-    return this.http.delete(`http://localhost:5105/User/DeleteAddressById?id=${id}`)
+    return this.http.delete(`${this.BaseUrl}User/DeleteAddressById?id=${id}`)
   }
   UpdateUserInfo(obj: any) {
-    return this.http.post('http://localhost:5105/User/UpdateUserInfo', obj)
+    return this.http.post(`${this.BaseUrl}User/UpdateUserInfo`, obj)
   }
   updateuserAddess(obj: any) {
-    return this.http.post('http://localhost:5105/User/updateuserAddess', obj)
+    return this.http.post(`${this.BaseUrl}User/updateuserAddess`, obj)
   }
   Registraion(obj: any) {
-    return this.http.post('http://localhost:5105/User/Registration', obj)
+    return this.http.post(`${this.BaseUrl}User/Registration`, obj)
   }
-  AddnewArticle(formData: FormData) {
-    return this.http.post('http://localhost:5105/Posts/AddnewArticle', formData);
+
+  AddnewArticle(obj:any)
+  {
+   return this.http.post(`${this.BaseUrl}Posts/AddnewArticle`,obj)
+
   }
 
   GetArticleByUserId(id:any):Observable<any[]>
   {
-   return this.http.get<any[]>(`http://localhost:5105/Posts/GetArticleById?id=${id}`)
+   return this.http.get<any[]>(`${this.BaseUrl}Posts/GetArticleById?id=${id}`)
   }
   AddNewPolls(obj:any)
   {
-   return this.http.post('http://localhost:5105/Posts/AddNewPolls',obj)
+   return this.http.post(`${this.BaseUrl}Posts/AddNewPolls`,obj)
   }
   GetPollsByUserId(id:any):Observable<any[]>
   {
-   return this.http.get<any[]>(`http://localhost:5105/Posts/GetpollbyuserId?id=${id}`)
+   return this.http.get<any[]>(`${this.BaseUrl}Posts/GetpollbyuserId?id=${id}`)
   }
 
   PollSubmit(obj:any)
   {
-   return this.http.post('http://localhost:5105/Posts/PollSubmit',obj)
+   return this.http.post(`${this.BaseUrl}Posts/PollSubmit`,obj)
   }
  
   EmailVerification(obj:any)
   {
-   return this.http.post('http://localhost:5105/User/SendOTP',obj)
+   return this.http.post(`${this.BaseUrl}User/SendOTP`,obj)
   }
   OtpVerification(obj:any)
   {
-   return this.http.post('http://localhost:5105/User/CheckOTP',obj)
+   return this.http.post(`${this.BaseUrl}User/CheckOTP`,obj)
   }
 }

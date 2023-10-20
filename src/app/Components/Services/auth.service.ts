@@ -40,14 +40,18 @@ export class AuthService {
     const expiresAt = new Date(authResult.data.tokenExpiryTime);
     localStorage.setItem('id_token', authResult.data.jwtToken);
     localStorage.setItem('expires_at', expiresAt.toString()||'0001-01-01T00:00:00');
+    localStorage.setItem('UserName',authResult.data.userName)
     localStorage.setItem('userId', authResult.data.userId.toString());
     localStorage.setItem('email',authResult.data.email)
+    localStorage.setItem('avtar_Url',authResult.data.avtar_Url)
   } 
 logout() {
     localStorage.removeItem("id_token");
     localStorage.removeItem("expires_at");
     localStorage.removeItem("userId");
     localStorage.removeItem("email");
+    localStorage.removeItem('avtar_Url');
+    localStorage.removeItem('UserName');
     this.router.navigateByUrl('');
 }
 

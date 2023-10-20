@@ -14,7 +14,7 @@ export class LoadingService {
   }
  
   hide() {
-    timer(1000).pipe(
+    timer(0).pipe(
       switchMap(() => {
         this.loadingSubject.next(false);
         return timer(0); 
