@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './Components/login/login.component';
 import { RegisterComponent } from './Components/register/register.component';
 import { ProfileComponent } from './Components/ProfileComponents/profile/profile.component';
@@ -8,6 +8,7 @@ import { PostsComponent } from './Components/ProfileComponents/posts/posts.compo
 import { NewpostsComponent } from './newposts/newposts.component';
 import { AuthGuard } from './Components/Guard/auth.guard';
 import { NewpollComponent } from './newpoll/newpoll.component';
+import { NationalnewsComponent } from './nationalnews/nationalnews.component';
 
 
 const routes: Routes = [
@@ -21,9 +22,9 @@ const routes: Routes = [
     loadChildren: () => import('./home/home-routing.module').then((m) => m.HomeRoutingModule)
   },
   {path:'newpost',component:NewpostsComponent },
-  {path:'newpoll',component:NewpollComponent }
+  {path:'newpoll',component:NewpollComponent },
+  {path:'nationalnews',component:NationalnewsComponent }
 ];
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

@@ -1,0 +1,97 @@
+/* Add a class to style the card body */
+.card-body-content {
+    max-height: 400px; /* Set a maximum height for the card */
+    overflow-y: auto; 
+    overflow-x: hidden;
+}
+
+.card-body-content::-webkit-scrollbar {
+    width: 4px; /* Set the width of the scrollbar */
+    height: 4px; /* Set the height of the scrollbar for x-scrollbar */
+}
+
+.card-body-content::-webkit-scrollbar-thumb {
+    background-color: #aaa; /* Set the color of the scrollbar thumb */
+    border-radius: 6px; /* Set the border-radius to make the thumb round */
+}
+
+.card-body-content::-webkit-scrollbar-track {
+    background-color: #fafafa; /* Set the color of the scrollbar track */
+    border-radius: 4px; /* Set the border-radius to match the thumb */
+}
+  .heart-like-button {
+    position: relative;
+    width: 32px; /* 80% of the original width */
+    height: 26px; /* 80% of the original height */
+}
+#replycomment{
+    background-color: #eee;
+    border: 9px;
+}
+.heart-like-button:before {
+    position: absolute;
+    top: 0;
+    left: 16px; /* 80% of the original left position */
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+    width: 16px; /* 80% of the original width */
+    height: 25px; /* 80% of the original height */
+    border-radius: 8px 8px 0 0; /* 80% of the original border-radius */
+    background-color: #574136;
+    content: "";
+    cursor: pointer;
+    transition: background .4s;
+}
+
+.heart-like-button:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin :100% 100%;
+    width: 16px; /* 80% of the original width */
+    height: 25px; /* 80% of the original height */
+    border-radius: 8px 8px 0 0; /* 80% of the original border-radius */
+    background-color: #574136;
+    content: "";
+    cursor: pointer;
+    transition: background .4s;
+}
+
+h1 {
+    margin: 0;
+    color: #574136;
+    font-size: 2.4rem; /* 80% of the original font size */
+    letter-spacing: 0.8px; /* 80% of the original letter-spacing */
+    text-align: center;
+}
+
+.heart-like-button.liked::before,
+.heart-like-button.liked::after {
+    background-color: #d65076;
+}
+
+.heart-like-button.liked {
+    animation: liked .4s ease;
+}
+
+@keyframes liked {
+    0% {
+        transform: scale(.8);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #container {
+        height: auto;
+    }
+    h1 {
+        font-size: 1.92rem; /* 80% of the original font size */
+    }
+}

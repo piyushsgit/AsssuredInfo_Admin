@@ -1,7 +1,12 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+
+
+
+import { Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild } from '@angular/core';
 import { ApiCallService } from 'src/app/Components/Services/api-call.service';
 import { ApicallService } from '../service/apicall.service';
- 
+import { AddressServiceService } from '../service/address-service.service';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-home-article',
@@ -9,6 +14,7 @@ import { ApicallService } from '../service/apicall.service';
   styleUrls: ['./home-article.component.css']
 })
 export class HomeArticleComponent {
+
   @ViewChild('carousel', { static: false }) carousel: any;
   slideConfig = { "slidesToShow": 4, "slidesToScroll": 4 };
   pageIndex = 1;
@@ -16,6 +22,7 @@ export class HomeArticleComponent {
   @Input() images: string[]=[];
   activeIndex = 0; 
   isLoading = false;
+
   tempid = localStorage.getItem('userId');
   id = this.tempid !== null ? parseInt(this.tempid) : 0;
   temp: any
@@ -26,68 +33,73 @@ export class HomeArticleComponent {
   temporayAddress: any
   isGreen: boolean = false;
   isRed: boolean = false;
+  searchtext:any
   bookmarkStatus: { [key: string]: boolean } = {};
-  
-  constructor(private ApiService: ApiCallService, private homeapiserv: ApicallService) { }
-
-  ngOnInit() {
-    this.GetUserAddrssById()
-
+ constructor(private ApiService:ApiCallService,private homeapiserv:ApicallService
+  ,private addressService: AddressServiceService, private dataService:AddressServiceService,
+  private route:ActivatedRoute  ){
+    
   }
+  showComments: boolean[] = [];
 
-  generateCarouselId(index: number): string {
-    return 'myCarousel_' + index;
+  ngOnInit(){
+    this.route.queryParams.subscribe(params => {
+      this.searchtext = params['searchText'];
+      if(this.searchtext==undefined || null){
+        this.GetUserAddrssById()
+      }
+      else{
+        this.getArticleByAddress('Search')
+      }
+    });
+   
   }
-
- 
+generateCarouselId(index: number): string {
+  return 'myCarousel_' + index;
+}
   toggleFullContent(item: any) {
     item.showFullContent = !item.showFullContent;
   }
   GetUserAddrssById() {
-    this.ApiService.GetUsersAddressById(this.id).subscribe({
-      next: (dataobj) => {
-        this.temp = dataobj;
-        this.UserAddresses = this.temp.data;
-        this.primaryAddress = this.UserAddresses.find(
-          (address: any) => address.isPrimary === true
-          );
-          this.temporayAddress = this.UserAddresses.filter((address: any) => address !== this.primaryAddress);
-          this.getArticleByAddressid('primary')
-          
+    this.addressService.selectedAddressId$.subscribe(addressId => {
+      this.selectedAddressId = addressId;
+      this.getArticleByAddress('primary')
+    });
+  }
+
  
-      },
-      error: (e) => {
-        console.log(e);
-      },
-    });
-  }
 
-  getArticleByAddressid(addresstype: any) {
-    if (addresstype == 'primary') {
-      this.obj = {
-        addressId: this.primaryAddress.mainaddressid,
-        searchText: '',
-        pageSize: 10,
-        pageIndex: this.pageIndex,
-        filter: 1
-      };
-    }
-    this.isLoading = true;
-
-    this.homeapiserv.GetArticle(this.obj).subscribe({
-      next: (dataobj) => {
-        this.temp = dataobj;
-        this.AricleResult = this.AricleResult.concat(this.temp.data);
-        console.log(this.AricleResult);
-        this.getArticleDetailLikeDislike();
-        this.isLoading = false;
-      },
-      error: (error) => {
-        this.isLoading = false;
+  selectedAddressId: any 
+  getArticleByAddress(addresstype:any){
+    if(addresstype=='primary'){
+       this.obj={
+         addressId : this.selectedAddressId,
+          searchText : '' ,
+         pageSize : 10,
+         pageIndex : 1,
+          filter : 1
       }
-    });
+    }
+    if(addresstype=='Search'){
+      this.obj = {
+        addressId: null,
+        searchText: this.searchtext,
+        pageSize: 10,
+        pageIndex: 1,
+        filter: 1,
+      };
+   }
+      this.homeapiserv.GetArticle(this.obj).subscribe({
+        next:(dataobj)=>{
+          this.temp=dataobj
+          this.AricleResult=this.temp.data
+          console.log(this.AricleResult);
+          this.showComments = Array(this.AricleResult.length).fill(false);
+          this.getArticleDetailLikeDislike()
+        }
+      })
+ 
   }
-
   onScroll() {
     
     const container = document.getElementById('paggi');
@@ -98,12 +110,11 @@ export class HomeArticleComponent {
       ) {
         if (!this.isLoading) {
           this.pageIndex++;
-          this.getArticleByAddressid('primary');
+          this.getArticleByAddress('primary');
         }
       }
     }
   }
-
   toggleLike(item: any) {
 
     if (!item.isLiked) {
@@ -230,5 +241,13 @@ export class HomeArticleComponent {
       },
     });
   }
+
+
+  
+ toggleCommentSection(index: number, id: any): void {
+  this.showComments = this.showComments.map((showComment, i) => (i === index ? !showComment : false));
+  this.addressService.setArticleId(id);
+}
+
 
 }

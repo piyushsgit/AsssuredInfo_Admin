@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { ApiCallService } from 'src/app/Components/Services/api-call.service';
 import { ApicallService } from '../service/apicall.service';
 import { MessageService } from 'primeng/api';
+import { AddressServiceService } from '../service/address-service.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-homepoll',
@@ -10,7 +12,9 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./homepoll.component.css']
 })
 export class HomepollComponent {
-  constructor(private ApiService:ApiCallService,private homeapiserv:ApicallService, private messageService: MessageService){
+  constructor(private ApiService:ApiCallService,private homeapiserv:ApicallService,
+     private messageService: MessageService,private addressService:AddressServiceService,
+     private route:ActivatedRoute){
   }
   temp:any
   options:any
@@ -19,44 +23,51 @@ export class HomepollComponent {
   id = this.tempid !== null ? parseInt(this.tempid) : 0;
   formattedPolls:any
   radioValues: string[][] = [];
-  UserAddresses:any
-  primaryAddress:any
-  temporayAddress:any
   obj:any
   PollResult:any
+  selectedAddressId:any
+  searchtext:any
 ngOnInit(){
-  this.GetUserAddrssById()
-}
 
-
-isFormSubmitted: boolean = false;
-
-GetUserAddrssById() {
-  this.ApiService.GetUsersAddressById(this.id).subscribe({
-    next: (dataobj) => {
-      this.temp = dataobj;
-      this.UserAddresses = this.temp.data;
-      this.primaryAddress = this.UserAddresses.find(
-        (address: any) => address.isPrimary === true
-      );
-      this.temporayAddress = this.UserAddresses.filter((address: any) => address !== this.primaryAddress);
-      this.getPollByAddressid('primary')
-    },
-    error: (e) => {
-      console.log(e);
-    },
+  this.route.queryParams.subscribe(params => {
+    this.searchtext = params['searchText'];
+    if(this.searchtext==undefined || null){
+      this.GetUserAddrssById()
+    }
+    else{
+      this.getPollByAddress('Search')
+    }
   });
 }
-getPollByAddressid(addresstype:any){
+
+
+
+
+GetUserAddrssById() {
+  this.addressService.selectedAddressId$.subscribe(addressId => {
+    this.selectedAddressId = addressId;
+    this.getPollByAddress('primary')
+  });
+}
+getPollByAddress(addresstype:any){
   if(addresstype=='primary'){
      this.obj={
-       addressId : this.primaryAddress.mainaddressid,
-        searchText : '' ,
+       addressId : this.selectedAddressId,
+        searchText : '',
        pageSize : 10,
        pageIndex : 1,
         filter : 1
     }
   }
+  if(addresstype=='Search'){
+    this.obj = {
+      addressId: null,
+      searchText: this.searchtext,
+      pageSize: 10,
+      pageIndex: 1,
+      filter: 1,
+    };
+ }
     this.homeapiserv.Getpoll(this.obj).subscribe({
       next:(dataobj)=>{
         this.temp=dataobj
@@ -90,7 +101,7 @@ getPollByAddressid(addresstype:any){
 
 
 onPollSubmit(index: number,item:any) {
-debugger
+  debugger
   const index2 = item.options.indexOf(this.radioValues[index]);
   if(index2>=0){
   const obj={
@@ -126,5 +137,9 @@ getProgressColorClass(progressValue:number): string {
   } else {
     return 'backgroundhigh'; 
   }
+
 }  
+
 }
+
+

@@ -18,4 +18,8 @@ export class ApicallService {
   ManageLikeDislike(obj:any){
     return this.http.post('http://localhost:5105/Posts/LikeDislike',obj)
   }
+
+  AddComment(obj:any){
+    return this.http.post('http://localhost:5105/Comments/AddComment',obj)
+  }
 }

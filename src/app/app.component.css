@@ -1,6 +1,6 @@
 input {
-background: transparent;
-color: white;
+  background: transparent;
+  color: white;
 }
 input:focus {
     background: transparent;
@@ -17,3 +17,4 @@ input:focus {
              p{
                margin: 0;
                  }
+

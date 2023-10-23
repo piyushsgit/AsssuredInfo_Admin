@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+      <section class="py-5">
+        <div class="container-fluid">
+          <div class="row mt-3">
+            <div class="col-lg-12">
+              <blockquote class="blockquote blockquote-custom bg-white p-4 shadow rounded" *ngFor="let item of news">
+                <h2 class="d-flex align-item-center justify-content-center" style="color: rgba(94, 113, 175, 255)">
+                  {{ item.title }}
+                </h2>
+                <div style="color: #242691;" class="d-flex align-item-center justify-content-center my-3">
+                  {{ item.description }}
+                </div>
+                <div class="my-3 row">
+                  <div class="col-3"></div>
+                  <div class="col-6 d-flex justify-content-center align-items-center">
+                    <img class="img-fluid" style="max-width: 100%;" src="{{ item.urlToImage }}" alt="" />
+                  </div>
+                  <div class="col-3"></div>
+                </div>
+                <div [innerHTML]="item.content" class="text-muted my-3"></div>
+                <div class="d-flex justify-content-between border-top">
+                  <div>
+                    <p class="text-muted" style="font-size: small">
+                      - {{ item.source.name }} on {{ item.publishedAt | date }}
+                    </p>
+                  </div>
+                </div>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="col-2"></div>
+  </div>
+</div>
