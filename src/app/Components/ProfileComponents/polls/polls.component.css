@@ -65,15 +65,14 @@ background-color: var(--DBlue);
 border: 1px solid white;
 contain: 'Res';
     }
-    button::before{
+    .btn-outline-dark::before{
       display: flex;
-      content: 'Response?';
+      content: 'Response';
           }
           button{
             display: flex;
             flex-direction: row-reverse; 
-                }
-                .bg_blur{
-                  background-color: aliceblue;
-
+                } 
+                .card{
+                  background-color: var(--DBlue);
                 }

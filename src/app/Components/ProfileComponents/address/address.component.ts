@@ -1,9 +1,9 @@
-import { Component, DebugElement, EventEmitter, Output, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component,EventEmitter, Input, Output} from '@angular/core';
+import { FormControl} from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
 import { User } from 'src/app/Models/user';
 import { ApiCallService } from '../../Services/api-call.service';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+
 
 @Component({
   selector: 'app-address',
@@ -13,6 +13,12 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 })
 export class AddressComponent {
   fullAddress:any='';
+  @Input() childValue= {
+    pinccode: '',
+    district:'',
+    fullAddress:''
+
+  };;
   postalcode:any
   loaderActive = false;
   pincode:any
@@ -34,8 +40,7 @@ export class AddressComponent {
     this.filteredOptions = new Observable<User[]>();
    }
 
-  ngOnInit(){
- 
+  ngOnInit(){ 
     this.filteredOptions = this.myControl.valueChanges.pipe(
      startWith(''),
      map(value => {
@@ -108,6 +113,8 @@ export class AddressComponent {
     state: this.SelectedPostalCodeData.Circle,
     district: this.SelectedPostalCodeData.Block
     }
+ console.log(obj);
+ 
  
     this.ApiService.AddnewAddress(obj).subscribe({
       next: (dataobj) => {

@@ -1,5 +1,5 @@
-<div > 
-    <div class="container-fluid" >
+<div> 
+    <div class="container-fluid" style="height: 100vh;">
       <div class="row">
         <div class="col-1"></div>
         <div class="col-lg-3 p-0">
@@ -28,7 +28,7 @@
                     <button *ngIf="follow==true" class="btn btn-outline-light" (click)="FollowClick()" >Follow</button>
                     <button *ngIf="follow==false" class="btn btn-outline-light" (click)="UnFollowClick()">UnFollow</button>
                   </div>
-                  <li class=" m-2">
+                  <li class=" px-5 mt-2">
                     <div class="progress">
                       <div class="progress-bar" [style.width.%]="progressValue" [ngClass]="getProgressColorClass()" role="progressbar"> 
                       </div>

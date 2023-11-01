@@ -1,7 +1,5 @@
 import {
-  Component,
-  EventEmitter,
-  Output,
+  Component,  
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -16,6 +14,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class AboutComponent {
   tempid = localStorage.getItem('userId');
+  editAddressData: any;
+ 
   id = this.tempid !== null ? parseInt(this.tempid) : 0;
   temp: any;
   UserData: any;
@@ -35,8 +35,7 @@ export class AboutComponent {
   ngOnInit() {
     this.GetUserById();
     this.GetUserAddrssById();
-  }
-
+  } 
   GetUserById() {
     this.ApiService.GetUsersById(this.id).subscribe({
       next: (dataobj) => {
@@ -57,6 +56,8 @@ export class AboutComponent {
           (address: any) => address.isPrimary === true
         );
         this.temporayAddress = this.UserAddresses.filter((address: any) => address !== this.primaryAddress);
+        console.log(dataobj);
+        
       },
       error: (e) => {
         console.log(e);
@@ -70,18 +71,18 @@ export class AboutComponent {
     this.isNewAddress=eventData;
     this.ngOnInit()
   }
-  editAddressData: any;
+
   @ViewChild(AddressComponent, { static: false })
   childComponent!: AddressComponent;
 
   EditAddress(address_id: any) {
     this.isNewAddress = true;
     this.editAddressData = this.UserAddresses.find(
-      (x: any) => x.addressId == address_id
-    );
-    this.childComponent.EditAddress(this.editAddressData);
-  }
-
+      (x: any) => x.id == address_id
+    ); 
+ 
+ 
+  } 
   DeleteAddressById(id: any) {
     if (confirm('Sure want to delete')) {
       this.ApiService.DeleteAddressById(id).subscribe({
@@ -123,7 +124,6 @@ export class AboutComponent {
       next: (dataobj) => {
         this.temp=dataobj
         if(this.temp.success){
-          
           alert("Updated Successfully")
         this.ngOnInit()
         }

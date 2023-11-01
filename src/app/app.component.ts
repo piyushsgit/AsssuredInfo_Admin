@@ -20,7 +20,7 @@ export class AppComponent {
   shouldShowNavbar(): boolean { 
     const currentRoute = this.router.url;
     return currentRoute !== '/' && currentRoute !== '/Register' ;
-    // && currentRoute !=='/searchresult'
+   
   }
   SearchAddress(){
     this.router.navigate(['/homepage'], {

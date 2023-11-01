@@ -109,7 +109,7 @@ export class RegisterComponent {
       postalAddress:['',[Validators.required]],
       state:'',
       district:'',
-       fullAddress:['',[Validators.required]]
+      fullAddress:['',[Validators.required]]
     });
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
