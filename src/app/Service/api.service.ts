@@ -13,4 +13,7 @@ export class ApiService {
   {
    return this.http.get<any>('https://newsapi.org/v2/top-headlines?country=in&apiKey=4049b04a911d4d2fa7b76a9bc7c6d5f5')
   }
+  GetNotification(Obj:any):Observable<any[]>{
+    return this.http.post<any>('http://localhost:5105/Follow/ManageNotification',Obj)
+  }
 }

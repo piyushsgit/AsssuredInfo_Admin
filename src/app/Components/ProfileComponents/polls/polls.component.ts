@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl } from '@angular/forms';
 import { ApiCallService } from '../../Services/api-call.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ProfileredirectService } from '../../shared/profileredirect.service';
 
 @Component({
   selector: 'app-polls',
@@ -9,7 +10,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./polls.component.css']
 })
 export class PollsComponent {
-  constructor(private fb: FormBuilder,private apicall:ApiCallService,private router:Router) {}
+  constructor(private fb: FormBuilder,private apicall:ApiCallService,private router:Router,
+    private profileredirect:ProfileredirectService,private route:ActivatedRoute) {}
   myForm:any 
   opt:number=1 
   item: any
@@ -17,9 +19,10 @@ export class PollsComponent {
   options:any
   optionsPercentage:any
   tempid = localStorage.getItem('userId');
+  userName=localStorage.getItem('UserName');
   id = this.tempid !== null ? parseInt(this.tempid) : 0;
   formattedPolls:any
-
+  OwnProfile=true
   ngOnInit() {
     this.myForm = this.fb.group({
       question: '',
@@ -27,8 +30,19 @@ export class PollsComponent {
       opt2:'',
       options: this.fb.array([]),
     });
-    this.GetPollsByuserId()
-    this.item.Response='See';
+    this.route.queryParams.subscribe(params => {
+      if(params['View']!==undefined || null){
+        if(this.userName===params['View']){
+          this.OwnProfile=true
+        }
+        else{ this.OwnProfile=false }
+        this.GetUserByUserName(params['View'])
+      }
+      else{
+        this.OwnProfile=true
+        this.GetPollsByuserId()
+      }
+    });
   }
   NewPolls(){
     this.router.navigate(['newpoll'])
@@ -43,7 +57,21 @@ export class PollsComponent {
     else
       items.Response='Hide'; 
   }
- 
+  GetUserByUserName(username:string){
+    debugger
+    this.apicall.GetUserByUserName(username).subscribe({
+      next: (dataobj) => {
+        debugger
+        this.temp=dataobj
+        this.id=this.temp.data[0].userId
+        this.GetPollsByuserId()
+      },
+      error:(e)=>{
+        console.log(e);
+      }
+      });
+  }
+
   addOption() {
     if(this.opt<3){
       this.optionsFormArray.push(new FormControl(''));

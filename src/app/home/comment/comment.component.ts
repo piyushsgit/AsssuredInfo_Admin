@@ -333,7 +333,6 @@ export class CommentComponent {
         this.temp = dataobj;
         console.log(this.temp.data)
         this.temp.data.forEach((item:any) => {
-          debugger
           const button = document.querySelector(`#like${item.id}`);
           button?.classList.add('liked');
       });

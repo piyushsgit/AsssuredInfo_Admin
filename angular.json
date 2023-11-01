@@ -93,9 +93,7 @@
               "@angular/material/prebuilt-themes/pink-bluegrey.css",
               "src/styles.css",
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-              "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/quill/dist/quill.core.css",
-              "node_modules/quill/dist/quill.snow.css"
+              "node_modules/primeng/resources/primeng.min.css"
             ],
             "scripts": []
           }
@@ -106,5 +104,5 @@
   "cli": {
     "analytics": "5c6c3c55-7f8c-423a-8446-165b83ca1348"
   }
-  
+ 
 }

@@ -37,11 +37,11 @@ input[type='radio']{
   }
   /* Background color for selected card */
   .selected-card {
-    background-color: rgba(94,113,175,255) !important;
+    background-color: var(--DBlue) !important;
     color: white; /* Change to the desired background color */
   }
   #Post{
-    background-color: rgba(94, 113, 175, 255);
+    background-color: var(--DBlue);
     color: white;
     border: 3px solid white;
     width: 150px;
@@ -50,12 +50,12 @@ input[type='radio']{
     cursor: pointer;
     transition: color 0.3s, background-color 0.3s, border-color 0.3s;
   }
-  #title{
+#title{
     font-size: 150% ;
     font-weight:500;
-    color: rgba(94, 113, 175, 255);;
+    color: rgba(94, 113, 175, 255);
   }
-  .inputGroup {
+.inputGroup {
     font-family: 'Segoe UI', sans-serif;
     margin: 1em 0 1em 0;
     background-color: white;
@@ -65,18 +65,34 @@ input[type='radio']{
     position: relative;
     
   }
-  .form-control:focus {
-    border-color: 1px rgba(94, 113, 175, 255);;
+.form-control:focus {
+    border-color: 1px rgba(94, 113, 175, 255);
     box-shadow: none;
     border: none;
 }
 .custom::placeholder{
-    color: rgba(94, 113, 175, 255);;
-}
-.scroll{
-overflow-y: auto;
-height:  700px;
+    color: rgba(94, 113, 175, 255);
 }
 
 
 
+.scroll {
+  max-height: 700px; /* Set a maximum height for the card */
+  overflow-y: auto; 
+  overflow-x: hidden;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 4px; /* Set the width of the scrollbar */
+  height: 4px; /* Set the height of the scrollbar for x-scrollbar */
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background-color: #aaa; /* Set the color of the scrollbar thumb */
+  border-radius: 6px; /* Set the border-radius to make the thumb round */
+}
+
+.scroll::-webkit-scrollbar-track {
+  background-color: #fafafa; /* Set the color of the scrollbar track */
+  border-radius: 4px; /* Set the border-radius to match the thumb */
+}

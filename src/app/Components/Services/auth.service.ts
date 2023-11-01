@@ -5,13 +5,14 @@ import { Router } from '@angular/router';
 import * as moment from 'moment'; 
 import { Observable, shareReplay, tap } from 'rxjs';
 import { User } from 'src/app/Models/user';
+import { SignalrserviceService } from 'src/app/home/service/signalrservice.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   
-  constructor(private http: HttpClient,private router:Router) { 
+  constructor(private http: HttpClient,private router:Router,private signalr:SignalrserviceService) { 
     
   }
 
@@ -53,6 +54,7 @@ logout() {
     localStorage.removeItem('avtar_Url');
     localStorage.removeItem('UserName');
     this.router.navigateByUrl('');
+    this.signalr.closeConnection()
 }
 
 public isLoggedIn() {

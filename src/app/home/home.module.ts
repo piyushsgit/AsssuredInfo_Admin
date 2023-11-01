@@ -20,11 +20,7 @@ import { CommentComponent } from './comment/comment.component';
 @NgModule({
   declarations: [
     HomepageComponent,
-    HomeArticleComponent,
-    HomepollComponent,
-    CommentComponent,
-    
-
+    HomepollComponent
   ],
   providers: [AuthGuard, MessageService, ConfirmationService,DialogService],
   imports: [
@@ -38,8 +34,7 @@ import { CommentComponent } from './comment/comment.component';
     DialogModule,
     InputTextModule,
     NgOtpInputModule,
-    ReactiveFormsModule,
-    SharedModule
+    SharedModule,
   ]
 })
 export class HomeModule { }

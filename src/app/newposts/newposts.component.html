@@ -1,10 +1,11 @@
-<div class="row">
+
+<div class="row ">
   <div class="col-1"></div>
   <div class="col-10">
     <form [formGroup]="formGroup" (submit)="PostButton()">
       <div class="row">
         <div class="col-9 col-xl-9 col-sm-12" >
-          <h2 class="d-flex justify-content-center align-item-center" style="color:var(--LBlue); ">Add
+          <h2 class="d-flex justify-content-center align-item-center" style="color:var(--DBlue); ">Add
             New
             Posts</h2>
           <div class="scroll">
@@ -30,7 +31,7 @@
             </div>
             <div class="editor">
               <p-editor #editor formControlName="text" required name="comment" class="pEditor"
-                [style]="{ height: '520px', 'font-size': '1.3em' }">
+                [style]="{ height: '390px', 'font-size': '1.3em'  }">
                 <p-header>
                   <span class="ql-formats">
                     <select class="ql-header" tabindex="-1">
@@ -50,10 +51,10 @@
                   </span>
                   <span class="ql-formats">
                     <input type="file" class="d-none custom-file-input" id="image" formControlName="image" (change)="onFileSelected($event)" accept="image/*" multiple>
-                    <label class="custom-file-label" for="image"><i class="material-symbols-outlined">image</i></label>
+                    <label class="custom-file-label" for="image"><i class="material-symbols-outlined text-muted mt-1">image</i></label>
                   </span>
-                  <div class="p-auto" style="background-color: rgb(186, 161, 255);">
-                    <div class="image-preview d-flex justify-content-start align-item-center" style="overflow-x: auto; " >
+                  <div class="p-auto" tabindex="-1" style=" background-color:transparent">
+                    <div class="image-preview d-flex justify-content-center align-item-center" style="overflow-x: auto;">
                       <div *ngFor="let file of selectedFiles" >
                         <img [src]="file.url" alt="Selected Image" style="width: 150px; height: 150px; border-radius: 20px; object-fit: cover;" class="selected-image  m-2">
                       </div>
@@ -65,13 +66,13 @@
                 [ngClass]="{'d-none': !formGroup.get('text')?.invalid || !(formGroup.get('text')?.dirty || formGroup.get('text')?.touched)}"
                 class="text-danger position-absolute">Please enter the article</label>
             </div>
-            <div class="input-group  d-flex align-item-end justify-content-end mt-3">
-              <button type="submit" class="btn border-0" id="Post">Post</button>
-            </div>  
           </div>
+          <div class="input-group  d-flex align-item-end justify-content-center mt-5">
+            <button type="submit" class="btn border-0" id="Post">Post</button>
+          </div>  
         </div>
         <div class="col-3 mt-5 col-xl-3 col-sm-12">
-          <h2 class="d-flex justify-content-center align-item-center" style="color:   var(--LBlue); ">
+          <h2 class="d-flex justify-content-center align-item-center" style="color:   var(--DBlue); ">
             Select An Address to Post</h2>
           <div *ngFor="let item of UserAddresses; let first = first;let i=index">
             <div class="card border mb-4 element-to-change" id="Checked{{i+1}}"

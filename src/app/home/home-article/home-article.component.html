@@ -1,20 +1,19 @@
-<section class="py-5">
-  <div class="container-fluid">
+<section class="pb-5 pt-3">
+  <div class="container-fluid ">
     <div class="col-6"></div>
     <div class="row mt-3">
       <div class="col-lg-12">
-
         <blockquote class="blockquote blockquote-custom bg-white p-4 shadow rounded"
           *ngFor="let item of AricleResult; let postIndex = index">
-          <h2 class="d-flex align-item-center justify-content-center" style="color: var(--LBlue);">
+          <h2 class="d-flex align-item-center justify-content-center" style="color: var(--DBlue);">
             {{ item.tital }}
           </h2>
-          <img class="blockquote-custom-icon bg-info shadow-sm" src="{{ item.avtar_url }}" alt=""/>
+          <img class="blockquote-custom-icon bg-info shadow-sm" (click)="ProfileRedirect(item.userName)" src="{{ item.avtar_url }}" alt=""/>
           <div class="d-flex row">
             <div [id]="'myCarousel_' + postIndex" class="carousel slide col-6 " data-bs-ride="carousel">
-              <ol class="carousel-indicators">
+              <ol class="carousel-indicators" *ngIf="item?.idata">
                 <li [attr.data-bs-target]="'#myCarousel_' + postIndex"
-                  *ngFor="let item of item.idata.split(', ') ; let i = index;" [attr.data-bs-slide-to]="i"
+                  *ngFor="let item of item?.idata.split(', ') ; let i = index;" [attr.data-bs-slide-to]="i"
                   class="active"></li>
               </ol>
               <p class="carousel-control-prev" [attr.href]="'#myCarousel_' + postIndex" role="button"
@@ -26,7 +25,7 @@
 
               </p>
               <div class="carousel-inner">
-                <div *ngFor="let imageName of item.idata.split(', '); let i = index;"
+                <div *ngFor="let imageName of item.idata?.split(', '); let i = index;"
                   [ngClass]="{'carousel-item': true, 'active': i === 0} ">
                   <img [src]="'http://localhost:5105/uploads/' + imageName" alt="Image">
                 </div>
@@ -39,12 +38,12 @@
                 <span class="visually-hidden">Next</span>
               </p>
             </div>
-            <div class="col-6 d-flex" style="height: 500px; overflow-y: auto;">
+            <div class="col-6 d-flex scrollable-component" style="height: 500px;">
               <div class="d-flex flex-column justify-content-between">
                 <div [innerHTML]="
                   item.showFullContent
                     ? item.mainContent
-                    : (item.mainContent | slice : 0 : 990)
+                    : (item.mainContent | slice : 0 : 1100)
                 " [style.color]="
                   item.showFullContent ? 'color' : '    var(--LBlue);;'
                 ">
@@ -82,7 +81,8 @@
                 <span class="material-symbols-outlined">comment</span>
               </button>
             </div>
-            <label class="ui-bookmark">
+            <div class="d-flex align-item-center justify-content-center">
+            <label class="ui-bookmark px-2">
               <input type="checkbox" [checked]="item.isBookmark" id="myCheckbox_{{ item.articleid }}"
                 [(ngModel)]="bookmarkStatus[generateKey(item.articleid, id)]"
                 (click)="toggleBookmark(item.articleid, id)" />
@@ -96,7 +96,12 @@
                 </svg>
               </div>
             </label>
-
+            <div *ngIf="item.userId==Userid && UserProfile=='ShowArticle'" class="delete" style="cursor: pointer;" (click)="DeleteArticle(item.articleid)">
+              <span class="material-symbols-outlined">
+                delete
+              </span>
+            </div>
+          </div>
            </div>
             <div *ngIf="showComments[postIndex]">
               <app-comment></app-comment>

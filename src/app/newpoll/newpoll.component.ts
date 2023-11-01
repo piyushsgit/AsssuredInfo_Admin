@@ -24,10 +24,10 @@ export class NewpollComponent {
   constructor(private ApiService: ApiCallService,private router:Router,private fb:FormBuilder){}
   ngOnInit() {
     this.myForm = this.fb.group({
-      question: '',
-      opt1:'',
-      opt2:'',
-      options: this.fb.array([]),
+      question: ['', [Validators.required, Validators.maxLength(299)]],
+      opt1: ['', [Validators.required, Validators.maxLength(49)]],
+      opt2: ['', [Validators.required, Validators.maxLength(49)]],
+      options: this.fb.array([])
     });
     this.GetUserAddrssById()
   }
@@ -38,7 +38,7 @@ export class NewpollComponent {
 
   addOption() {
     if(this.opt<3){
-      this.optionsFormArray.push(new FormControl(''));
+      this.optionsFormArray.push(new FormControl('',[Validators.required, Validators.maxLength(49)]));
       this.opt=this.opt+1
     }
     if(this.opt==3){
@@ -55,27 +55,27 @@ export class NewpollComponent {
     }
   }
   PostButton() {
-    debugger
-    const obj={
-    UserId :this.id,
-    AddressId :this.selectedAddressId,
-    Question:this.myForm.value.question,
-    Opt1:this.myForm.value.opt1,
-    Opt2:this.myForm.value.opt2,
-    Opt3:this.myForm.value?.options[0],
-    Opt4:this.myForm.value?.options[1]
-    }
-    if(obj.Opt3==undefined && obj.Opt4==undefined){
-     obj.Opt3=null
-     obj.Opt4=null
-    }else if(obj.Opt4==undefined){
-      obj.Opt4=null
-    }
-    this.ApiService.AddNewPolls(obj).subscribe({
-     next: (dataobj) => {
+    if(this.myForm.valid){
+      const obj={
+        UserId :this.id,
+        AddressId :this.selectedAddressId,
+        Question:this.myForm.value.question,
+        Opt1:this.myForm.value.opt1,
+        Opt2:this.myForm.value.opt2,
+        Opt3:this.myForm.value?.options[0],
+        Opt4:this.myForm.value?.options[1]
+        }
+        if(obj.Opt3==undefined && obj.Opt4==undefined){
+         obj.Opt3=null
+         obj.Opt4=null
+        }else if(obj.Opt4==undefined){
+          obj.Opt4=null
+        }
+      this.ApiService.AddNewPolls(obj).subscribe({
+       next: (dataobj) => {
        this.temp = dataobj;
        if(this.temp.success){
-         alert("Poll post successfully Succcesfullyy")
+         alert("Poll successfully")
          this.router.navigate(['homepage'])
        }
        else{
@@ -86,7 +86,22 @@ export class NewpollComponent {
        console.log(e);
      },
    });
+    }
+    else{
+      this.markFormGroupAsTouched(this.myForm);
+    }
    }
+
+   markFormGroupAsTouched(formGroup: FormGroup | FormArray) {
+    debugger
+    Object.values(formGroup.controls).forEach(control => {
+        if (control instanceof FormControl) {
+            control.markAsTouched();
+        } else if (control instanceof FormGroup || control instanceof FormArray) {
+            this.markFormGroupAsTouched(control);
+        }
+    });
+}
   GetUserAddrssById() {
     this.ApiService.GetUsersAddressById(this.id).subscribe({
       next: (dataobj) => {
@@ -98,9 +113,8 @@ export class NewpollComponent {
         if (primaryAddressIndex !== -1) {
           const primaryAddress = this.UserAddresses.splice(primaryAddressIndex, 1)[0];
           this.UserAddresses.unshift(primaryAddress);
-          this.selectedAddressId=primaryAddress.id
-        }
-        
+          this.selectedAddressId=primaryAddress.id;
+        }        
       },
       error: (e:any) => {
         console.log(e);

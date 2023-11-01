@@ -14,13 +14,13 @@
                 <h1 class="mb-3 ">Log In</h1>
                 <img src="../../../assets/585e4bf3cb11b227491c339a.png" class="my-4" alt="" height="125px">
                 <div class="mb-3">
-                    <form [formGroup]="myForm" (ngSubmit)=" login()">
+                    <form [formGroup]="myForm" (ngSubmit)="login()">
                         <div class="d-flex">
                             <div class="inputGroup">
                                 <div class="material-symbols-outlined my-auto p-2 input-group-prepend">
                                     mail
                                 </div>
-                                <input type="text" required="" autocomplete="off" type="email" formControlName="email"
+                                <input type="text" required="" autocomplete="off"  formControlName="email"
                                     class="text-light">
                                 <label class="text-light" for="name">Email</label>
                                 <div class="material-symbols-outlined  my-auto pe-2 " style="color: red;"
