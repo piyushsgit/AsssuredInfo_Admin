@@ -26,8 +26,7 @@ export class NewpostsComponent {
   selectedAddressId:  any;
 
   constructor(private ApiService: ApiCallService, private router: Router) {}
- 
-  
+
   ngOnInit() {
     this.formGroup = new FormGroup({
       text: new FormControl('', Validators.required),
@@ -39,8 +38,11 @@ export class NewpostsComponent {
   }
   onFileSelected(event: any) {
     const files = event.target.files;
+    if(files.length>7){
+      alert("Not select More than 7 images are allowed")
+      return;
+    }
     if (files) {
- 
       this.selectedFiles = [];
   
       for (let i = 0; i < files.length; i++) {
@@ -50,7 +52,6 @@ export class NewpostsComponent {
         this.selectedFiles.push({ file, url });
       }
     }
-    console.log(this.selectedFiles);
     
   }
  

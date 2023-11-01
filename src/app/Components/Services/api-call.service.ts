@@ -12,7 +12,7 @@ export class ApiCallService {
   BaseUrl='http://localhost:5105/'
 
   GetUsersById(id: any): Observable<any[]> {
-    return this.http.get<any[]>(`http://localhost:5105/User/GetUserBy_Id?id=${id}`)
+    return this.http.get<any[]>(`${this.BaseUrl}User/GetUserBy_Id?id=${id}`)
   }
   GetUsersAddressById(id: any): Observable<any[]> {
     return this.http.get<any[]>(`${this.BaseUrl}User/GetUserAddres_Id?id=${id}`)
@@ -43,10 +43,20 @@ export class ApiCallService {
 
   }
 
-  GetArticleByUserId(id:any):Observable<any[]>
-  {
-   return this.http.get<any[]>(`${this.BaseUrl}Posts/GetArticleById?id=${id}`)
+  GetArticleByUserId(id:any,operation:any,articleId?:any):Observable<any[]>
+  { 
+     var Url
+    if(articleId==null){
+      Url=`${this.BaseUrl}Posts/GetArticleById?id=${id}&operation=${operation}`
+    }
+    else{
+      Url=`${this.BaseUrl}Posts/GetArticleById?id=${id}&operation=${operation}&articleId=${articleId}`
+    }
+   return this.http.get<any[]>(Url)
+   
   }
+
+
   AddNewPolls(obj:any)
   {
    return this.http.post(`${this.BaseUrl}Posts/AddNewPolls`,obj)
@@ -68,5 +78,14 @@ export class ApiCallService {
   OtpVerification(obj:any)
   {
    return this.http.post(`${this.BaseUrl}User/CheckOTP`,obj)
+  }
+  
+  
+  GetUserByUserName(Username:any):Observable<any[]>
+  {
+   return this.http.get<any[]>(`${this.BaseUrl}User/GetUserByUsername?username=${Username}`)
+  }
+  GetUserByUserNameandFollow(Username:any,userid:any){
+    return this.http.get<any[]>(`${this.BaseUrl}User/GetUserByUsername?username=${Username}&userid=${userid}`)
   }
 }

@@ -26,6 +26,9 @@ import { LoaderComponent } from './Components/loader/loader.component';
 import { LoaderInterceptor } from './Components/Services/loader-interceptor.service';
 import { HomepageComponent } from './home/homepage/homepage.component';
 import { SafeHtmlPipe } from './safe-html.pipe';
+import { SidebarModule } from 'primeng/sidebar';
+import { NotificationComponent } from './notification/notification.component';
+import { SettingComponent } from './setting/setting.component';
  
 
 
@@ -63,7 +66,10 @@ import { SafeHtmlPipe } from './safe-html.pipe';
     HomeModule,
     ConfirmDialogModule,
     FormsModule,
-    CommonModule
+    CommonModule,
+    SidebarModule,
+    NotificationComponent,
+    SettingComponent
 
   ],
   providers: [MessageService, ConfirmationService, {

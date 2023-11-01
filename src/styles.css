@@ -7,6 +7,9 @@ body::-webkit-scrollbar {
   width: 0.2em;
 }
 
+
+
+
 body::-webkit-scrollbar-thumb {
   background-color: transparent;
   position: absolute;
@@ -26,6 +29,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     border-radius: 20px!important;
 }
 
+
  
 .scrollable-component { 
   overflow-y:auto; 
@@ -37,9 +41,32 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .scrollable-component::-webkit-scrollbar-thumb {
+  background: rgb(255, 255, 255) !important;
+  color: white;
+}
+
+.scrollable-component {
+  height: 100vh; 
+  overflow-y:auto; 
+  overflow-x: hidden; 
+}
+/* Add a class to style the card body */
+.card-body-content {
+  max-height: 100vh; /* Set a maximum height for the card */
+  overflow-y: auto; 
+  overflow-x: hidden;
+}
+
+.card-body-content::-webkit-scrollbar {
+  width: 4px; /* Set the width of the scrollbar */
+  height: 4px; /* Set the height of the scrollbar for x-scrollbar */
+}
+
+.card-body-content::-webkit-scrollbar-thumb {
   background-color: #aaa; /* Set the color of the scrollbar thumb */
   border-radius: 6px; /* Set the border-radius to make the thumb round */
 }
+
 
 .scrollable-component::-webkit-scrollbar-track {
   background-color: #fafafa; /* Set the color of the scrollbar track */

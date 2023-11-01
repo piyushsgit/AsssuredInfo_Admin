@@ -5,18 +5,18 @@
         <div class="col-lg-3 p-0">
           <div class="card  border-0">
             <div class="card-body text-center p-0" style="background-color: var(--DBlue); height: 100vh;color: white;">
-              <img src={{UserData.avtar_url}} 
+              <img src={{UserData?.avtar_url}} 
                 class="rounded-circle img-fluid border mt-3" style="width: 150px; background-color: var(--LBlue);">
-                <h4 class="mt-3 ">{{UserData.userName}}</h4>
-                <p class="mb-1  ml-3" style="font-weight: 500;"> Bio: <span style="color: white; font-weight: 400;" > {{UserData.bio}}</span></p>
+                <h4 class="mt-3 ">{{UserData?.userName}}</h4>
+                <p class="mb-1  ml-3" style="font-weight: 500;"> Bio: <span style="color: white; font-weight: 400;" > {{UserData?.bio}}</span></p>
               
                 
                 <ul class="list-group list-group-flush rounded-3" >
                   <li class="  p-2">
                     <div class="d-flex justify-content-around align-items-center">
-                      <span>{{UserData.totalPost}}</span>
-                      <span>{{UserData.followers}}</span>
-                      <span>{{UserData.following}}</span>
+                      <span>{{UserData?.totalPost}}</span>
+                      <span>{{UserData?.followers}}</span>
+                      <span>{{UserData?.following}}</span>
                     </div>
                     <div class="mb-0 d-flex justify-content-around align-items-center">
                       <span>Total Posts</span>
@@ -25,8 +25,8 @@
                     </div>
                   </li>
                   <div class="d-flex justify-content-center mb-2">
-                    <button *ngIf="follow==true" class="btn btn-outline-light" (click)="FollowClick()" >Follow</button>
-                    <button *ngIf="follow==false" class="btn btn-outline-light" (click)="UnFollowClick()">UnFollow</button>
+                    <button *ngIf="follow==true && OwnProfile==false" class="btn btn-outline-light" (click)="FollowClick()" >Follow</button>
+                    <button *ngIf="follow==false && OwnProfile==false" class="btn btn-outline-light" (click)="UnFollowClick()">UnFollow</button>
                   </div>
                   <li class=" px-5 mt-2">
                     <div class="progress">
@@ -53,7 +53,7 @@
                 <li class="nav-item">
                   <button class="nav-link " id="poll" (click)="PollClick()">Polls</button>
                 </li>
-                <li class="nav-item">
+                <li *ngIf="OwnProfile" class="nav-item">
                   <button class="nav-link" id="about" (click)="AboutClick()">About</button>
                 </li>
               </ul>

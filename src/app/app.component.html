@@ -31,25 +31,30 @@
         </form>
       </div>
       <div class="d-flex justify-content-around gap-3" style="width: fit-content">
-        <div class="d-flex align-items-center" routerLink="newpoll">
-          <a class="material-symbols-outlined"> Poll </a>
-          <a href="#"> Poll </a>
+        <div class="d-flex align-items-center" >
+          <a  routerLink="newpoll" class="material-symbols-outlined">
+            poll
+          </a>
+          <a routerLink="newpoll"> +Poll </a>
         </div>
         <div class="d-flex align-items-center">
           <a routerLink="newpost" class="material-symbols-outlined">
             library_add
           </a>
-          <a routerLink="newpost"> Add_Post </a>
+          <a routerLink="newpost">+Post</a>
         </div>
-
+        <button type="button" class="icon-button" style="background-color: transparent;"  (click)="NotificationClick()">
+          <span class="material-icons text-light">notifications</span>
+          <span *ngIf="NotificationNumber!==0" class="icon-button__badge">{{NotificationNumber}}</span>
+        </button>
         <div class="dropdown m-auto pr-4">
           <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
             id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle" />
+            <img src="{{userImage}}" alt="hugenerd" width="30" height="30" class="rounded-circle" />
           </a>
           <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
             <li>
-              <div class="dropdown-item d-flex gap-2" routerLink="profile">
+              <div class="dropdown-item d-flex gap-2" routerLink="profile" style="cursor: pointer;">
                 <a class="material-symbols-outlined" style="color: white">
                   account_circle
                 </a>
@@ -60,16 +65,16 @@
               <hr class="dropdown-divider" />
             </li>
             <li>
-              <div class="dropdown-item d-flex gap-2">
-                <a class="material-symbols-outlined" style="color: white">
+              <div class="dropdown-item d-flex gap-2" style="cursor: pointer;">
+                <a class="material-symbols-outlined" style="color: white; ">
                   settings
                 </a>
-                <a class="my-auto text-light"> Settings </a>
+                <a class="my-auto text-light" (click)="settingclick()"> Settings </a>
               </div>
             </li>
             <li>
               <div class="dropdown-item d-flex gap-2" (click)="this.auth.logout()">
-                <a class="material-symbols-outlined" style="color: white">
+                <a class="material-symbols-outlined" style="color: white;cursor: pointer;">
                   logout
                 </a>
                 <a class="my-auto text-light" href="#">Sign out</a>
@@ -80,9 +85,17 @@
       </div>
     </div>
   </div>
+
 </nav> 
 <app-loader *ngIf="isLoading | async"></app-loader> 
 <router-outlet></router-outlet>
    
- 
 
+  <p-sidebar [(visible)]="sidebarVisible2" position="right">
+    <div *ngIf="NoticicationOpened" ><app-notification ></app-notification></div>
+    <div *ngIf="SettingOpenend">><app-setting></app-setting></div>
+   
+</p-sidebar>
+
+
+ 

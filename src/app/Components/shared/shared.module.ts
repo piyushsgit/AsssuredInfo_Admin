@@ -6,13 +6,18 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmComponent, DynamicInputDialogComponent } from './confirm/confirm.component';
+import { HomeArticleComponent } from 'src/app/home/home-article/home-article.component';
+import { CommentComponent } from 'src/app/home/comment/comment.component';
+import { SidebarModule } from 'primeng/sidebar';
 
 
 
 @NgModule({
   declarations: [
     ConfirmComponent,
-    DynamicInputDialogComponent
+    DynamicInputDialogComponent,
+    HomeArticleComponent,
+    CommentComponent,
   ],
   imports: [
     CommonModule,
@@ -21,8 +26,9 @@ import { ConfirmComponent, DynamicInputDialogComponent } from './confirm/confirm
     ToastModule,
     FormsModule,
     ReactiveFormsModule
+    
   ],
-  exports:[ConfirmComponent,DynamicInputDialogComponent]
+  exports:[ConfirmComponent,DynamicInputDialogComponent,HomeArticleComponent,CommentComponent]
   ,
   providers:[
     ConfirmComponent

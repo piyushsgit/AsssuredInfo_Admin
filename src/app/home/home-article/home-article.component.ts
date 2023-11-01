@@ -5,7 +5,9 @@ import { Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChil
 import { ApiCallService } from 'src/app/Components/Services/api-call.service';
 import { ApicallService } from '../service/apicall.service';
 import { AddressServiceService } from '../service/address-service.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ProfileredirectService } from 'src/app/Components/shared/profileredirect.service';
+import { SignalrserviceService } from '../service/signalrservice.service';
 
 
 @Component({
@@ -21,12 +23,15 @@ export class HomeArticleComponent {
   AricleResult: any[] = [];
   @Input() images: string[]=[];
   activeIndex = 0; 
+  @Input() UserProfile!: string;
+  @Input() UserName!:string
   isLoading = false;
-
   tempid = localStorage.getItem('userId');
   id = this.tempid !== null ? parseInt(this.tempid) : 0;
+  Userid=this.id
   temp: any
   obj: any
+  toggle=false
   initialActiveSlideIndex: number = 0;
   UserAddresses: any
   primaryAddress: any
@@ -36,23 +41,33 @@ export class HomeArticleComponent {
   searchtext:any
   bookmarkStatus: { [key: string]: boolean } = {};
  constructor(private ApiService:ApiCallService,private homeapiserv:ApicallService
-  ,private addressService: AddressServiceService, private dataService:AddressServiceService,
-  private route:ActivatedRoute  ){
+  ,private addressService: AddressServiceService, private profileredirect:ProfileredirectService,
+  private route:ActivatedRoute ,private router:Router,private signalr:SignalrserviceService ){
     
   }
   showComments: boolean[] = [];
-
+  
   ngOnInit(){
+   if(this.UserName){
+    this.GetUserByUserName(this.UserName)
+   }
+  else{
     this.route.queryParams.subscribe(params => {
       this.searchtext = params['searchText'];
-      if(this.searchtext==undefined || null){
-        this.GetUserAddrssById()
-      }
-      else{
-        this.getArticleByAddress('Search')
+      if(this.UserProfile!=='ShowArticle'){
+        if(this.searchtext==undefined || null){
+          this.GetUserAddrssById()
+        }
+        else{
+          this.getArticleByAddress('Search')
+        }
       }
     });
-   
+    if(this.UserProfile=='ShowArticle'){
+      this.getArticleByUserid()
+    }
+  }
+  this.recieveLikeNotification()
   }
 generateCarouselId(index: number): string {
   return 'myCarousel_' + index;
@@ -67,7 +82,19 @@ generateCarouselId(index: number): string {
     });
   }
 
- 
+  GetUserByUserName(username:string){
+    this.ApiService.GetUserByUserName(username).subscribe({
+      next: (dataobj) => {
+        this.temp=dataobj
+        this.id=this.temp.data[0].userId
+        this.getArticleByUserid()
+      
+      },
+      error:(e)=>{
+        console.log(e);
+      }
+      });
+  }
 
   selectedAddressId: any 
   getArticleByAddress(addresstype:any){
@@ -93,7 +120,7 @@ generateCarouselId(index: number): string {
         next:(dataobj)=>{
           this.temp=dataobj
           this.AricleResult=this.temp.data
-          console.log(this.AricleResult);
+          console.log("Article Result",this.AricleResult);
           this.showComments = Array(this.AricleResult.length).fill(false);
           this.getArticleDetailLikeDislike()
         }
@@ -101,52 +128,60 @@ generateCarouselId(index: number): string {
  
   }
   onScroll() {
-    
     const container = document.getElementById('paggi');
     if (container) {
       if (
         container.scrollTop + container.clientHeight >=
         container.scrollHeight
       ) {
-        if (!this.isLoading) {
+        if (!this.isLoading && this.searchtext==undefined||null) {
           this.pageIndex++;
           this.getArticleByAddress('primary');
+        }
+        else{
+          this.getArticleByAddress('Search');
         }
       }
     }
   }
   toggleLike(item: any) {
-
+  
     if (!item.isLiked) {
       item.likes++;
       if (item.isDisliked) {
         item.dislikes--;
         item.isDisliked = false;
+        this.toggle=true
       }
       this.obj = {
         articleId: item.articleid,
-        userId: this.id,
+        articleUserId:item.userId,
+        userId: this.Userid,
         like: true,
-        operationType: 1
+        operationType: 1,
+        toggle:this.toggle
       }
     } else {
       item.likes--;
       this.obj = {
         articleId: item.articleid,
-        userId: this.id,
+        articleUserId:item.userId,
+        userId: this.Userid,
         like: false,
-        operationType: 1
+        operationType: 1,
+        toggle:this.toggle
       }
     }
     item.isLiked = !item.isLiked;
-
-    this.homeapiserv.ManageLikeDislike(this.obj).subscribe({
-      next: (dataobj) => {
-      },
-      error: (e) => {
-        console.log(e);
-      },
-    });
+    this.signalr.SendLikeDislike(this.obj)
+    this.toggle=false
+    // this.homeapiserv.ManageLikeDislike(this.obj).subscribe({
+    //   next: (dataobj) => {
+    //   },
+    //   error: (e) => {
+    //     console.log(e);
+    //   },
+    // });
   }
 
   toggleDislike(item: any) {
@@ -155,32 +190,37 @@ generateCarouselId(index: number): string {
       if (item.isLiked) {
         item.likes--;
         item.isLiked = false;
+        this.toggle=true
       }
       this.obj = {
         articleId: item.articleid,
-        userId: this.id,
+        userId: this.Userid,
         dislike: true,
-        operationType: 2
+        operationType: 2,
+        toggle:this.toggle
       }
     } else {
       item.dislikes--;
       this.obj = {
         articleId: item.articleid,
-        userId: this.id,
+        userId: this.Userid,
         dislike: false,
-        operationType: 2
+        operationType: 2,
+        toggle:this.toggle
+        
       }
     }
     item.isDisliked = !item.isDisliked;
-
-    this.homeapiserv.ManageLikeDislike(this.obj).subscribe({
-      next: (dataobj) => {
-        console.log(dataobj)
-      },
-      error: (e) => {
-        console.log(e);
-      },
-    });
+    this.signalr.SendLikeDislike(this.obj)
+    this.toggle=false
+    // this.homeapiserv.ManageLikeDislike(this.obj).subscribe({
+    //   next: (dataobj) => {
+    //     console.log(dataobj)
+    //   },
+    //   error: (e) => {
+    //     console.log(e);
+    //   },
+    // });
   }
 
  
@@ -193,7 +233,7 @@ generateCarouselId(index: number): string {
     this.bookmarkStatus[key] = !this.bookmarkStatus[key];
     const obj = {
       articleId: articleId,
-      userId: this.id,
+      userId: this.Userid,
       Bookmark: this.bookmarkStatus[key],
       operationType: 4
     }
@@ -208,7 +248,7 @@ generateCarouselId(index: number): string {
   }
   getArticleDetailLikeDislike() {
     const obj = {
-      userId: this.id,
+      userId: this.Userid,
       operationType: 3
     }
     this.homeapiserv.ManageLikeDislike(obj).subscribe({
@@ -241,13 +281,80 @@ generateCarouselId(index: number): string {
       },
     });
   }
-
-
-  
  toggleCommentSection(index: number, id: any): void {
   this.showComments = this.showComments.map((showComment, i) => (i === index ? !showComment : false));
   this.addressService.setArticleId(id);
 }
 
+// if UserPost is openned
+getArticleByUserid(){  
+  this.ApiService.GetArticleByUserId(this.id,1,null).subscribe({
+    next:(dataObj)=>{
+        this.temp=dataObj
+        if(this.temp.success){
+          this.AricleResult=this.temp.data
+          this.showComments = Array(this.AricleResult.length).fill(false);
+           this.getArticleDetailLikeDislike()
+        }
+    },
+    error:(e)=>{
+      console.log(e)
+    }
+  })
+}
 
+DeleteArticle(articleId:any){
+  this.ApiService.GetArticleByUserId(this.Userid,2,articleId).subscribe({
+    next:(dataObj)=>{
+        this.temp=dataObj
+        if(this.temp.success){
+          this.getArticleByUserid()
+        }
+    },
+    error:(e)=>{
+      console.log(e)
+    }
+  })
+}
+ProfileRedirect(Username:any)
+{
+this.router.navigate(['profile'],{
+  queryParams: {
+   View:Username
+  }
+})
+}
+
+
+recieveLikeNotification(){
+  this.signalr.RecieveLikeDislike().subscribe({
+    next:(data)=>{
+      this.temp=data
+      if (this.temp.userId!=this.Userid) { 
+       const item=this.AricleResult.find((x:any)=>x.articleid==this.temp.articleId) 
+        
+      if(this.temp.like==true && this.temp.toggle==false){
+        item.likes++;
+      }
+      else if(this.temp.like==true && this.temp.toggle==true){
+        item.likes++;
+        item.dislikes--;
+      }
+      else if (this.temp.like==false){
+        item.likes--;
+      }
+      else if(this.temp.dislike==true && this.temp.toggle==false){
+        item.dislikes++;
+      }
+      else if(this.temp.dislike==true && this.temp.toggle==true){
+        item.dislikes++;
+        item.likes--;
+      }
+      else if (this.temp.dislike==false){
+        item.dislikes--;
+      }
+    }
+    }
+  })
+}
 }
