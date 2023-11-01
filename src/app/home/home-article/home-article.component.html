@@ -78,7 +78,7 @@
               </button>
               {{ item.dislikes }}
 
-              <button class="btn mt-2"  (click)="toggleCommentSection(i,item.articleid)">
+              <button class="btn mt-2"  (click)="toggleCommentSection(postIndex,item.articleid)">
                 <span class="material-symbols-outlined">comment</span>
               </button>
             </div>
@@ -98,7 +98,7 @@
             </label>
 
            </div>
-            <div *ngIf="showComments[i]">
+            <div *ngIf="showComments[postIndex]">
               <app-comment></app-comment>
             </div>
           </footer>

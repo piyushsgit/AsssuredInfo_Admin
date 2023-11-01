@@ -1,87 +1,90 @@
-<div *ngIf="isformopen" class="col-md-12 d-flex justify-content-center align-item-center" style="background-color: rgba(189, 195, 209, 0.99);;">
+<div *ngIf="isformopen" class="col-md-12 d-flex justify-content-center align-item-center"
+    style="background-color: rgba(189, 195, 209, 0.99);;">
     <div class="my-3">
         <div class="d-flex justify-content-between">
-        <h2 class="d-flex justify-content-center align-item-center my-2" style="color:   var(--LBlue);">Add New Address</h2>
-        <button type="button" class="close border-0 "  aria-label="Close" (click)="emitEvent()" >
-            <span aria-hidden="true">&times;</span>
-          </button>
+            <h2 class="d-flex justify-content-center align-item-center my-2" style="color:   var(--LBlue);">Add New
+                Address</h2> 
+            <button type="button" class="btn-close my-auto" aria-label="Close" (click)="emitEvent()"></button>
         </div>
         <hr>
-        <form  (submit)="onSubmit()">
-        <div class="d-flex justify-content-center">
-            <div class="inputGroup">
-                <div class="material-symbols-outlined my-auto p-2">
-                    pin_drop
-                </div>
-                <input style="width: 230px;" pattern="[0-9]{6}" maxlength="6"
-                    (input)="fetchPostalCodeData(postalcode.value)"    #postalcode required name="postalcode" [ngModel]="pincode"
-                    id="postalcode">
-                <label for="postalcode" style=" color:  var(--DBlue);">Pincode</label>
-                <div class="mx-1 my-2">
-                    <div class="jelly-triangle" *ngIf="responseStatus === 'loading'">
-                        <div class="jelly-triangle__dot"></div>
-                        <div class="jelly-triangle__traveler"></div>
+        <form>
+            <div class="d-flex justify-content-center">
+                <div class="inputGroup">
+                    <div class="material-symbols-outlined my-auto p-2">
+                        pin_drop
                     </div>
-                    <div *ngIf="responseStatus === 'success'">
-                        <span class="material-symbols-outlined" style="color: rgb(7, 108, 24);">
-                            check_circle
-                        </span>
+                    <input style="width: 230px;" pattern="[0-9]{6}" maxlength="6"
+                        (input)="fetchPostalCodeData(postalcode.value)" #postalcode required name="postalcode"
+                        [(ngModel)]="childValue.pinccode" id="postalcode">
+                    <label for="postalcode" style=" color:  var(--DBlue);">Pincode</label>
+                    <div class="mx-1 my-2">
+                        <div class="jelly-triangle" *ngIf="responseStatus === 'loading'">
+                            <div class="jelly-triangle__dot"></div>
+                            <div class="jelly-triangle__traveler"></div>
+                        </div>
+                        <div *ngIf="responseStatus === 'success'">
+                            <span class="material-symbols-outlined" style="color: rgb(7, 108, 24);">
+                                check_circle
+                            </span>
+                        </div>
+                        <div *ngIf="responseStatus === 'error'">
+                            <span class="material-symbols-outlined" style="color: rgb(187, 53, 53);">
+                                dangerous
+                            </span>
+
+                        </div>
+                        <svg width="0" height="0" class="jelly-maker">
+                            <defs>
+                                <filter id="uib-jelly-triangle-ooze">
+                                    <feGaussianBlur in="SourceGraphic" stdDeviation="7.3" result="blur" />
+                                    <feColorMatrix in="blur" mode="matrix"
+                                        values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="ooze" />
+                                    <feBlend in="SourceGraphic" in2="ooze" />
+                                </filter>
+                            </defs>
+                        </svg>
                     </div>
-                    <div *ngIf="responseStatus === 'error'">
-                        <span class="material-symbols-outlined" style="color: rgb(187, 53, 53);">
-                            dangerous
-                        </span>
-    
-                    </div>
-                    <svg width="0" height="0" class="jelly-maker">
-                        <defs>
-                            <filter id="uib-jelly-triangle-ooze">
-                                <feGaussianBlur in="SourceGraphic" stdDeviation="7.3" result="blur" />
-                                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
-                                    result="ooze" />
-                                <feBlend in="SourceGraphic" in2="ooze" />
-                            </filter>
-                        </defs>
-                    </svg>
                 </div>
             </div>
-        </div>
-        <div class="d-flex justify-content-center  inputGroup">
-            <div class="material-symbols-outlined mt-2 ml-2">
-                near_me
-            </div>
-            <select class="form-select" style="max-width: 250px; margin-bottom: 0px;"
-             id="Select_Postal" name="select"
-                [(ngModel)]="select.option" [disabled]="responseStatus !== 'success'">
-                <option selected>Postal Address</option>
-                <option *ngFor="let item of PostOffice">{{item}}</option>
-            </select>
-        </div>
-        <div class="d-flex justify-content-center flex-column "
-            *ngIf="select.option !== 'Postal Address' && responseStatus === 'success'">
-            <h4 style=" color:  var(--DBlue)!important;" class="m-0 p-0" for="name">Area/colony</h4>
-            <div class="inputGroup m-0 p-0">
-                <div class="material-symbols-outlined mt-auto p-2">
-                    home_pin
+            <div class="d-flex justify-content-center  inputGroup">
+                <div class="material-symbols-outlined mt-2 ml-2">
+                    near_me
                 </div>
-                <input name="" id="autocomplete" type="text" matInput [formControl]="myControl" [matAutocomplete]="auto"
-                [(ngModel)]="fullAddress"  style="width: 250px;">
-                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (click)="onSuggestionClick(option.name)"
-                        [ngClass]="{'selected-option': option === selectedOption}">
-                        {{ option.name }}
-                    </mat-option>
-                </mat-autocomplete>
+                <select class="form-select" style="max-width: 250px; margin-bottom: 0px;" id="Select_Postal"
+                    name="select"  [(ngModel)]="childValue.district" [disabled]="responseStatus !== 'success'">
+                    <option [value]="childValue.district">{{ childValue.district }}</option>
+                    <option *ngFor="let item of PostOffice">{{item}}</option>
+                </select>
             </div>
-            <div class="form-check d-flex align-item-center justify-content-center mt-3">
-                <input class="form-check-input mx-1 mb-1" type="checkbox" id="exampleCheckbox" [(ngModel)]="isChecked" name="exampleCheckbox">
-                <label class="form-check-label" for="exampleCheckbox" style="color:   var(--LBlue);">Make this Primary</label>
-              </div>
-        </div>
-       <div class="justify-content-center align-items-center d-flex my-2">  
-            <button class="btn btn-outline buttonReg"
-                style="width: 250px; border-radius: 25px; margin-left: 10px;" type="submit">Save</button>
-        </div>
-    </form>
+            
+            <div class="d-flex justify-content-center flex-column "
+               >
+                <h4 style=" color:  var(--DBlue)!important;" class="m-0 p-0" for="name">Area/colony</h4>
+                <div class="inputGroup m-0 p-0">
+                    <div class="material-symbols-outlined mt-auto p-2">
+                        home_pin
+                    </div>
+                    <input name="" id="autocomplete" type="text" matInput  
+                        [matAutocomplete]="auto"value={{childValue.fullAddress}}  style="width: 250px;">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option"
+                            (click)="onSuggestionClick(option.name)"
+                            [ngClass]="{'selected-option': option === selectedOption}">
+                            {{ option.name }}
+                        </mat-option>
+                    </mat-autocomplete>
+                </div>
+                <div class="form-check d-flex align-item-center justify-content-center mt-3">
+                    <input class="form-check-input mx-1 mb-1" type="checkbox" id="exampleCheckbox"
+                        [(ngModel)]="isChecked" name="exampleCheckbox">
+                    <label class="form-check-label" for="exampleCheckbox" style="color:   var(--LBlue);">Make this
+                        Primary</label>
+                </div>
+            </div>
+            <div class="justify-content-center align-items-center d-flex my-2">
+                <button class="btn btn-outline buttonReg" style="width: 250px; border-radius: 25px; margin-left: 10px;"
+                    type="submit" (click)="onSubmit()">Save</button>
+            </div>
+        </form>
     </div>
 </div>

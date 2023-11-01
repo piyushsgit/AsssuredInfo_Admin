@@ -14,6 +14,9 @@ color:rgb(15, 36, 115)
     color: rgb(0 14 122);
 }
  
+li{
+  list-style: none;
+}
 
   .button-outline1 {
     background-color: var(--DBlue);

@@ -17,7 +17,7 @@ export class NationalnewsComponent {
     private apiservice: ApiService,
     private renderer: Renderer2,
     private el: ElementRef
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.GetNationalArticle();
@@ -45,7 +45,7 @@ export class NationalnewsComponent {
         ) {
           const indexofstring = item.content.length - 16;
           const contentBeforeChars = item.content.substring(0, indexofstring);
-          const readMoreLink = `<a href="${item.url}">Read More</a>`;
+          const readMoreLink = `<a href="${item.url}"> Continue Reading...</a>`;
           const updatedContent = `${contentBeforeChars}${readMoreLink}`;
 
           item.content = updatedContent;
