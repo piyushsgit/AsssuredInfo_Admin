@@ -39,7 +39,7 @@
             <p class="mb-0">Date Of Birth</p>
           </div>
           <div class="col-sm-9">
-            <p class="text-muted mb-0">{{UserData.dateOfBirth }}</p>
+            <p class="text-muted mb-0">{{UserData.dateOfBirth| date:"long" |slice:0:17}}</p>
           </div>
         </div>
       </div>
@@ -144,13 +144,7 @@
                 <input type="date" class="form-control customcss" placeholder="DateOfBith" formControlName="dateOfBirth"
                   aria-label="Username" aria-describedby="basic-addon1">
               </div>
-              <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">
-                  <div class="material-symbols-outlined">key </div>
-                </span>
-                <input type="text" class="form-control customcss" placeholder="Username" formControlName="userName"
-                  aria-label="Username" aria-describedby="basic-addon1">
-              </div>
+          
               <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Bio</span>
                 <textarea type="text" class="form-control customcss" placeholder="Bio" formControlName="bio"

@@ -19,6 +19,7 @@ export class ConfirmComponent  {
   otpValue: string = '';
   userInput: string = '';
   ishomepage=false
+  
   constructor(public dialogService: DialogService, public messageService: MessageService, private confirmService: ConfirmService, private router: ActivatedRoute) {
     this.confirmService.setConfirmComponent(this);
   } 
@@ -30,6 +31,7 @@ export class ConfirmComponent  {
     } else {
       this.headerText = 'Please enter your email';
     }
+
     this.ref = this.dialogService.open(DynamicInputDialogComponent, {
       header: this.headerText,
       width: '30%',
@@ -92,6 +94,7 @@ export class ConfirmComponent  {
     `
 })
 export class DynamicInputDialogComponent {
+  sharedData:any;
   userInput: string = '';
   form: FormGroup;
   otp:any;
@@ -101,11 +104,13 @@ export class DynamicInputDialogComponent {
   enteredOTP: any;
   countdownInterval: any = null; 
   remainingTime: number = 120; 
-  constructor(public ref: DynamicDialogRef,private fb: FormBuilder,private apiservice :ApiCallService) {
+  constructor(public ref: DynamicDialogRef,private fb: FormBuilder,private apiservice :ApiCallService,private consfirmserv:ConfirmService) {
      this.form = this.fb.group({
       email: [''||localStorage.getItem('email'), [Validators.required, Validators.email]],
     });
   } 
+
+  
   onConfirm() {
     this.ref.close(this.userInput);
   }
@@ -142,6 +147,8 @@ export class DynamicInputDialogComponent {
     return !!emailFromLocalStorage;   
   }
   toggleComponentVisibility(resent:number) {
+    
+    
     this.form.markAllAsTouched();
     if(this.form.valid){
       const obj={

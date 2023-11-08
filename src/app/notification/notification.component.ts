@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../Service/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notification',
@@ -16,7 +17,7 @@ export class NotificationComponent {
   temp:any
   notificationdata:any
   @Input() inputData!:string
- constructor(private apicall:ApiService){}
+ constructor(private apicall:ApiService,private router:Router){}
 
  ngOnInit(){
   this.GetNotification()
@@ -52,4 +53,12 @@ export class NotificationComponent {
     },
     })
   }
+  ProfileRedirect(Username:any)
+{
+this.router.navigate(['profile'],{
+  queryParams: {
+   View:Username
+  }
+})
+}
 }

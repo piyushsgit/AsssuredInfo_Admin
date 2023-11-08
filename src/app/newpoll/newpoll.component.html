@@ -35,11 +35,12 @@
                                         formControlName="opt1" aria-label="Username" maxlength="49"
                                         aria-describedby="basic-addon1" />
                                 </div>
-                            
-                            <div *ngIf=" myForm.get('opt1').hasError('required') && (myForm.get('opt1').touched || myForm.get('opt1').dirty)">
-                                <div class="text-danger">Option 1 is required.</div>
+
+                                <div
+                                    *ngIf=" myForm.get('opt1').hasError('required') && (myForm.get('opt1').touched || myForm.get('opt1').dirty)">
+                                    <div class="text-danger">Option 1 is required.</div>
+                                </div>
                             </div>
-                        </div>
                             <div class="mb-3">
                                 <div class="input-group">
                                     <span class="input-group-text" id="basic-addon1">opt2 </span>
@@ -57,8 +58,7 @@
                             <div formArrayName="options">
                                 <div *ngFor="
                     let option of optionsFormArray.controls;
-                    let i = index
-                  ">
+                    let i = index ">
                                     <div class="mb-3">
                                         <div class="input-group">
                                             <span class="input-group-text" id="basic-addon1">opt{{ i + 3 }}</span>
@@ -75,8 +75,7 @@
                                         <div *ngIf="
                         myForm.get('options.' + i).hasError('required') &&
                         (myForm.get('options.' + i).touched ||
-                          myForm.get('options.' + i).dirty)
-                      ">
+                          myForm.get('options.' + i).dirty) ">
                                             <div class="text-danger">
                                                 Option {{ i + 3 }} is required.
                                             </div>
@@ -87,7 +86,7 @@
                             <div *ngIf="enable" class="d-flex justify-content-end">
                                 <button type="button" id="add" class="border-0" style="background-color: transparent"
                                     (click)="addOption()">
-                                    <span style="color: var(--LBlue)" class="material-symbols-outlined">add</span>
+                                    <span style="color: var(--DBlue)" class="material-symbols-outlined">add</span>
                                 </button>
                             </div>
                         </div>

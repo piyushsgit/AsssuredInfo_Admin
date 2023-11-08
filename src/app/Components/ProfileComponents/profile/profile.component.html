@@ -1,69 +1,185 @@
-<div> 
-    <div class="container-fluid" style="height: 100vh;">
-      <div class="row">
-        <div class="col-1"></div>
-        <div class="col-lg-3 p-0">
-          <div class="card  border-0">
-            <div class="card-body text-center p-0" style="background-color: var(--DBlue); height: 100vh;color: white;">
-              <img src={{UserData?.avtar_url}} 
-                class="rounded-circle img-fluid border mt-3" style="width: 150px; background-color: var(--LBlue);">
-                <h4 class="mt-3 ">{{UserData?.userName}}</h4>
-                <p class="mb-1  ml-3" style="font-weight: 500;"> Bio: <span style="color: white; font-weight: 400;" > {{UserData?.bio}}</span></p>
+<p-toast></p-toast>
+<div>
+  <div class="container-fluid" style="height: 100vh">
+    <div class="row">
+      <div class="col-1"></div>
+      <div class="col-lg-3 p-0">
+        <div class="card border-0">
+          <div class="card-body text-center p-0" style="background-color: var(--DBlue); height: 100vh; color: white">
+            <div >
+              <div class="d-flex flex-column align-items-center mt-3">
+                <div class="position-relative">
+                  <img *ngIf="OwnProfile" src="{{ UserData?.avtar_url }}" class="rounded-circle img-fluid border"
+                       style="width: 150px; height: 150px; background-color: var(--LBlue); object-fit: cover;"  data-bs-toggle="modal" data-bs-target="#exampleModal1" />
+                  <img *ngIf="!OwnProfile" src="{{ UserData?.avtar_url }}" class="rounded-circle img-fluid border"
+                       style="width: 150px; height: 150px; background-color: var(--LBlue); object-fit: cover;"  />
+                </div>
+              </div>
               
-                
-                <ul class="list-group list-group-flush rounded-3" >
-                  <li class="  p-2">
-                    <div class="d-flex justify-content-around align-items-center">
-                      <span>{{UserData?.totalPost}}</span>
-                      <span>{{UserData?.followers}}</span>
-                      <span>{{UserData?.following}}</span>
-                    </div>
-                    <div class="mb-0 d-flex justify-content-around align-items-center">
-                      <span>Total Posts</span>
-                      <span>Followers</span>
-                      <span>Following</span>
-                    </div>
-                  </li>
-                  <div class="d-flex justify-content-center mb-2">
-                    <button *ngIf="follow==true && OwnProfile==false" class="btn btn-outline-light" (click)="FollowClick()" >Follow</button>
-                    <button *ngIf="follow==false && OwnProfile==false" class="btn btn-outline-light" (click)="UnFollowClick()">UnFollow</button>
-                  </div>
-                  <li class=" px-5 mt-2">
-                    <div class="progress">
-                      <div class="progress-bar" [style.width.%]="progressValue" [ngClass]="getProgressColorClass()" role="progressbar"> 
-                      </div>
-                    </div>
-                    <div> 
-                      <p>
-                        The Assurity Level Of This Users Is
-                        {{ progressValue }}%
-                      </p>
-                    </div>
-                  </li>
-                </ul>
             </div>
+            <h4 class="mt-3">{{ UserData?.userName }}</h4>
+            <p class="mb-1 ml-3" style="font-weight: 500">
+              Bio:
+              <span style="color: white; font-weight: 400">
+                {{ UserData?.bio }}</span>
+            </p>
+            <ul class="list-group list-group-flush rounded-3">
+              <li class="p-2">
+                <div class="d-flex justify-content-around align-items-center">
+                  <span>{{ UserData?.totalPost }}</span>
+                  <span style="cursor: pointer" *ngIf="OwnProfile" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    (click)="GetFollowDetail(false)">{{ UserData?.followers }}</span>
+                  <span style="cursor: pointer" *ngIf="OwnProfile" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    (click)="GetFollowDetail(true)">{{ UserData?.following }}</span>
+                  <span *ngIf="!OwnProfile">{{ UserData?.followers }}</span>
+                  <span *ngIf="!OwnProfile">{{ UserData?.following }}</span>
+                </div>
+                <div class="mb-0 d-flex justify-content-around align-items-center">
+                  <span>Total Posts</span>
+                  <span style="cursor: pointer" *ngIf="OwnProfile" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    (click)="GetFollowDetail(false)">Followers</span>
+                  <span style="cursor: pointer" *ngIf="OwnProfile" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    (click)="GetFollowDetail(true)">Following</span>
+                  <span *ngIf="!OwnProfile">Followers</span>
+                  <span *ngIf="!OwnProfile">Following</span>
+                </div>
+              </li>
+              <div class="d-flex justify-content-center mb-2">
+                <button *ngIf="follow == true && OwnProfile == false" class="btn btn-outline-light"
+                  (click)="FollowClick()">
+                  Follow
+                </button>
+                <button *ngIf="follow == false && OwnProfile == false" class="btn btn-outline-light"
+                  (click)="UnFollowClick()">
+                  UnFollow
+                </button>
+              </div>
+              <li class="px-5 mt-2">
+                <div class="progress">
+                  <div class="progress-bar" [style.width.%]="progressValue" [ngClass]="getProgressColorClass()"
+                    role="progressbar"></div>
+                </div>
+                <div>
+                  <p>
+                    The Assurity Level Of This Users Is
+                    {{ progressValue }}%
+                  </p>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
-        <div class="col-lg-7">
-          <div class="mb-4">
-            <ul class="nav nav-tabs mt-4">
-                <li class="nav-item">
-                  <button class="nav-link active" id="post" (click)="PostClick()">Posts</button>
-                </li>
-                <li class="nav-item">
-                  <button class="nav-link " id="poll" (click)="PollClick()">Polls</button>
-                </li>
-                <li *ngIf="OwnProfile" class="nav-item">
-                  <button class="nav-link" id="about" (click)="AboutClick()">About</button>
-                </li>
-              </ul>
-              
-              <div  class="scrollable-component" *ngIf="tabChanges==1" > <app-posts></app-posts> </div>
-              <div  class="scrollable-component" *ngIf="tabChanges==2" ><app-polls></app-polls></div>
-              <div *ngIf="tabChanges==3"><app-about></app-about></div>
+      </div>
+      <div class="col-lg-7">
+        <div class="mb-4">
+          <ul class="nav nav-tabs mt-4 d-flex justify-content-between">
+            <div class="d-flex m-0">
+              <li class="nav-item m-0">
+                <button class="nav-link active" style="padding-bottom: 12px" id="post" (click)="PostClick()">
+                  Posts
+                </button>
+              </li>
+              <li class="nav-item m-0">
+                <button class="nav-link" style="padding-bottom: 12px" id="poll" (click)="PollClick()">
+                  Polls
+                </button>
+              </li>
+              <li *ngIf="OwnProfile" class="nav-item m-0">
+                <button class="nav-link" style="padding-bottom: 12px" id="about" (click)="AboutClick()">
+                  About
+                </button>
+              </li>
+            </div>
+            <div>
+              <li *ngIf="OwnProfile" class="nav-item m-0">
+                <button class="nav-link pb-0" id="bookmark" (click)="BookmarkClick()">
+                  <i class="material-symbols-outlined pb-0"> bookmark </i>
+                </button>
+              </li>
+            </div>
+          </ul>
+          <div class="scrollable-component" *ngIf="tabChanges == 1">
+            <app-posts></app-posts>
+          </div>
+          <div class="scrollable-component" *ngIf="tabChanges == 2">
+            <app-polls></app-polls>
+          </div>
+          <div *ngIf="tabChanges == 3"><app-about></app-about></div>
+          <div class="scrollable-component" *ngIf="tabChanges == 4">
+            <app-home-article [bookmark]="true"></app-home-article>
+          </div>
         </div>
         <div class="col-1"></div>
       </div>
     </div>
-    </div> 
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background-color: var(--LBlue)">
+      <div class="modal-header m-0">
+        <h1 *ngIf="followtype" class="modal-title fs-4" id="exampleModalLabel" style="color: var(--DBlue)">
+          Following
+        </h1>
+        <h1 *ngIf="!followtype" class="modal-title fs-4" id="exampleModalLabel" style="color: var(--DBlue)">
+          Followers
+        </h1>
+        <button type="button" style="background-color: var(--LBlue)" class="btn-close" data-bs-dismiss="modal"
+          aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h3 *ngIf="FollowerDetail?.length < 1" style="color: var(--DBlue)"
+          class="d-flex align-item-center justify-content-center">
+          No data
+        </h3>
+        <div class="row mx-3 my-3" *ngFor="let item of FollowerDetail">
+          <div class="card-body d-flex align-item-center justify-content-between">
+            <div class="d-flex">
+              <img src="{{ item.avatarUrl }}" style="cursor: pointer" alt="hugenerd" width="30" height="30"
+                (click)="ProfileRedirect(item.username)" class="rounded-circle" />
+              <span style="color: var(--DBlue)" style="cursor: pointer" (click)="ProfileRedirect(item.username)"
+                class="mx-2">
+                <h4>{{ item.username }}</h4>
+              </span>
+            </div>
+            <h5 style="color: var(--DBlue)">{{ item.followDate | date }}</h5>
+          </div>
+          <hr style="color: white" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade modal-lg" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background-color: var(--LBlue)">
+      <div class="modal-header m-0">
+        <h1 class="modal-title fs-4" id="exampleModalLabel" style="color: var(--DBlue)">
+          Choose an Image
+        </h1>
+        <button type="button" style="background-color: var(--DBlue)" class="btn-close" data-bs-dismiss="modal"
+          aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex row">
+          <div class="col-2" *ngFor="let avatar of image_links; let i = index">
+            <div class="d-flexalign-item-center justify-content-center p-2" (click)="selectImage(i)">
+              <img (click)="avatarvalue(avatar)" src="{{ avatar }}"
+                style="height: 50px; width: 50px; border-radius: 50% ;object-fit: cover;" alt=""
+                [ngClass]="{ 'selected-image': i === selectedImageIndex }" />
+            </div>
+          </div>
+          <div class="d-flex align-item-center justify-content-center mt-4">
+            <button type="button" class="btn" id="updateavatar" (click)="UpdateAvtar()">
+              Update
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

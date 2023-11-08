@@ -1,6 +1,6 @@
 
 .p-editor-container .p-editor-toolbar {
-    background:rgba(189, 195, 209, 0.99) !important;
+    background:var(--DBlue) !important;
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;
  
@@ -13,8 +13,8 @@ input[type='radio']{
    
 }
 .form-check-input:checked {
-    background-color:  rgba(189, 195, 209, 0.99);
-    border-color: rgba(189, 195, 209, 0.99);
+    background-color:  var(--LBlue);
+    border-color:var(--LBlue);
     border: 1px solid rgb(5 14 22)
 }
 .element-to-change {
@@ -33,7 +33,7 @@ input[type='radio']{
 
   .card {
     
-    box-shadow: 0px 2px 6px rgba(189, 195, 209, 0.99); /* Adjust the values as needed */
+    box-shadow: 0px 2px 6px var(--LBlue); /* Adjust the values as needed */
   }
   /* Background color for selected card */
   .selected-card {
@@ -53,7 +53,7 @@ input[type='radio']{
 #title{
     font-size: 150% ;
     font-weight:500;
-    color: rgba(94, 113, 175, 255);
+    color: var(--DBlue);
   }
 .inputGroup {
     font-family: 'Segoe UI', sans-serif;
@@ -66,12 +66,12 @@ input[type='radio']{
     
   }
 .form-control:focus {
-    border-color: 1px rgba(94, 113, 175, 255);
+    border-color: 1px var(--DBlue);
     box-shadow: none;
     border: none;
 }
 .custom::placeholder{
-    color: rgba(94, 113, 175, 255);
+    color: var(--DBlue);
 }
 
 

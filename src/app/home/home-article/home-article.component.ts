@@ -8,7 +8,7 @@ import { AddressServiceService } from '../service/address-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProfileredirectService } from 'src/app/Components/shared/profileredirect.service';
 import { SignalrserviceService } from '../service/signalrservice.service';
-
+// './home-article.component.css'
 
 @Component({
   selector: 'app-home-article',
@@ -24,6 +24,7 @@ export class HomeArticleComponent {
   @Input() images: string[]=[];
   activeIndex = 0; 
   @Input() UserProfile!: string;
+  @Input() bookmark: boolean=false;
   @Input() UserName!:string
   isLoading = false;
   tempid = localStorage.getItem('userId');
@@ -40,16 +41,18 @@ export class HomeArticleComponent {
   isRed: boolean = false;
   searchtext:any
   bookmarkStatus: { [key: string]: boolean } = {};
- constructor(private ApiService:ApiCallService,private homeapiserv:ApicallService
+  constructor(private ApiService:ApiCallService,private homeapiserv:ApicallService
   ,private addressService: AddressServiceService, private profileredirect:ProfileredirectService,
   private route:ActivatedRoute ,private router:Router,private signalr:SignalrserviceService ){
-    
   }
   showComments: boolean[] = [];
   
   ngOnInit(){
    if(this.UserName){
     this.GetUserByUserName(this.UserName)
+   }
+   else if(this.bookmark){
+    this.getArticleByAddress('bookmark')
    }
   else{
     this.route.queryParams.subscribe(params => {
@@ -59,6 +62,7 @@ export class HomeArticleComponent {
           this.GetUserAddrssById()
         }
         else{
+          debugger
           this.getArticleByAddress('Search')
         }
       }
@@ -98,6 +102,7 @@ generateCarouselId(index: number): string {
 
   selectedAddressId: any 
   getArticleByAddress(addresstype:any){
+
     if(addresstype=='primary'){
        this.obj={
          addressId : this.selectedAddressId,
@@ -115,6 +120,15 @@ generateCarouselId(index: number): string {
         pageIndex: 1,
         filter: 1,
       };
+   }
+   if(addresstype=='bookmark'){
+    this.obj = {
+      addressId: null,
+      userid:this.Userid,
+      pageSize: 10,
+      pageIndex: 1,
+      filter: 3,
+    };
    }
       this.homeapiserv.GetArticle(this.obj).subscribe({
         next:(dataobj)=>{
@@ -325,7 +339,6 @@ this.router.navigate(['profile'],{
 })
 }
 
-
 recieveLikeNotification(){
   this.signalr.RecieveLikeDislike().subscribe({
     next:(data)=>{
@@ -357,4 +370,6 @@ recieveLikeNotification(){
     }
   })
 }
+
+
 }

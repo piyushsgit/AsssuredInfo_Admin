@@ -17,8 +17,12 @@ export class LoaderInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    this.loadingService.show(); 
 
+    if (req.headers.get('Skip-Loader') === 'true') {
+      return next.handle(req);
+    }
+    this.loadingService.show(); 
+   
     return next.handle(req).pipe(
       finalize(() => {
         this.loadingService.hide();  

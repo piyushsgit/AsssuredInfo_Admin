@@ -52,7 +52,7 @@ export class SignalrserviceService {
 
   sendComment(commentModel: any): void {
     this.hubConnection.invoke('ManageComment',commentModel);
-  }
+  }  
 
   receiveComment(): Observable<{ Comment: string, ArticleId: string,UserId: string,newstedComment_id: string,AvatarUrl: string,Username: string,OPERATION: string,Id:string,isDelete:string,likecomment:string}> {
     return new Observable<{ Comment: string, ArticleId: string,UserId: string,newstedComment_id: string,AvatarUrl: string,Username: string,OPERATION: string,Id:string ,isDelete:string,likecomment:string}>(observer => {
@@ -71,7 +71,6 @@ export class SignalrserviceService {
   RecieveFollowRequest(): Observable<{ FollowerId: string, FollowingId: string, Mode: string, Follower_Username: string, Follower_avatar_url: string }> {
     return new Observable<{ FollowerId: string, FollowingId: string, Mode: string, Follower_Username: string, Follower_avatar_url: string }>(observer => {
       this.hubConnection.on('RecieveFollowRequest', (data: { FollowerId: string, FollowingId: string, Mode: string, Follower_Username: string, Follower_avatar_url: string }) => {
-        debugger
        this.temp=data
         if (this.temp.followingId== this.UserId) {   
           observer.next(data);
@@ -87,12 +86,10 @@ export class SignalrserviceService {
   RecieveLikeDislike(): Observable<{ ArticleUserId: string, Like: string,Dislike:string,ArticleId:string,UserId:string,Toggle:string}> {
     return new Observable<{  ArticleUserId: string, Like: string,Dislike:string,ArticleId:string,UserId:string,Toggle:string}>(observer => {
       this.hubConnection.on('RecieveLikeNotification', (data: { ArticleUserId: string, Like: string,Dislike:string,ArticleId:string ,UserId:string,Toggle:string}) => {
-        debugger
           observer.next(data);
       });
     });
   }
-        
   closeConnection(): void {
     if (this.hubConnection && this.hubConnection.state === 'Connected') {
       this.hubConnection.stop()

@@ -21,6 +21,7 @@ export class HomepollComponent {
   optionsPercentage:any
   tempid = localStorage.getItem('userId');
   id = this.tempid !== null ? parseInt(this.tempid) : 0;
+  userid=this.id
   formattedPolls:any
   radioValues: string[][] = [];
   obj:any
@@ -56,7 +57,8 @@ getPollByAddress(addresstype:any){
         searchText : '',
        pageSize : 10,
        pageIndex : 1,
-        filter : 1
+        filter : 1,
+        userid:this.userid
     }
   }
   if(addresstype=='Search'){
@@ -66,14 +68,18 @@ getPollByAddress(addresstype:any){
       pageSize: 10,
       pageIndex: 1,
       filter: 1,
+      userid:this.userid
     };
  }
     this.homeapiserv.Getpoll(this.obj).subscribe({
       next:(dataobj)=>{
         this.temp=dataobj
-        console.log(this.temp.data); 
+        console.log("Polls data",this.temp.data); 
         const Polls=this.temp.data
         this.formattedPolls = Polls.map((poll:any) => {
+          const selectedOption = poll.optionlike;
+
+
           this.options = [];
           this.optionsPercentage=[];
           for (let i = 1; i <= 4; i++) {
@@ -83,17 +89,18 @@ getPollByAddress(addresstype:any){
               this.options.push(poll[optionKey]);
               this.optionsPercentage.push(poll[optionPercentageKey])
             }
-          }
+          } 
           return {
             id: poll.id,
             createdOn: poll.createdon,
             question: poll.question,
             options: this.options,
             TotalParticipants:poll.totalParticipants,
-            optionpercentage:this.optionsPercentage
+            optionpercentage:this.optionsPercentage,
+            optionlike:poll.optionlike
           };
         });    
-        console.log(this.formattedPolls);
+        console.log("formatted poll",this.formattedPolls);
         
       }
     })
@@ -101,7 +108,6 @@ getPollByAddress(addresstype:any){
 
 
 onPollSubmit(index: number,item:any) {
-  debugger
   const index2 = item.options.indexOf(this.radioValues[index]);
   if(index2>=0){
   const obj={

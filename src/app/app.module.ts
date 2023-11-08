@@ -19,16 +19,17 @@ import { PostsComponent } from './Components/ProfileComponents/posts/posts.compo
 import { PollsComponent } from './Components/ProfileComponents/polls/polls.component';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { HomeRoutingModule } from './home/home-routing.module';
+
 import { SharedModule } from './Components/shared/shared.module';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { LoaderComponent } from './Components/loader/loader.component';
 import { LoaderInterceptor } from './Components/Services/loader-interceptor.service';
-import { HomepageComponent } from './home/homepage/homepage.component';
+
 import { SafeHtmlPipe } from './safe-html.pipe';
 import { SidebarModule } from 'primeng/sidebar';
 import { NotificationComponent } from './notification/notification.component';
 import { SettingComponent } from './setting/setting.component';
+
  
 
 
@@ -45,6 +46,7 @@ import { SettingComponent } from './setting/setting.component';
     PollsComponent,
     LoaderComponent,
     SafeHtmlPipe
+    
 
 
   ],

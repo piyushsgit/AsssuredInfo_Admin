@@ -72,23 +72,27 @@ export class CommentComponent {
       this.addReplyComment(comment);
     }
   }
-  
+   
   private addTopLevelComment(comment: any): void {
     if (!this.comments[comment.articleId]) {
       this.comments[comment.articleId] = [];
     }
+    comment.totalReply=0
     this.comments[comment.articleId].splice(0, 0, comment);
   }
   
-  private addReplyComment(comment: any): void {
+  private addReplyComment(comment: any): void { 
+    debugger
     if (!this.Replycomments[comment.newstedComment_id]) {
       this.Replycomments[comment.newstedComment_id] = [];
     }
     if (this.isViewReply[comment.newstedComment_id]) {
       this.Replycomments[comment.newstedComment_id].push(comment);
-      const commentToUpdate = this.comments[this.articleId].find((c) => c.id === comment.newstedCommentId);
+      const commentToUpdate = this.comments[this.articleId].find((c) => c.id === comment.newstedComment_id);
       commentToUpdate.totalReply++;
     } else {
+      const commentToUpdate = this.comments[this.articleId].find((c) => c.id === comment.newstedComment_id);
+      commentToUpdate.totalReply++;
       this.ViewReply(comment.newstedComment_id);
     }
   }
@@ -144,10 +148,11 @@ export class CommentComponent {
       OPERATION: 2,
       PageIndex: this.PageIndex
     };
+
     this.homeapiserv.AddComment(commentModel).subscribe({
       next: (dataobj) => {
         console.log(dataobj);
-        this.temp = dataobj;     
+        this.temp = dataobj;   
         if (this.temp.data.length != 0) {
           this.temp.data.forEach((item: any) => {
             item.time = this.timeAgo(new Date(item.time));
@@ -170,8 +175,8 @@ export class CommentComponent {
     this.isActive = !this.isActive;
   }
   addComment() {
-
-    if (this.newComment.trim() !== '') {
+       debugger
+    if (this.newComment.trim()!== '') {
       const commentModel = {
         Comment: this.newComment,
         ArticleId: this.articleId,
@@ -264,7 +269,6 @@ export class CommentComponent {
     };
     this.homeapiserv.AddComment(commentModel).subscribe({
       next: (dataobj) => {
-        debugger
         console.log(dataobj);
         this.temp = dataobj;
         if (this.temp.data.length != 0) {
@@ -282,6 +286,7 @@ export class CommentComponent {
   }
   closeReply(id: any) {
     this.isViewReply[id]=false
+    this.ReplyPageIndex=1
     this.Replycomments[id].length = 0
   }
   heartlike(id: any, item: any) {
@@ -309,17 +314,15 @@ export class CommentComponent {
       };
       item.totalLikes++;
     }
-    console.log('Sending API Request with Object:', obj);
+   
     this.homeapiserv.AddComment(obj).subscribe({
       next: (dataobj) => {
-        console.log('API Response:', dataobj);
         this.temp = dataobj;
       },
       error: (e) => {
         console.log('API Error:', e);
       },
     });
-    console.log('Updated totalLikes:', item.totalLikes);
   }
   
   loadLikesofCommentByUser(){
@@ -331,7 +334,6 @@ export class CommentComponent {
     this.homeapiserv.AddComment(obj).subscribe({
       next: (dataobj) => {
         this.temp = dataobj;
-        console.log(this.temp.data)
         this.temp.data.forEach((item:any) => {
           const button = document.querySelector(`#like${item.id}`);
           button?.classList.add('liked');
