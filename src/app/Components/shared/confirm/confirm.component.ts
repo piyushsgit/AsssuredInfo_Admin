@@ -1,50 +1,69 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ConfirmService } from '../confirm.service';
-import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiCallService } from '../../Services/api-call.service';
+
 
 @Component({
   selector: 'app-confirm',
   templateUrl: './confirm.component.html',
   styleUrls: ['./confirm.component.css']
 })
-export class ConfirmComponent  {
-  @Input() inputData: any; 
+
+
+export class ConfirmComponent {
+  
+  EmailrequestType: any;
   ref: DynamicDialogRef | undefined;
   headerText: string = '';
-  showlogin:boolean=true;
+  showlogin: boolean = true;
   otpValue: string = '';
   userInput: string = '';
-  ishomepage=false
-  
-  constructor(public dialogService: DialogService, public messageService: MessageService, private confirmService: ConfirmService, private router: ActivatedRoute) {
+
+  ishomepage = false;
+  request: any;
+  constructor(public dialogService: DialogService, public messageService: MessageService, private confirmService: ConfirmService) {
+
     this.confirmService.setConfirmComponent(this);
-  } 
-  confirm(page:string) {
-    if (page=='home') {
-      this.headerText = 'Verify your email'; 
-      this.showlogin =false;
-      
-    } else {
-      this.headerText = 'Please enter your email';
+  }
+
+
+  confirm(page: string, req: number) {
+    this.request = req
+    if (page == 'home') {
+      this.headerText = 'Verify your email';
+      this.showlogin = false;
+
     }
+
+    else if (page == 'forgot') {
+      this.headerText = 'Please enter your email';
+
+    }
+    else if (page == 'change') {
+      this.headerText = 'An Email will be sent for otp varification';
+      this.showlogin = false;
+
+    }
+    this.confirmService.setdata(this.request);
 
     this.ref = this.dialogService.open(DynamicInputDialogComponent, {
       header: this.headerText,
       width: '30%',
       baseZIndex: 10000,
-      contentStyle: { overflow: 'auto' }
+      contentStyle: { overflow: 'auto' } 
     });
-
     this.ref.onClose.subscribe((result: string) => {
       if (result) {
         this.messageService.add({ severity: 'info', summary: 'Input Received', detail: result });
       }
-    });
-  }
+      else{
+        this.messageService.add({ severity: 'error', summary: 'Something went wring', detail: result  })
+      }
+    }); 
+  } 
 }
 @Component({
   selector: 'app-dynamic-input-dialog',
@@ -75,9 +94,8 @@ export class ConfirmComponent  {
             <div *ngIf="showError&& remainingTime !== 0"><p class="text-danger">The Entered Otp is not valid</p></div>
             </div>
           <div class="my-2 d-flex justify-content-between"> 
-        <button  *ngIf="remainingTime !== 0"  class="btn btn-danger validate" (click)="onValidate()">Validate</button> 
+        <button  *ngIf="remainingTime !== 0"  class="btn btn-info validate" (click)="onValidate()">Validate</button> 
         <div *ngIf="showComponent && remainingTime === 0" class="d-flex gap-2">
-          
                 <button pButton type="button" class="btn btn-primary" (click)="resendOTP()">Resend Otp</button>
               </div>
           <div class="countdown-timer" *ngIf="remainingTime !== 0">
@@ -97,20 +115,27 @@ export class DynamicInputDialogComponent {
   sharedData:any;
   userInput: string = '';
   form: FormGroup;
-  otp:any;
-  showError: boolean = false; 
-  showResendButton: boolean = true; 
+  otp: any;
+
+  showError: boolean = false;
+  showResendButton: boolean = true;
   showComponent: boolean = false;
   enteredOTP: any;
-  countdownInterval: any = null; 
-  remainingTime: number = 120; 
-  constructor(public ref: DynamicDialogRef,private fb: FormBuilder,private apiservice :ApiCallService,private consfirmserv:ConfirmService) {
-     this.form = this.fb.group({
-      email: [''||localStorage.getItem('email'), [Validators.required, Validators.email]],
-    });
-  } 
 
-  
+  countdownInterval: any = null;
+  remainingTime: number = 120;
+  constructor(public ref: DynamicDialogRef, private fb: FormBuilder, private apiservice: ApiCallService,
+    private confirmService: ConfirmService) {
+    this.form = this.fb.group({
+      email: ['' || localStorage.getItem('email'), [Validators.required, Validators.email]],
+    });
+  }
+  ngOnInit() {
+    this.confirmService.sharedata$.subscribe(data => {
+      this.sharedData = data;
+    });
+  }
+
   onConfirm() {
     this.ref.close(this.userInput);
   }
@@ -122,19 +147,20 @@ export class DynamicInputDialogComponent {
     this.remainingTime = 120;
     this.toggleComponentVisibility(0);
     this.showResendButton = false;
-    this.showError = false; 
+    this.showError = false;
   }
   onValidate() {
     const obj = {
       email: this.form.value.email,
       otp: this.enteredOTP,
-      type: false
+      type: this.sharedData
     };
-
     this.apiservice.OtpVerification(obj).subscribe({
       next: (response: any) => {
         if (response.success) {
+          console.log(response.data);
           this.ref.close('Validation Successful');
+          this.confirmService.getdata(response.data);
         } else {
           this.showError = true;
         }
@@ -143,34 +169,33 @@ export class DynamicInputDialogComponent {
   }
   localStorageEmailPresent(): boolean {
     const emailFromLocalStorage = localStorage.getItem('email');
-     
-    return !!emailFromLocalStorage;   
+    return !!emailFromLocalStorage;
   }
-  toggleComponentVisibility(resent:number) {
-    
-    
+
+  toggleComponentVisibility(resent: number) {
+
     this.form.markAllAsTouched();
-    if(this.form.valid){
-      const obj={
-        email:this.form.value.email,
-        type:false
-      } 
+    debugger
+    if (this.form.valid) {
+      const obj = {
+        email: this.form.value.email,
+        type: this.sharedData
+      }
       this.apiservice.EmailVerification(obj).subscribe({
-        next:(response)=>{ 
+        next: (response) => {
           console.log(response);
           this.otp = response;
         }
       })
-   if(resent==1){
-    
-    this.showComponent=!this.showComponent;
-   }
-    if (this.showComponent) {
-      this.startCountdown();
-    } else {
-      this.stopCountdown();
+      if (resent == 1) {
+        this.showComponent = !this.showComponent;
+      }
+      if (this.showComponent) {
+        this.startCountdown();
+      } else {
+        this.stopCountdown();
+      }
     }
-  }
   }
   startCountdown() {
     if (this.countdownInterval === null) {
@@ -186,8 +211,9 @@ export class DynamicInputDialogComponent {
   stopCountdown() {
     if (this.countdownInterval !== null) {
       clearInterval(this.countdownInterval);
-      this.countdownInterval = null;  
+      this.countdownInterval = null;
     }
   }
-
 }
+
+

@@ -17,4 +17,5 @@ export class ApiService {
     const headers = new HttpHeaders().set('Skip-Loader', 'true');
     return this.http.post<any>('http://localhost:5105/Follow/ManageNotification',Obj,{headers})
   }
+  
 }
