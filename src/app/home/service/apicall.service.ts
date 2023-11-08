@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class ApicallService {
 
   constructor(private http:HttpClient) { }
-
+  loader=false
   GetArticle(obj:any)
   {
    return this.http.post('http://localhost:5105/Posts/GetArticleOnHomePage',obj)
@@ -20,6 +20,7 @@ export class ApicallService {
   }
 
   AddComment(obj:any){
-    return this.http.post('http://localhost:5105/Comments/AddComment',obj)
+    const headers = new HttpHeaders().set('Skip-Loader', 'true');
+    return this.http.post('http://localhost:5105/Comments/AddComment',obj,{headers})
   }
 }

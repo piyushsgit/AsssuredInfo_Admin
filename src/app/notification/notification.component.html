@@ -5,15 +5,15 @@
 <div *ngFor="let item of notificationdata" >
 <div *ngIf="item.notificationType==1" class="card  border-0">
   <div class="card-body d-flex align-item-center justify-content-center">
-  <div class="me-2">  <img src="{{item.avtar_url}}"  alt="hugenerd" width="30" height="30" class="rounded-circle" /></div>
-     <span style="color:rgba(22,37,77,255);"><h4>{{item.userName}}</h4></span>
+  <div class="me-2">  <img (click)="ProfileRedirect(item.userName)" src="{{item.avtar_url}}"  alt="hugenerd" width="30" height="30" class="rounded-circle" /></div>
+     <span (click)="ProfileRedirect(item.userName)" style="color:rgba(22,37,77,255);"><h4>{{item.userName}}</h4></span>
      <span class="text-dark"><h4> Started Following You.</h4></span>
   </div>
 </div>
 <div *ngIf="item.notificationType==2" class="card  border-0">
   <div class="card-body d-flex align-item-center justify-content-center">
-  <div class="me-2">  <img src="{{item.avtar_url}}"  alt="hugenerd" width="30" height="30" class="rounded-circle" /></div>
-     <span style="color:rgba(22,37,77,255);"><h4>{{item.userName}}</h4></span>
+  <div class="me-2">  <img src="{{item.avtar_url}}" (click)="ProfileRedirect(item.userName)"  alt="hugenerd" width="30" height="30" class="rounded-circle" /></div>
+     <span (click)="ProfileRedirect(item.userName)" style="color:rgba(22,37,77,255);"><h4>{{item.userName}}</h4></span>
      <span class="text-dark"><h4> like your article {{item.tittle}}</h4></span>
   </div>
 </div>

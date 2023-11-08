@@ -63,11 +63,14 @@ export class RegisterComponent {
   
   options: any[] = [ 'Harsiddhi Pg','shaligram','Igor'];
   avatar: any[]=[
-    {id:1,avt:'https://www.lightningdesignsystem.com/assets/images/avatar2.jpg'},{id:2,avt:'https://www.nicepng.com/png/detail/186-1866063_dicks-out-for-harambe-sample-avatar.png' },{id:3,avt:'https://png.pngtree.com/element_our/png/20181206/female-avatar-vector-icon-png_262142.jpg' },
-    {id:4,avt:'https://png.pngtree.com/png-vector/20190223/ourmid/pngtree-vector-avatar-icon-png-image_695765.jpg'},
-    {id:5,avt:'https://toppng.com/uploads/preview/avatar-png-11554021661asazhxmdnu.png'},{id:6,avt:'https://png.pngtree.com/element_our/png/20181206/female-avatar-vector-icon-png_262142.jpg' },
-    {id:7,avt:'https://png.pngtree.com/png-vector/20190223/ourmid/pngtree-vector-avatar-icon-png-image_695765.jpg'},
-    {id:8,avt:'https://toppng.com/uploads/preview/avatar-png-11554021661asazhxmdnu.png'},]
+    {id:1,avt:'https://img.freepik.com/free-psd/3d-rendering-avatar_23-2150833572.jpg?w=826&t=st=1699354026~exp=1699354626~hmac=f62789e90b2ff6ce42853990afdcdf917636b699d3879bdc1bff84c559819f12'},
+    {id:2,avt:'https://img.freepik.com/free-psd/3d-rendering-boy-avatar-emoji_23-2150603406.jpg?w=826&t=st=1699354058~exp=1699354658~hmac=2209a3a5f05cef32feb66dc2c592fef8e887f63e762327dd2edc0e28c898cec8' },
+    {id:3,avt:'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436178.jpg?w=826&t=st=1699354095~exp=1699354695~hmac=ce52075d6aa9f55a81528f994e6446ab057517a903ec2857460a9fc99de5c298' },
+    {id:4,avt:'https://img.freepik.com/free-psd/3d-render-avatar-character_23-2150611740.jpg?w=826&t=st=1699354110~exp=1699354710~hmac=bdb6069b492314df0bd2fe7b6062f05b8e4acc72370bd930c68434cc011c58d5'},
+    {id:5,avt:'https://img.freepik.com/premium-psd/3d-cartoon-character-avatar-isolated-3d-rendering_235528-575.jpg?w=826'},
+    {id:6,avt:'https://img.freepik.com/premium-photo/cartoon-character-with-blue-shirt-glasses_561641-2084.jpg?w=826' },
+    {id:7,avt:'https://img.freepik.com/premium-photo/digital-art-selected_771703-4038.jpg?w=740'},
+    {id:8,avt:'https://img.freepik.com/free-psd/3d-rendering-avatar_23-2150833536.jpg?w=826&t=st=1699354251~exp=1699354851~hmac=b99d56a133aa4413bb5f9187a211b369e94d7be69899d5fb8611f7a121af7f52'},]
     myControl = new FormControl<string | User>('');
     filteredOptions: Observable<User[]>;
 
@@ -188,7 +191,6 @@ export class RegisterComponent {
     if (postalCode.length === 6) {
       this.startLoader();
       this.responseStatus = 'loading';
-
       this.http.get('https://api.postalpincode.in/pincode/' + postalCode).subscribe(
         (response: any) => {
           if (response && response[0] && response[0].PostOffice) {
@@ -241,7 +243,7 @@ click() {
     (response: any) => {
       console.log(response);
       if(response.message==' Registered  Successfully'){
-        this.rout.navigate(['home']);
+        this.rout.navigate(['']);
       }
       if(response.data== -2){
       this.message='Email Already Exist';

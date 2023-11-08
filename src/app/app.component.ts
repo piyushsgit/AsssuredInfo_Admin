@@ -42,12 +42,23 @@ ngOnInit(){
     return currentRoute !== '/' && currentRoute !== '/Register' ;
    
   }
+  // this.router.navigate(['/homepage'], {
+  //   queryParams: {
+  //     searchText: this.searchTerm
+  //   }
+  // });
   SearchAddress(){
+    if(this.searchTerm=='' || undefined || null){
+    this.router.navigate(['/homepage'])
+  }
+  else{
     this.router.navigate(['/homepage'], {
       queryParams: {
         searchText: this.searchTerm
       }
     });
+    this.searchTerm=''
+  }
   }
   recieveFollowUnfollowRequest(){
     this.signalr.RecieveFollowRequest().subscribe({
@@ -102,7 +113,6 @@ ngOnInit(){
       this.NotificationNumber=this.temp.data[0].notificationNumber
     },error(err) {
       console.log(err);
-      
     },
   })
   }

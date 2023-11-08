@@ -26,10 +26,10 @@
                             <div class="col-3">
                                 <div class="row mx-3">
                                     <div class="col-3">
-                                        <a *ngIf="isViewReply[item.id] !== true && item.totalReply!==0 "
+                                        <a *ngIf="isViewReply[item.id] !== true && item.totalReply!==0"
                                             class="d-flex justify-content-center text-muted"
                                             style="font-size: small; cursor: pointer"
-                                            (click)="ViewReply(item.id)">View({{item.totalReply}})Reply</a>
+                                            (click)="ViewReply(item.id)">View({{item?.totalReply}})Reply</a>
                                         <a *ngIf="isViewReply[item.id] == true && item.totalReply!==0"
                                             class="d-flex justify-content-center text-muted"
                                             style="font-size: small; cursor: pointer"
@@ -65,7 +65,7 @@
                                 </div>
                             </div>
                             <!-- for view Reply Comment -->
-                            <div *ngIf="isViewReply[item.id]">
+                            <div *ngIf="isViewReply[item.id]" style="background-color: goldenrod;">
                                 <div class="row" *ngFor="let values of Replycomments[item.id]">
                                     <div class="col-2"></div>
                                     <div class="col-6">
@@ -83,7 +83,7 @@
                                         </div>
                                         <div>
                                             <h6 class="fw-bold text-primary">
-                                                {{ values.username }} {{ values?.time }}
+                                                {{ values?.username }} {{ values?.time }}
                                             </h6>
                                         </div>
 
@@ -93,22 +93,22 @@
                                             <div class="reply">
                                                 <button type="button " class="border-0"
                                                     style="background-color: transparent; cursor: pointer"
-                                                    (click)="Replyclick(item.id, values.comment, values.username)">
+                                                    (click)="Replyclick(item?.id, values?.comment, values?.username)">
                                                     <span class="material-symbols-outlined text-muted">reply</span>
                                                 </button>
                                             </div>
                                             <button type="button  "
                                                 class="border-0 align-item-center justify-content-between d-flex"
                                                 style="background-color: transparent"
-                                                (click)="heartlike(values.id,values)">
-                                                <div class="heart-like-button" id="like{{values.id}}"></div>
+                                                (click)="heartlike(values?.id,values)">
+                                                <div class="heart-like-button" id="like{{values?.id}}"></div>
                                                 <span class="text-muted "
-                                                    style="font-size: small;">{{values.totalLikes}}</span>
+                                                    style="font-size: small;">{{values?.totalLikes}}</span>
                                             </button>
                                             <div *ngIf="values.userId == id" class="delete">
                                                 <button type="button " class="border-0"
                                                     style="background-color: transparent"
-                                                    (click)="DeleteComment(values.id,item.id)">
+                                                    (click)="DeleteComment(values?.id,item?.id)">
                                                     <span class="material-symbols-outlined text-muted">delete</span>
                                                 </button>
                                             </div>
@@ -117,12 +117,12 @@
                                     <div class="col-2"></div>
 
                                 </div>
-                                <a class="d-flex justify-content-center text-muted" style="cursor: pointer"
-                                    (click)="ReplyViewMore(item.id)">ViewMore</a>
+                                <a  *ngIf="item.totalReply>Replycomments[item.id].length" class="d-flex justify-content-center text-muted" style="cursor: pointer"
+                                    (click)="ReplyViewMore(item.id)">ViewMore Replies</a>
                             </div>
                         </div>
-                        <a class="d-flex justify-content-center text-muted" style="cursor: pointer"
-                            (click)="ViewMore()">ViewMore</a>
+                        <a *ngIf="comments[articleId][0]?.totalcomments>10 && comments[articleId].length!==comments[articleId][0]?.totalcomments" class="d-flex justify-content-center text-muted" style="cursor: pointer"
+                            (click)="ViewMore()">ViewMore Comments</a>
                     </div>
                 </div>
                 <div class="my-2">

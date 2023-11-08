@@ -68,6 +68,7 @@ export class ApiCallService {
 
   PollSubmit(obj:any)
   {
+   
    return this.http.post(`${this.BaseUrl}Posts/PollSubmit`,obj)
   }
  
@@ -87,5 +88,9 @@ export class ApiCallService {
   }
   GetUserByUserNameandFollow(Username:any,userid:any){
     return this.http.get<any[]>(`${this.BaseUrl}User/GetUserByUsername?username=${Username}&userid=${userid}`)
+  }
+  GetFollowerFollowing(obj:any):Observable<any[]>
+  {
+   return this.http.get<any[]>(`${this.BaseUrl}Follow/GetFollowerAndFollow?Mode=${obj.Mode}&userid=${obj.userid}&type=${obj.type}`)
   }
 }

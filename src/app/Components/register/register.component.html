@@ -255,7 +255,7 @@
                                     <div class="col-3" *ngFor="let avatar of avatar; let i = index">
                                         <div class="p-2" (click)="selectAvatar($event)">
                                             <img [ngClass]="{'selected-avatar': avatar.id === selectedAvatarId}"
-                                                src="{{ avatar.avt }}" style="height: 35px; width: 35px;" alt=""
+                                                src="{{ avatar.avt }}" style="height: 50px; width: 50px; border-radius: 50%;" alt=""
                                                 [id]="avatar.id">
                                         </div>
                                     </div>

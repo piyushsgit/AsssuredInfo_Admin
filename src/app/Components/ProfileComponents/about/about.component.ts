@@ -27,9 +27,7 @@ export class AboutComponent {
     this.myForm = this.fb.group({ 
       fullName: ['', [Validators.required]],
       dateOfBirth: ['', [Validators.required]],
-      userName: ['', [Validators.required]],
-      bio: ['', [Validators.required, Validators.minLength(8)]],
-      avtar_url:['']
+      bio: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
   ngOnInit() {
@@ -112,17 +110,16 @@ export class AboutComponent {
   }
   onEditSubmit(){
     const obj={
-      id: 16,
+      id: this.id,
       fullName: this.myForm.value.fullName,
       bio: this.myForm.value.bio,
-      userName: this.myForm.value.userName,
       dateOfBirth:this.myForm.value.dateOfBirth,
-      avtar_url: this.myForm.value.avtar_url
     }
     console.log(obj)
     this.ApiService.UpdateUserInfo(obj).subscribe({
       next: (dataobj) => {
         this.temp=dataobj
+        debugger
         if(this.temp.success){
           alert("Updated Successfully")
         this.ngOnInit()
