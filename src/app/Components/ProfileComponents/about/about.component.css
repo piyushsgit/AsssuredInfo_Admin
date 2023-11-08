@@ -1,13 +1,13 @@
 button {
     margin-right: 8px;
-    background-color: rgba(189, 195, 209, 0.99);
+    background-color: var(--DBlue)
   }
   #basic-addon1{
-    color:  rgba(94,113,175,255);;
-    border: solid 2px rgba(94, 113, 175, 255);
+    color:  var(--DBlue);
+    border: solid 2px var(--DBlue);
   }
   #Update{
-    background-color: rgba(94, 113, 175, 255);
+    background-color: var(--DBlue);
     color: white;
     border: 1px solid white;
     width: 150px;
@@ -18,5 +18,5 @@ button {
   }
   .customcss{
     background-color: transparent;
-    border: solid 2px rgba(94, 113, 175, 255);
+    border: solid 2px var(--DBlue)
   }

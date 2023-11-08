@@ -28,12 +28,12 @@
   .progress-bar {
     transition: width 0.5s ease; /* You can adjust the duration and timing function as needed */
   } 
-.card{ 
+.card {
   background: var(--DBlue);
   color: white;
-  border-radius: 10px; 
+  border-radius: 10px;
   border: #000000 1px solid;
- 
+  backdrop-filter: blur(5px); /* Adjust the blur radius as needed */
 }
 
 .border-0 {

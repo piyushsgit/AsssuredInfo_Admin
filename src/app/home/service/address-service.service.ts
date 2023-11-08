@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { HomeArticleComponent } from '../home-article/home-article.component';
+
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -21,7 +21,12 @@ constructor(private router:Router){}
   setArticleId(articleId: number): void {
     this.articleIdSubject.next(articleId);
   }
+  private SetColorSubject = new BehaviorSubject<number>(0);
+  SetColor$ = this.SetColorSubject.asObservable();
 
+  setcolorId(colorId: number): void {
+    this.SetColorSubject.next(colorId);
+  }
 
  
   

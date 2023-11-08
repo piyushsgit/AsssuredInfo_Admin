@@ -5,11 +5,7 @@
 @import url(../node_modules//quill/dist/quill.core.css);
 body::-webkit-scrollbar {
   width: 0.2em;
-}
-
-
-
-
+} 
 body::-webkit-scrollbar-thumb {
   background-color: transparent;
   position: absolute;

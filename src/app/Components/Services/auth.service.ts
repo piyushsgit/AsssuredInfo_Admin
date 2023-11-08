@@ -6,13 +6,14 @@ import * as moment from 'moment';
 import { Observable, shareReplay, tap } from 'rxjs';
 import { User } from 'src/app/Models/user';
 import { SignalrserviceService } from 'src/app/home/service/signalrservice.service';
+import { ConfirmService } from '../shared/confirm.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   
-  constructor(private http: HttpClient,private router:Router,private signalr:SignalrserviceService) { 
+  constructor(private http: HttpClient,private router:Router,private signalr:SignalrserviceService,private confirmserrvice:ConfirmService) { 
     
   }
 
@@ -28,23 +29,24 @@ export class AuthService {
         shareReplay()
       );
   }  
-  // private setSession(authResult: any) {
-    // const providedDate = new Date();
-    // const currentDate = new Date();
-    // const timeDifference = providedDate.getTime() - currentDate.getTime();
-    // const secondsDifference = Math.floor(timeDifference / 1000);  
-  //   const expiresAt = moment().add(authResult.data.tokenExpiryTime, 'second');
-  //   localStorage.setItem('id_token', authResult.data.jwtToken);
-  //   localStorage.setItem("expires_at", this.getExpiration expiresAt);
-  // }
+ 
   private setSession(authResult: any) {
     const expiresAt = new Date(authResult.data.tokenExpiryTime);
     localStorage.setItem('id_token', authResult.data.jwtToken);
     localStorage.setItem('expires_at', expiresAt.toString()||'0001-01-01T00:00:00');
     localStorage.setItem('UserName',authResult.data.userName)
     localStorage.setItem('userId', authResult.data.userId.toString());
-    localStorage.setItem('email',authResult.data.email)
-    localStorage.setItem('avtar_Url',authResult.data.avtar_Url)
+    localStorage.setItem('email',authResult.data.email);
+    localStorage.setItem('avtar_Url',authResult.data.avtar_Url);
+    localStorage.setItem('themeid',authResult.data.themeid);
+    localStorage.setItem('emailVerified',authResult.data.emailVerified);
+    if(authResult.data.emailVerified==true){
+      this.confirmserrvice.getdata("5")
+    }
+    else{
+      this.confirmserrvice.getdata("6")
+    }
+ 
   } 
 logout() {
     localStorage.removeItem("id_token");
@@ -53,6 +55,11 @@ logout() {
     localStorage.removeItem("email");
     localStorage.removeItem('avtar_Url');
     localStorage.removeItem('UserName');
+    localStorage.removeItem('themeid');
+    localStorage.removeItem('emailVerified');
+    if(localStorage.getItem('emailVerified')=='true'){
+      this.confirmserrvice.getdata("")
+    }
     this.router.navigateByUrl('');
     this.signalr.closeConnection()
 }

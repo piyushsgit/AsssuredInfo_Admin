@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import {   Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -55,8 +55,7 @@ export class ApiCallService {
    return this.http.get<any[]>(Url)
    
   }
-
-
+ 
   AddNewPolls(obj:any)
   {
    return this.http.post(`${this.BaseUrl}Posts/AddNewPolls`,obj)
@@ -80,8 +79,7 @@ export class ApiCallService {
   {
    return this.http.post(`${this.BaseUrl}User/CheckOTP`,obj)
   }
-  
-  
+   
   GetUserByUserName(Username:any):Observable<any[]>
   {
    return this.http.get<any[]>(`${this.BaseUrl}User/GetUserByUsername?username=${Username}`)
@@ -93,4 +91,5 @@ export class ApiCallService {
   {
    return this.http.get<any[]>(`${this.BaseUrl}Follow/GetFollowerAndFollow?Mode=${obj.Mode}&userid=${obj.userid}&type=${obj.type}`)
   }
+
 }

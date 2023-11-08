@@ -24,6 +24,7 @@ export class HomepageComponent {
   id = this.tempid !== null ? parseInt(this.tempid) : 0;
   temp:any
   obj:any
+  data:number=3;
   UserAddresses:any
   primaryAddress:any
   temporayAddress:any
