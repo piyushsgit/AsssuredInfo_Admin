@@ -1,10 +1,11 @@
 <div class="video-container">
-    <!-- <video loop muted autoplay oncanplay="this.play()" onloadedmetadata="this.muted = true" class="video-background">
+    <video loop muted autoplay oncanplay="this.play()" onloadedmetadata="this.muted = true" class="video-background">
         <source src={{videoSource}} type="video/mp4">
-    </video> -->
+    </video>
 
     <div class="card">
         <p-toast></p-toast>
+ 
     </div>
     <div class="container justify-content-center align-items-center d-flex"  >
         <div class="card  my-auto text-start">
@@ -205,10 +206,10 @@
                                     </div>
                                     <select class="form-select rounded-pill"
                                         style="max-width: 310px; margin-bottom: 0px;" formControlName="postalAddress"
-                                        required (click)="onSelectPostalAddress()">
+                                        required>
                                         <option [ngValue]="null">Postal Address</option>
                                         <option *ngFor="let item of PostOffice" [ngValue]="item.name">{{ item.name }}
-                                         </option>
+                                        </option>
                                     </select>
                                     <!-- Error Icon for Postal Address -->
                                     <div class="material-symbols-outlined my-auto pe-2" style="color: rgb(255, 84, 84);"
@@ -223,6 +224,7 @@
                                     *ngIf="select.option !== 'Postal Address'">
                                     Please select an Area / Colony.
                                 </div>
+
                                 <div style="color: #cccccc; margin-top: -10px;"
                                     *ngIf="myForm.get('postalAddress')?.invalid && (myForm.get('postalAddress')?.dirty || myForm.get('postalAddress')?.touched)">
                                     Please provide your postal address.

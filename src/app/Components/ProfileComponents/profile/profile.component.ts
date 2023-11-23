@@ -1,10 +1,9 @@
-import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { ApiCallService } from '../../Services/api-call.service';
 import { SignalrserviceService } from 'src/app/home/service/signalrservice.service';
 import { ProfileredirectService } from '../../shared/profileredirect.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { HomeArticleComponent } from 'src/app/home/home-article/home-article.component';
 
 
 @Component({
@@ -212,7 +211,6 @@ avtar_url:any
 avatarvalue(value:any){
   this.avtar_url=value 
 }
-
 UpdateAvtar(){
   if(this.avtar_url!==undefined || null ||''){
   const obj={
@@ -224,7 +222,6 @@ UpdateAvtar(){
         this.temp=dataobj
         if(this.temp.success){
           this.messageService.add({ severity: 'success', summary: 'Avatar updated Successfully', detail: '' });
-          localStorage.setItem('avtar_Url',this.avtar_url);
           this.GetUserById()
         }
       },error:(err)=>{

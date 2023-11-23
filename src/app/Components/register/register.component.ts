@@ -61,7 +61,7 @@ export class RegisterComponent {
     }
   );
   
-  options: any[] = [ 'Harsiddhi Pg','shaligram','Igohghh','joisa'];
+  options: any[] = [ 'Harsiddhi Pg','shaligram','Igor'];
   avatar: any[]=[
     {id:1,avt:'https://img.freepik.com/free-psd/3d-rendering-avatar_23-2150833572.jpg?w=826&t=st=1699354026~exp=1699354626~hmac=f62789e90b2ff6ce42853990afdcdf917636b699d3879bdc1bff84c559819f12'},
     {id:2,avt:'https://img.freepik.com/free-psd/3d-rendering-boy-avatar-emoji_23-2150603406.jpg?w=826&t=st=1699354058~exp=1699354658~hmac=2209a3a5f05cef32feb66dc2c592fef8e887f63e762327dd2edc0e28c898cec8' },
@@ -96,8 +96,8 @@ export class RegisterComponent {
                     this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled' });
                     break;
             }
-          }
-      });
+        }
+    });
 }
   ngOnInit() { 
     this.myForm = this.fb.group({ 
@@ -105,7 +105,7 @@ export class RegisterComponent {
       fullName: ['', [Validators.required]],
       email: ['', [Validators.required,Validators.email]],
       dateOfBirth: ['', [Validators.required]],
-      userName: ['', [Validators.required], Validators.minLength(6)],
+      userName: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required, confirmPasswordValidator]],
       pincode: ['', [Validators.required],Validators.minLength(6)],
@@ -116,7 +116,6 @@ export class RegisterComponent {
     });
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
-
       map(value => {
         const name = typeof value === 'string' ? value : value?.name;
         return name ? this._filter(name as string) : this.options.slice();
@@ -126,6 +125,11 @@ export class RegisterComponent {
       this.hideComponent = true;
     }
   }
+
+
+
+
+
 
   ConfirmedValidator(controlName: string, matchingControlName: string) {
     return (formGroup: FormGroup) => {
@@ -171,6 +175,7 @@ export class RegisterComponent {
       this.searchResults = [];
       return;
     }
+
     fetch(url)
       .then(response => response.json())
       .then(data => {
@@ -195,6 +200,7 @@ export class RegisterComponent {
                 District: element.District,
                 State:element.State
               }; 
+
             });
             const District = response[0].PostOffice[0].District;
             const State = response[0].PostOffice[0].State;
@@ -207,6 +213,7 @@ export class RegisterComponent {
           this.stopLoader();
         },
         (error) => {
+          console.error('Error fetching data:', error);
           this.PostOffice = ['Error fetching data'];
           this.responseStatus = 'error';
           this.stopLoader();
@@ -217,29 +224,21 @@ export class RegisterComponent {
       this.responseStatus = 'initial';
     }
   }
-  onSelectPostalAddress(){
-    if(this.myForm.get('postalAddress')?.value!==''){
-      const obj={
-        Pincode:this.myForm.get('pincode')?.value,
-        PostalAddress:this.myForm.get('postalAddress')?.value
-      }
-      console.log("this is obj",obj)
-    }
-
-    
-  }
+   
   updateOptions(input: string): void { 
     this.search(input);
   } 
   onSubmit() {
     if (this.myForm.valid) {
       console.log('Form submitted:', this.myForm.value);
+    
     } else {
-    this.messageService.add({severity:'error',summary:'Something went wrong'})
+ 
     }
   }
 click() {
   this.myForm.markAllAsTouched(); 
+  
   this.api.Registraion(this.myForm.value).subscribe(
     (response: any) => {
       console.log(response);

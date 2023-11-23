@@ -27,7 +27,6 @@ import { SafeHtmlPipe } from './safe-html.pipe';
 import { SidebarModule } from 'primeng/sidebar';
 import { NotificationComponent } from './notification/notification.component';
 import { SettingComponent } from './setting/setting.component';
-import { ForgotpasswordpageComponent } from './Components/forgotpasswordpage/forgotpasswordpage.component';
 
  
 
@@ -43,8 +42,7 @@ import { ForgotpasswordpageComponent } from './Components/forgotpasswordpage/for
     PostsComponent,
     PollsComponent,
     LoaderComponent,
-    SafeHtmlPipe,
-    ForgotpasswordpageComponent
+    SafeHtmlPipe
     
 
 
@@ -69,7 +67,7 @@ import { ForgotpasswordpageComponent } from './Components/forgotpasswordpage/for
     CommonModule,
     SidebarModule,
     NotificationComponent,
-    SettingComponent
+    SettingComponent  
   ],
   providers: [MessageService, ConfirmationService, {
     provide: HTTP_INTERCEPTORS,
