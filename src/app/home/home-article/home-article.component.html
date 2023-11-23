@@ -8,7 +8,7 @@
           <h2 class="d-flex align-item-center justify-content-center" style="color: var(--DBlue);">
             {{ item.tital }}
           </h2>
-          <img class="blockquote-custom-icon bg-info shadow-sm" (click)="ProfileRedirect(item.userName)" src="{{ item.avtar_url }}" alt=""/>
+          <img class="blockquote-custom-icon bg-info shadow-sm" (click)="ProfileRedirect(item.userName)" src="{{ item.avtar_url }}" alt="" style="object-fit: cover;"> 
           <div class="d-flex row">
             <div [id]="'myCarousel_' + postIndex" class="carousel slide col-6 " data-bs-ride="carousel">
               <ol class="carousel-indicators" *ngIf="item?.idata">
@@ -17,7 +17,7 @@
                   class="active"></li>
               </ol>
               <p class="carousel-control-prev" [attr.href]="'#myCarousel_' + postIndex" role="button"
-                data-bs-slide="prev" >
+                data-bs-slide="prev">
                 <i class="material-symbols-outlined" style="color: rgb(255, 255, 255);">
                   arrow_Back_ios
                 </i>
