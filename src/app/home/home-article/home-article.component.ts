@@ -42,7 +42,7 @@ export class HomeArticleComponent {
   searchtext:any
   bookmarkStatus: { [key: string]: boolean } = {};
   constructor(private ApiService:ApiCallService,private homeapiserv:ApicallService
-  ,private addressService: AddressServiceService, private profileredirect:ProfileredirectService,
+  ,private addressService: AddressServiceService,
   private route:ActivatedRoute ,private router:Router,private signalr:SignalrserviceService ){
   }
   showComments: boolean[] = [];
@@ -62,7 +62,6 @@ export class HomeArticleComponent {
           this.GetUserAddrssById()
         }
         else{
-          debugger
           this.getArticleByAddress('Search')
         }
       }
@@ -85,7 +84,6 @@ generateCarouselId(index: number): string {
       this.getArticleByAddress('primary')
     });
   }
-
   GetUserByUserName(username:string){
     this.ApiService.GetUserByUserName(username).subscribe({
       next: (dataobj) => {
@@ -99,10 +97,8 @@ generateCarouselId(index: number): string {
       }
       });
   }
-
   selectedAddressId: any 
   getArticleByAddress(addresstype:any){
-
     if(addresstype=='primary'){
        this.obj={
          addressId : this.selectedAddressId,

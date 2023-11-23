@@ -1,4 +1,4 @@
-
+<p-toast></p-toast>
 <div class="row ">
   <div class="col-1"></div>
   <div class="col-10">
@@ -13,7 +13,7 @@
               <div class="d-flex justify-content-center">
                 <label for="" [ngClass]="{'d-none': !formGroup.get('tittle')?.invalid || !(formGroup.get('tittle')?.dirty
                                   || formGroup.get('tittle')?.touched)}" class="text-danger position-absolute"
-                 style="margin-top: -20px;" >Please enter the title</label>
+                 style="margin-top: -20px;" >Please enter the title with minimum 10 letters</label>
               </div>
               <div class="d-flex row  justify-content-center align-item-center " style="width: 100%;">
                 <div class="inputGroup col-12 p-0 m-0">
@@ -64,7 +64,7 @@
               </p-editor>
               <label for=""
                 [ngClass]="{'d-none': !formGroup.get('text')?.invalid || !(formGroup.get('text')?.dirty || formGroup.get('text')?.touched)}"
-                class="text-danger position-absolute">Please enter the article</label>
+                class="text-danger position-absolute">Please enter the article with minimum 300 letters</label>
             </div>
           </div>
           <div class="input-group  d-flex align-item-end justify-content-center mt-5">

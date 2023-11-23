@@ -39,6 +39,7 @@ ngOnInit(){
       this.getPollByAddress('Search')
     }
   });
+  
 }
 
 
@@ -74,17 +75,13 @@ getPollByAddress(addresstype:any){
     this.homeapiserv.Getpoll(this.obj).subscribe({
       next:(dataobj)=>{
         this.temp=dataobj
-        console.log("Polls data",this.temp.data); 
         const Polls=this.temp.data
         this.formattedPolls = Polls.map((poll:any) => {
-          const selectedOption = poll.optionlike;
-
-
           this.options = [];
           this.optionsPercentage=[];
           for (let i = 1; i <= 4; i++) {
             const optionKey = `otp${i}`;
-            const optionPercentageKey = `opt${i}Percentage` ;
+            const optionPercentageKey = `opt${i}Percentage`;
             if (poll[optionKey] !== null) {
               this.options.push(poll[optionKey]);
               this.optionsPercentage.push(poll[optionPercentageKey])
@@ -100,14 +97,23 @@ getPollByAddress(addresstype:any){
             optionlike:poll.optionlike
           };
         });    
-        console.log("formatted poll",this.formattedPolls);
-        
+        this.getpollalreadychecked()
       }
     })
 }
+getpollalreadychecked(){
+debugger
+for(var i=0;i<this.formattedPolls.length;i++){
+  debugger
+  if(this.formattedPolls[i].optionlike!==null || undefined){
+    this.radioValues[i] = this.formattedPolls[i].options[this.formattedPolls[i].optionlike-1];
+  } 
+}
+console.log('radio values',this.radioValues);
 
-
+}
 onPollSubmit(index: number,item:any) {
+  debugger
   const index2 = item.options.indexOf(this.radioValues[index]);
   if(index2>=0){
   const obj={

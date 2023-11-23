@@ -4,12 +4,14 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { EditorModule } from 'primeng/editor';
 import { ApiCallService } from '../Components/Services/api-call.service';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
  
 
 @Component({
   selector: 'app-newposts',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, EditorModule],
+  imports: [CommonModule, ReactiveFormsModule, EditorModule,ToastModule],
   templateUrl: './newposts.component.html',
   styleUrls: ['./newposts.component.css']
 })
@@ -25,12 +27,11 @@ export class NewpostsComponent {
   UserAddresses: any;
   selectedAddressId:  any;
 
-  constructor(private ApiService: ApiCallService, private router: Router) {}
-
+  constructor(private ApiService: ApiCallService, private router: Router,private message:MessageService) {}
   ngOnInit() {
     this.formGroup = new FormGroup({
-      text: new FormControl('', Validators.required),
-      tittle: new FormControl('', Validators.required),
+      text: new FormControl('', [Validators.required,Validators.minLength(300)]),
+      tittle: new FormControl('', [Validators.required,Validators.minLength(10)]),
    
     });
 
@@ -39,7 +40,7 @@ export class NewpostsComponent {
   onFileSelected(event: any) {
     const files = event.target.files;
     if(files.length>7){
-      alert("Not select More than 7 images are allowed")
+      this.handleErrors('Not select More than 7 images are allowed')
       return;
     }
     if (files) {
@@ -55,47 +56,53 @@ export class NewpostsComponent {
     
   }
  
+ 
   PostButton() {
     if (this.formGroup.invalid) {
-      for (const controlName in this.formGroup.controls) {
-        if (this.formGroup.controls.hasOwnProperty(controlName)) {
-          this.formGroup.get(controlName).markAsTouched();
-        }
-      }
-    } else {
-      const formData = new FormData();
-      formData.append('mainContent', this.formGroup.value.text);
-      formData.append('tittle', this.formGroup.value.tittle);
-      formData.append('UserId', this.id.toString());
-  
-      if (this.selectedAddressId !== null && this.selectedAddressId !== undefined) {
-        formData.append('AddresssId', this.selectedAddressId.toString());
-      }
-  
-      // Append all selected files
-      for (const { file } of this.selectedFiles) {
-        formData.append('IData', file);
-      }
-  
+      this.formGroup.markAllAsTouched();
+      this.handleErrors('Fill Required Value')
+      return;
+    }    
+    else if (this.selectedFiles.length == 0) {
+      this.handleErrors('Please Select an Image')
+      return;
+    }
+    else {
+      const formData =this.getFormData()
       this.ApiService.AddnewArticle(formData).subscribe({
         next: (dataobj) => {
           this.temp = dataobj;
           if (this.temp.success) {
-            alert("Post Successfully");
-            // Reset form and selected files
+            this.router.navigate(['/profile'])
+            this.message.add({severity:'success', summary: 'Post', detail:'Your Article Post Successfully'});
             this.formGroup.reset();
             this.selectedFiles = [];
           } else {
-            alert("Something went wrong");
+            this.handleErrors('Something went wrong')
           }
         },
         error: (e: any) => {
-          console.log(e);
+          this.handleErrors(e)
         },
       });
     }
   }
+  private getFormData(): FormData {
+    const formData = new FormData();
+    formData.append('mainContent', this.formGroup.value.text);
+    formData.append('tittle', this.formGroup.value.tittle);
+    formData.append('UserId', this.id.toString());
   
+    if (this.selectedAddressId !== null && this.selectedAddressId !== undefined) {
+      formData.append('AddresssId', this.selectedAddressId.toString());
+    }
+  
+    for (const { file } of this.selectedFiles) {
+      formData.append('IData', file);
+    }
+  
+    return formData;
+  }
   GetUserAddrssById() {
     this.ApiService.GetUsersAddressById(this.id).subscribe({
       next: (dataobj) => {
@@ -111,12 +118,17 @@ export class NewpostsComponent {
         }
       },
       error: (e: any) => {
-        console.log(e);
+        this.handleErrors(e)
       },
     });
   }
 
   onRadioChange(addressId: number) {
     this.selectedAddressId = addressId;
+  }
+
+  private handleErrors(e: any) {
+    console.error(e);
+    this.message.add({severity:'error', summary: e, detail:'An error occurred while posting the article'});
   }
 }
