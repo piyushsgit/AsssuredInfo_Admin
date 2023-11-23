@@ -9,7 +9,6 @@ import { NewpostsComponent } from './newposts/newposts.component';
 import { AuthGuard } from './Components/Guard/auth.guard';
 import { NewpollComponent } from './newpoll/newpoll.component';
 import { NationalnewsComponent } from './nationalnews/nationalnews.component';
-import { ForgotpasswordpageComponent } from './Components/forgotpasswordpage/forgotpasswordpage.component';
 
 
 const routes: Routes = [
@@ -23,7 +22,6 @@ const routes: Routes = [
     loadChildren: () => import('./home/home-routing.module').then((m) => m.HomeRoutingModule)
   },
   {path:'newpost',component:NewpostsComponent },
-  {path:'forgotpasssword',component:ForgotpasswordpageComponent},
   {path:'newpoll',component:NewpollComponent },
   {path:'nationalnews',component:NationalnewsComponent }
 ];
