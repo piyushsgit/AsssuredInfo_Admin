@@ -1,32 +1,42 @@
 .nav-link{
-color:rgb(15, 36, 115)
+color:var(--DBlue);
 }
+#updateavatar{
+background-color: var(--DBlue);
+ color: var(--LBlue);
 
+}
+#updateavatar:hover{
+  background-color: var(--LBlue);
+  color: var(--DBlue);
+  border: 2px solid var(--DBlue);
+} 
+.selected-image {
+  box-shadow: 0 0 25px 0 var(--DBlue);
+  border: 2px solid var(--DBlue);
+  transition: box-shadow 0.3s ease, border 0.3s ease;
+  /* Add any other styles you want for the selected image */
+}
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
     color: #eee;
-    background-color: rgba(94,113,175,255);
+    background-color: var(--DBlue);
     border-color: whitesmoke
 }
-
+.nav-link:hover{
+  color: var(--LBlue);
+}
 .list-group-item {
     background-color: rgba(189, 195, 209, 0.99);
     border: none;
     color: rgb(0 14 122);
 }
-.bg-danger {
-    background-color: rgb(108, 20, 20);
-  }
-  
-  .bg-warning {
-    background-color: rgba(94,113,175,255);
-  }
-  
-  .bg-success {
-    background-color: rgba(22,37,77,255);
-  }
+ 
+li{
+  list-style: none;
+}
 
   .button-outline1 {
-    background-color: rgba(94, 113, 175, 255);
+    background-color: var(--DBlue);
     color: white;
     border: 1px solid white;
     width: 150px;
@@ -39,7 +49,7 @@ color:rgb(15, 36, 115)
 .button-outline2 {
   background-color: transparent;
   color: rgb(0 14 122);
-  border: 1px solid rgba(94, 113, 175, 255);
+  border: 1px solid var(--DBlue);
   width: 150px;
   border-radius: 10px;
   padding: 10px 20px;
@@ -47,4 +57,10 @@ color:rgb(15, 36, 115)
   transition: color 0.3s, background-color 0.3s, border-color 0.3s;
 }
 
-
+.scrollable-component {
+  height: 100vh; /* Adjust the height as needed */
+  overflow-y:auto; 
+  overflow-x: hidden;/* Enable vertical scrolling when content exceeds the height */
+  /* Add padding to the scrollable component if necessary */
+  /* Other styles for the scrollable component */
+}

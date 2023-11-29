@@ -1,0 +1,31 @@
+
+<app-confirm></app-confirm>
+<div class="container-fluid"(scroll)="onParentScroll()" style="height: 100vh; overflow-y: auto;" id="paggi">
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-7">
+            <section *ngIf="this.SearchIcon==false" class="Select Box" >
+                <div class="col-6 mt-4 mx-2" >
+                    <h2 class="text-center m-0">--------Select an Address----------</h2>
+                    <!-- <h3 class="m-0">---Select an Address---</h3> -->
+                    <select class="form-control " aria-label="Default select example" [(ngModel)]="selectedAddressId"
+                    (change)="onAddressChange()">
+                <option [value]="primaryAddress?.mainaddressid">
+                    {{primaryAddress?.fullAddress}},{{primaryAddress?.district}},{{primaryAddress?.state}},India,{{primaryAddress?.pinccode}}
+                </option>
+                <option *ngFor="let item of temporayAddress" [value]="item.mainaddressid">
+                    {{item?.fullAddress}},{{item?.district}},{{item?.state}},India,{{item?.pinccode}}
+                </option>
+            </select>
+            </div>
+        </section>
+        <div *ngIf="this.SearchIcon" class="d-flex align-item-center justify-content-start mt-4 mx-2" style="color: var(--LBlue)" >
+            <h2><span class="material-symbols-outlined">search</span>Your Search : {{this.searchtext}}</h2></div>
+            <app-home-article ></app-home-article>
+        </div>
+        <div class="col-3" ><app-homepoll></app-homepoll></div>
+        <div class="col-1"></div>
+    </div>
+</div>
+
+

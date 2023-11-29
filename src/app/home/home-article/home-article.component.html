@@ -1,0 +1,114 @@
+<section class="pb-5 pt-3">
+  <div class="container-fluid ">
+    <div class="col-6"></div>
+    <div class="row mt-3">
+      <div class="col-lg-12">
+        <blockquote class="blockquote blockquote-custom bg-white p-4 shadow rounded"
+          *ngFor="let item of AricleResult; let postIndex = index">
+          <h2 class="d-flex align-item-center justify-content-center" style="color: var(--DBlue);">
+            {{ item.tital }}
+          </h2>
+          <img class="blockquote-custom-icon bg-info shadow-sm" (click)="ProfileRedirect(item.userName)" src="{{ item.avtar_url }}" alt=""/>
+          <div class="d-flex row">
+            <div [id]="'myCarousel_' + postIndex" class="carousel slide col-6 " data-bs-ride="carousel">
+              <ol class="carousel-indicators" *ngIf="item?.idata">
+                <li [attr.data-bs-target]="'#myCarousel_' + postIndex"
+                  *ngFor="let item of item?.idata.split(', ') ; let i = index;" [attr.data-bs-slide-to]="i"
+                  class="active"></li>
+              </ol>
+              <p class="carousel-control-prev" [attr.href]="'#myCarousel_' + postIndex" role="button"
+                data-bs-slide="prev" >
+                <i class="material-symbols-outlined" style="color: rgb(255, 255, 255);">
+                  arrow_Back_ios
+                </i>
+                <span class="visually-hidden">Previous</span>
+              </p>
+              <div class="carousel-inner">
+                <div *ngFor="let imageName of item.idata?.split(', '); let i = index;"
+                  [ngClass]="{'carousel-item': true, 'active': i === 0} ">
+                  <img [src]="'http://localhost:5105/uploads/' + imageName" alt="Image">
+                </div>
+              </div>
+              <p class="carousel-control-next" [attr.href]="'#myCarousel_' + postIndex" role="button"
+                data-bs-slide="next">
+                <i class="material-symbols-outlined" style="color: rgb(255, 255, 255);">
+                  arrow_forward_ios
+                </i>
+                <span class="visually-hidden">Next</span>
+              </p>
+            </div>
+            <div class="col-6 d-flex scrollable-component" style="height: 500px;">
+              <div class="d-flex flex-column justify-content-between">
+                <div [innerHTML]="
+                  item.showFullContent
+                    ? item.mainContent
+                    : (item.mainContent | slice : 0 : 1100)
+                " [style.color]="
+                  item.showFullContent ? 'color' : '    var(--LBlue);;'
+                ">
+              </div>
+              <div class="justify-content-end" *ngIf="item.mainContent.length > 1000">
+                <a class="text-muted" style="cursor:pointer;" (click)="toggleFullContent(item)">
+                  {{ item.showFullContent ? "View Less" : "View More" }}
+                </a>
+              </div>
+
+              </div>
+            </div>
+            <div class="justify-content-end d-flex">
+              <div class="text-muted" style="font-size: smaller">
+                 {{item.fullAddress}}
+              </div>
+            </div>
+          </div>
+          <footer class="pt-4 mt-2 border-top ">
+           <div class="d-flex align-item-center justify-content-between">
+
+            <div>
+              <button class="btn" [class.green]="item.isLiked" (click)="toggleLike(item)">
+                <i class="fa fa-thumbs-up fa-lg" aria-hidden="true"></i>
+              </button>
+              {{ item.likes }}
+              <button class="btn" [class.red]="item.isDisliked" (click)="toggleDislike(item)">
+                <i class="fa fa-thumbs-down fa-lg" aria-hidden="true"></i>
+              </button>
+              {{ item.dislikes }}
+              <button class="btn "  (click)="toggleCommentSection(postIndex,item.articleid)">
+                <span class=" mt-2 material-symbols-outlined">comment</span>
+                <span *ngIf="item.totalwithnestesdcomment>0" >{{item.totalwithnestesdcomment}}</span>
+              </button>
+            </div>
+            <div class="d-flex align-item-center justify-content-center">
+              <a class="text-muted" style="font-size: small;cursor: pointer;" (click)="ProfileRedirect(item.userName)">
+                - {{ item.userName }} on {{ item.createdBy | date }}
+              </a>
+            <label class="ui-bookmark px-2">
+              <input type="checkbox" [checked]="item.isBookmark" id="myCheckbox_{{ item.articleid }}"
+                [(ngModel)]="bookmarkStatus[generateKey(item.articleid, id)]"
+                (click)="toggleBookmark(item.articleid, id)" />
+              <div class="bookmark" id="bookmark_{{ item.articleid }}">
+                <svg viewBox="0 0 32 32">
+                  <g>
+                    <path
+                      d="M27 4v27a1 1 0 0 1-1.625.781L16 24.281l-9.375 7.5A1 1 0 0 1 5 31V4a4 4 0 0 1 4-4h14a4 4 0 0 1 4 4z">
+                    </path>
+                  </g>
+                </svg>
+              </div>
+            </label>
+            <div *ngIf="item.userId==Userid && UserProfile=='ShowArticle'" class="delete" style="cursor: pointer;" (click)="DeleteArticle(item.articleid)">
+              <span class="material-symbols-outlined">
+                delete
+              </span>
+            </div>
+          </div>
+           </div>
+            <div *ngIf="showComments[postIndex]">
+              <app-comment></app-comment>
+            </div>
+          </footer>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</section>

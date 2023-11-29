@@ -1,1 +1,115 @@
-<router-outlet></router-outlet>
+<nav class="navbar navbar-expand-lg  mb-3"
+  style=" background-color:   var(--DBlue); padding-left: 8%; padding-right: 8%;" *ngIf="shouldShowNavbar()"> 
+  <div class="container-fluid">
+    <a class="navbar-brand text-light" href="#">AssuredInfo</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active text-light" aria-current="page" routerLink="homepage">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active text-light" aria-current="page" routerLink="nationalnews">News</a>
+        </li>
+      </ul>
+      <div class="d-flex justify-content-center" style="width: 100%">
+        <form class="d-flex align-items-center rounded-pill change"
+          style="width: 70%; min-width: 150px; border: 1px solid white">
+          <button class="material-symbols-outlined border-0"
+            style="background-color: transparent; color: rgb(255, 255, 255)" (click)="SearchAddress()">
+            search
+          </button>
+          <div class="form-group" style="width: 95%">
+            <input type="search" id="gsearch" name="gsearch" class="search" placeholder="Search Address here"
+              class="form-control border-0 me-3" [(ngModel)]="searchTerm" />
+          </div>
+        </form>
+      </div>
+      <div class="d-flex justify-content-around gap-3" style="width: fit-content">
+        <div class="d-flex align-items-center" >
+          <a  routerLink="newpoll" class="material-symbols-outlined">
+            library_add
+          </a>
+          <a routerLink="newpoll">Poll </a>
+        </div>
+        <div class="d-flex align-items-center">
+          <a routerLink="newpost" class="material-symbols-outlined">
+            library_add
+          </a>
+          <a routerLink="newpost">Post</a>
+        </div>
+        <button type="button" class="icon-button" style="background-color: transparent;"  (click)="NotificationClick()">
+          <span class="material-icons text-light">notifications</span>
+          <span *ngIf="NotificationNumber!==0" class="icon-button__badge">{{NotificationNumber}}</span>
+        </button>
+        <div class="dropdown m-auto pr-4">
+          <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="{{userImage}}" alt="hugenerd" width="30" height="30" class="rounded-circle" />
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+            <li>
+              <div class="dropdown-item d-flex gap-2" routerLink="profile" style="cursor: pointer;">
+                <a class="material-symbols-outlined" style="color: white">
+                  account_circle
+                </a>
+                <a class="my-auto text-light"> Account </a>
+              </div>
+            </li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li>
+              <div class="dropdown-item d-flex gap-2" (click)="settingclick()" style="cursor: pointer;">
+                <a class="material-symbols-outlined" style="color: white; ">
+                  settings
+                </a>
+                <a class="my-auto text-light" > Settings </a>
+              </div>
+            </li>
+            <li>
+              <div class="dropdown-item d-flex gap-2" (click)="this.auth.logout()">
+                <a class="material-symbols-outlined" style="color: white;cursor: pointer;">
+                  logout
+                </a>
+                <a class="my-auto text-light" href="#">Sign out</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div> 
+</nav> 
+<app-loader *ngIf="isLoading | async"></app-loader> 
+<router-outlet></router-outlet> 
+  <p-sidebar [(visible)]="sidebarVisible2" position="right">
+    <div *ngIf="NoticicationOpened" ><app-notification></app-notification></div>
+    <div *ngIf="SettingOpenend"><app-setting></app-setting></div>
+    <ng-template pTemplate="footer"> 
+        <h4 style="margin-bottom: 0px;">
+            Contact Us
+        </h4>
+        <p>
+            Email :
+            srbhgjbh@gmail.com , piyush@gmail.com
+        </p>
+        <h4 style="margin-bottom: 0px;">
+           <a href="" style="
+           text-decoration: none;
+           color: blue; 
+           ">About Us</a>
+        </h4>
+        <h4>
+           <a href="" style="
+           text-decoration: none;
+           color: blue;">Help</a> 
+        </h4> 
+    </ng-template>
+</p-sidebar>
+
+
+ 

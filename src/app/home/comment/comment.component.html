@@ -1,0 +1,158 @@
+<section style="background-color: transparent">
+    <div class="container-fluid m-0">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-12 col-lg-12 col-xl-12">
+                <div class="card border-0 card-container">
+                    <div class="card-body-content">
+                        <div class="row" *ngFor="let item of comments[articleId]">
+                            <!-- for Main Comment area -->
+                            <div class="col-9">
+                                <div class="d-flex flex-start align-items-center">
+                                    <img class="rounded-circle shadow-1-strong me-3" src="{{ item.avatarUrl }}"
+                                        alt="avatar" width="40" height="40" />
+                                    <div style="width: -webkit-fill-available">
+                                        <p class="m-0 mt-2" style="white-space: inherit">
+                                             {{ item.comment }}
+                                            <!-- {{ item.comment.length > 25 ? (item.comment | slice:0:24) + '...' : item.comment }} -->
+                                        </p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold text-primary">
+                                        {{ item.username }} {{ item?.time }}
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="row mx-3">
+                                    <div class="col-3">
+                                        <a *ngIf="isViewReply[item.id] !== true && item.totalReply!==0"
+                                            class="d-flex justify-content-center text-muted"
+                                            style="font-size: small; cursor: pointer"
+                                            (click)="ViewReply(item.id)">View({{item?.totalReply}})Reply</a>
+                                        <a *ngIf="isViewReply[item.id] == true && item.totalReply!==0"
+                                            class="d-flex justify-content-center text-muted"
+                                            style="font-size: small; cursor: pointer"
+                                            (click)="closeReply(item.id)">CloseReply</a>
+                                    </div>
+
+                                    <div class="reply col-3">
+                                        <button type="button " class="border-0"
+                                            style="background-color: transparent; cursor: pointer"
+                                            (click)="Replyclick(item.id, item.comment, item.username)">
+                                            <span class="material-symbols-outlined text-muted">reply</span>
+                                        </button>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="d-flex justify-content-between">
+                                            <button type="button " class="border-0"
+                                                style="background-color: transparent" (click)="heartlike(item.id,item)">
+                                                <div class="heart-like-button" id="like{{item.id}}"></div>
+                                            </button>
+                                            <span class="text-muted "
+                                                style="font-size: small;">{{item.totalLikes}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div *ngIf="item.userId == id" class=" delete">
+                                            <button type="button " class="border-0"
+                                                style="background-color: transparent"
+                                                (click)="DeleteComment(item.id,null)">
+                                                <span class="material-symbols-outlined text-muted">delete</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- for view Reply Comment -->
+                            <div *ngIf="isViewReply[item.id]" style="background-color: goldenrod;">
+                                <div class="row" *ngFor="let values of Replycomments[item.id]">
+                                    <div class="col-2"></div>
+                                    <div class="col-6">
+                                        <div class="d-flex flex-start align-items-center">
+                                            <img class="rounded-circle shadow-1-strong me-3"
+                                                src="{{ values.avatarUrl }}" alt="avatar" width="40" height="40" />
+                                            <div class="d-flex">
+                                                <p class="m-0 mt-2" style="
+                                                     white-space: inherit;overflow-wrap: break-word;">
+                                                    <span class="text-primary">{{ values.username }}</span>
+                                                    {{ values.comment }}
+                                                    <!-- {{ item.comment.length > 25 ? (item.comment | slice:0:24) + '...' : item.comment }} -->
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h6 class="fw-bold text-primary">
+                                                {{ values?.username }} {{ values?.time }}
+                                            </h6>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="d-flex align-item-center justify-content-between mx-3">
+                                            <div class="reply">
+                                                <button type="button " class="border-0"
+                                                    style="background-color: transparent; cursor: pointer"
+                                                    (click)="Replyclick(item?.id, values?.comment, values?.username)">
+                                                    <span class="material-symbols-outlined text-muted">reply</span>
+                                                </button>
+                                            </div>
+                                            <button type="button  "
+                                                class="border-0 align-item-center justify-content-between d-flex"
+                                                style="background-color: transparent"
+                                                (click)="heartlike(values?.id,values)">
+                                                <div class="heart-like-button" id="like{{values?.id}}"></div>
+                                                <span class="text-muted "
+                                                    style="font-size: small;">{{values?.totalLikes}}</span>
+                                            </button>
+                                            <div *ngIf="values.userId == id" class="delete">
+                                                <button type="button " class="border-0"
+                                                    style="background-color: transparent"
+                                                    (click)="DeleteComment(values?.id,item?.id)">
+                                                    <span class="material-symbols-outlined text-muted">delete</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2"></div>
+
+                                </div>
+                                <a  *ngIf="item.totalReply>Replycomments[item.id].length" class="d-flex justify-content-center text-muted" style="cursor: pointer"
+                                    (click)="ReplyViewMore(item.id)">ViewMore Replies</a>
+                            </div>
+                        </div>
+                        <a *ngIf="comments[articleId][0]?.totalcomments>10 && comments[articleId].length!==comments[articleId][0]?.totalcomments" class="d-flex justify-content-center text-muted" style="cursor: pointer"
+                            (click)="ViewMore()">ViewMore Comments</a>
+                    </div>
+                </div>
+                <div class="my-2">
+                    <div *ngIf="Replysection" class="p-2 d-flex align-items-center justify-content-between"
+                        id="replycomment" style="margin-inline: 53px">
+                        <div>
+                            <span class="mw-2" style="color: blue">{{ Replyusername }}</span>
+                            :
+                            <span class="mw-2" style="width: -webkit-fill-available; white-space: inherit">{{
+                                ReplyComment }}</span>
+                        </div>
+                        <button class="close-button border-0" (click)="closeReplySection()">
+                            &times;
+                        </button>
+                    </div>
+                    <div class="m-0 border-0" style="background-color: transparent">
+                        <div class="d-flex flex-start w-100">
+                            <img class="rounded-circle shadow-1-strong me-3" src="{{ userImage }}" alt="avatar"
+                                width="40" height="40" />
+                            <div class="w-100 d-flex align-item-center justify-content-between">
+                                <input class="form-control multiline-input" [(ngModel)]="newComment"
+                                    placeholder="Enter Your Comment...." style="background: #fff" />
+                                <button type="button" class="btn border btn-sm ml-2" (click)="addComment()">
+                                    <span class="material-symbols-outlined"> send </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
