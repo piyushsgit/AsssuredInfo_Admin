@@ -98,6 +98,7 @@ export class RegisterComponent {
             }
         }
     });
+
 }
   ngOnInit() { 
     this.myForm = this.fb.group({ 
