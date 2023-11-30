@@ -38,7 +38,7 @@
   margin: 1em 0 1em 0;
   max-width: 400px;
   position: relative;
-  color:  rgb(0 14 122);
+  color:  var(--LBlue);
 }
 
 .inputGroup input {
@@ -48,21 +48,21 @@
   border: 2px solid rgb(240, 0, 0);
   background-color: transparent;
   border-radius: 20px;
-  color:  rgb(0 14 122);
+  color:  var(--LBlue);
   width: 100%;
 }
 .inputGroup textarea {
   font-size: 100%;
-  color:  rgb(0 14 122);
+  color:  var(--LBlue);
   padding: 0.8em;
   outline: none;
-  border: 2px solid rgb(0 14 122);
+  border: 2px solid var(--DBlue);
   background-color: transparent;
   border-radius: 20px 20px 0px;
   width: 100%;
 }
 .selected-option {
-  color: 1px solid var(--DBlue) !important;
+  color: 1px solid var(--LBlue) !important;
 }
 .inputGroup {
   font-family: "Segoe UI", sans-serif;
@@ -73,7 +73,10 @@
   max-width: 400px;
   position: relative;
 }
+.material-symbols-outlined{
+  color: var(--DBlue);
 
+}
 .inputGroup input {
   font-size: 100%;
   padding: 0.8em;
@@ -127,9 +130,7 @@ input::placeholder {
   padding: 0.4em;
   color: rgb(0, 0, 0);
 }
-.inputGroup :is(textarea:focus, textarea:valid) {
-  border-color: rgb(150, 150, 200);
-}
+ 
 .form-select:disabled {
   background-color: transparent;
 }
@@ -138,8 +139,8 @@ input::placeholder {
     outline: 0;
     box-shadow: none;
 }
-mat-option {
-  background-color: rgba(94, 113, 175, 255);
+.mat-option {
+  background-color: var(--DBlue);
 }
 
 .mat-mdc-option.mdc-list-item--selected.mat-mdc-option.mdc-list-item--disabled
@@ -158,29 +159,31 @@ mat-option {
 
 }
 .form-check-input:checked {
-  background-color: rgba(94, 113, 175, 255);
-  border-color: rgba(94, 113, 175, 255);
+  background-color: var(--DBlue);
+  border-color: var(--DBlue);
 }
 select option {
-  background-color: rgba(94, 113, 175, 255);
-  color: rgb(0 14 122);
+  background-color: var(--DBlue);
+  color: var(--LBlue);
 }
 
 .buttonReg {
-    background-color: rgba(94, 113, 175, 255);
-
-  color: rgb(0 14 122);
+  background-color: var(--LBlue); 
+  color: var(--DBlue);
   width: 250px;
   margin-left: -30px;
   border-radius: 25px;
+  border: var(--DBlue) 2px solid;
 }
 
 .buttonReg:hover {
-  background-color: rgba(94, 113, 175, 255);
+  background-color: var(--DBlue);
+  color: var(--LBlue);
+ 
 }
 
 :-moz-placeholder {
-    color:rgb(0 14 122);
+    color:var(--DBlue);
 }
 
 #Select_Postal{
@@ -189,13 +192,13 @@ select option {
   border: none;
 }
 .Select-border{
-    border: 2px solid rgba(94, 113, 175, 255);
+    border: 2px solid var(--DBlue);
     border-radius: 10px;
 }
 .jelly-triangle {
   --uib-size: 30px;
   --uib-speed: 1.75s;
-  --uib-color: rgba(94, 113, 175, 255);
+  --uib-color: var(--DBlue);
 
   position: relative;
   height: var(--uib-size);

@@ -4,6 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { EditorModule } from 'primeng/editor';
 import { ApiCallService } from '../Components/Services/api-call.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
  
 
 @Component({
@@ -66,25 +67,30 @@ export class NewpostsComponent {
       const formData = new FormData();
       formData.append('mainContent', this.formGroup.value.text);
       formData.append('tittle', this.formGroup.value.tittle);
-      formData.append('UserId', this.id.toString());
-  
+      formData.append('UserId', this.id.toString()); 
       if (this.selectedAddressId !== null && this.selectedAddressId !== undefined) {
         formData.append('AddresssId', this.selectedAddressId.toString());
-      }
-  
+      } 
       // Append all selected files
       for (const { file } of this.selectedFiles) {
         formData.append('IData', file);
-      }
-  
+      } 
       this.ApiService.AddnewArticle(formData).subscribe({
         next: (dataobj) => {
           this.temp = dataobj;
-          if (this.temp.success) {
-            alert("Post Successfully");
-            // Reset form and selected files
+          if (this.temp.success) { 
             this.formGroup.reset();
             this.selectedFiles = [];
+            Swal.fire({
+              title: "Post uploaded successfully!",
+              text: "Clicked the button will redirect to Home",
+              showCancelButton: true,
+              icon: "success"
+            }).then((result) => {
+              if (result.isConfirmed) {
+                 this.router.navigate(['/homepage']);
+              }  
+            });
           } else {
             alert("Something went wrong");
           }

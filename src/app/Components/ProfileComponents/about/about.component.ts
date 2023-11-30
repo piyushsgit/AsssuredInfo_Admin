@@ -6,6 +6,7 @@ import {
 import { ApiCallService } from '../../Services/api-call.service';
 import { AddressComponent } from '../address/address.component';
 import { FormBuilder, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
@@ -64,9 +65,11 @@ export class AboutComponent {
   }
   newAddress() {
     this.isNewAddress = true;
+    this.editAddressData ={district:"Select One"};
   }
   NewAdressForm(eventData: boolean){
     this.isNewAddress=eventData;
+
     this.ngOnInit()
   }
 
@@ -78,11 +81,26 @@ export class AboutComponent {
     this.editAddressData = this.UserAddresses.find(
       (x: any) => x.id == address_id
     ); 
+ console.log( this.editAddressData);
  
  
-  } 
+  }  
   DeleteAddressById(id: any) {
-    if (confirm('Sure want to delete')) {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Deleted!",
+        text: "Your file has been deleted.",
+        icon: "success"
+      });
       this.ApiService.DeleteAddressById(id).subscribe({
         next: (dataobj) => {
           this.temp=dataobj
@@ -98,7 +116,8 @@ export class AboutComponent {
         },
       });
     }
-  }
+  });
+}
   myForm:any
   EditUserInfo(){
     const originalDate = new Date(this.UserData.dateOfBirth);

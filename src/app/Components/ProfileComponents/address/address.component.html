@@ -2,21 +2,22 @@
     style="background-color:var(--LBlue)">
     <div class="my-3">
         <div class="d-flex justify-content-between">
-            <h2 class="d-flex justify-content-center align-item-center my-2" style="color:   var(--LBlue);">Add New
+            <h2 class="d-flex justify-content-center align-item-center my-2" style="color:   var(--DBlue);">Add New
                 Address</h2> 
             <button type="button" class="btn-close my-auto" aria-label="Close" (click)="emitEvent()"></button>
         </div>
         <hr>
         <form>
-            <div class="d-flex justify-content-center">
-                <div class="inputGroup">
+           
+                <h4 style=" color:  var(--DBlue)!important;" class="m-0 p-0" for="name">Pincode</h4>  
+                <div class="inputGroup" style="margin-top: 0;">
                     <div class="material-symbols-outlined my-auto p-2">
                         pin_drop
                     </div>
-                    <input style="width: 230px;" pattern="[0-9]{6}" maxlength="6"
+                    <input style="width: 230px;  color: var(--DBlue);" pattern="[0-9]{6}" maxlength="6"
                         (input)="fetchPostalCodeData(postalcode.value)" #postalcode required name="postalcode"
                         [(ngModel)]="childValue.pinccode" id="postalcode">
-                    <label for="postalcode" style=" color:  var(--DBlue);">Pincode</label>
+                     
                     <div class="mx-1 my-2">
                         <div class="jelly-triangle" *ngIf="responseStatus === 'loading'">
                             <div class="jelly-triangle__dot"></div>
@@ -45,27 +46,28 @@
                         </svg>
                     </div>
                 </div>
-            </div>
-            <div class="d-flex justify-content-center  inputGroup">
-                <div class="material-symbols-outlined mt-2 ml-2">
+            
+            <h4 style=" color:  var(--DBlue)!important;" class="m-0 p-0" for="name">Area</h4>
+            <div class="d-flex justify-content-center  inputGroup" style="margin-top: 0;">
+                <div class="material-symbols-outlined p-2">
                     near_me
                 </div>
                 <select class="form-select" style="max-width: 250px; margin-bottom: 0px;" id="Select_Postal"
                     name="select"  [(ngModel)]="childValue.district" [disabled]="responseStatus !== 'success'">
-                    <option [value]="childValue.district">{{ childValue.district }}</option>
+                    <option [value]="childValue.district" [disabled]="childValue.district==='Select One'">{{ childValue.district }}</option>
                     <option *ngFor="let item of PostOffice">{{item}}</option>
                 </select>
             </div>
             
             <div class="d-flex justify-content-center flex-column "
                >
-                <h4 style=" color:  var(--DBlue)!important;" class="m-0 p-0" for="name">Area/colony</h4>
+                <h4 style=" color:  var(--DBlue)!important;" class="m-0 p-0" for="name">Locality/colony</h4>
                 <div class="inputGroup m-0 p-0">
                     <div class="material-symbols-outlined mt-auto p-2">
                         home_pin
                     </div>
                     <input name="" id="autocomplete" type="text" matInput  
-                        [matAutocomplete]="auto"value={{childValue.fullAddress}}  style="width: 250px;">
+                        [matAutocomplete]="auto"value={{childValue.fullAddress}}  style="width: 250px; color: var(--DBlue);">
                     <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
                         <mat-option *ngFor="let option of filteredOptions | async" [value]="option"
                             (click)="onSuggestionClick(option.name)"
@@ -74,11 +76,13 @@
                         </mat-option>
                     </mat-autocomplete>
                 </div>
-                <div class="form-check d-flex align-item-center justify-content-center mt-3">
-                    <input class="form-check-input mx-1 mb-1" type="checkbox" id="exampleCheckbox"
+                <div class="form-check d-flex align-item-center justify-content-center mt-3" style="padding: 0;" >
+                    <input *ngIf="!childValue.isPrimary" class="form-check-input mx-1 mb-1" type="checkbox" id="exampleCheckbox"
                         [(ngModel)]="isChecked" name="exampleCheckbox">
-                    <label class="form-check-label" for="exampleCheckbox" style="color:   var(--LBlue);">Make this
+                    <label *ngIf="!childValue.isPrimary" class="form-check-label" for="exampleCheckbox" style="color: var(--DBlue); margin-top: 2px;">Make this
                         Primary</label>
+                        <label *ngIf="childValue.isPrimary" class="form-check-label m-1 " for="exampleCheckbox" style="color:   var(--DBlue);">This is your
+                            Primary</label>
                 </div>
             </div>
             <div class="justify-content-center align-items-center d-flex my-2">

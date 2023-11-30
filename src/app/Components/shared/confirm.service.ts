@@ -26,8 +26,7 @@ export class ConfirmService {
  
   private getData = new BehaviorSubject<string>('');
   getndata$ = this.getData.asObservable(); 
-  getdata(data: string): void {
-    debugger
+  getdata(data: string): void { 
     this.getData.next(data);
   }
 
