@@ -102,15 +102,14 @@ generateCarouselId(index: number): string {
 
   selectedAddressId: any 
   getArticleByAddress(addresstype:any){
-
     if(addresstype=='primary'){
        this.obj={
          addressId : this.selectedAddressId,
-          searchText : '' ,
+         searchText : '' ,
          pageSize : 10,
          pageIndex : 1,
           filter : 1
-      }
+      } 
     }
     if(addresstype=='Search'){
       this.obj = {
@@ -143,10 +142,10 @@ generateCarouselId(index: number): string {
   }
   onScroll() {
     const container = document.getElementById('paggi');
+   
     if (container) {
       if (
-        container.scrollTop + container.clientHeight >=
-        container.scrollHeight
+        container.scrollTop + container.clientHeight >= container.scrollHeight
       ) {
         if (!this.isLoading && this.searchtext==undefined||null) {
           this.pageIndex++;
@@ -159,7 +158,6 @@ generateCarouselId(index: number): string {
     }
   }
   toggleLike(item: any) {
-  
     if (!item.isLiked) {
       item.likes++;
       if (item.isDisliked) {
@@ -189,13 +187,6 @@ generateCarouselId(index: number): string {
     item.isLiked = !item.isLiked;
     this.signalr.SendLikeDislike(this.obj)
     this.toggle=false
-    // this.homeapiserv.ManageLikeDislike(this.obj).subscribe({
-    //   next: (dataobj) => {
-    //   },
-    //   error: (e) => {
-    //     console.log(e);
-    //   },
-    // });
   }
 
   toggleDislike(item: any) {
@@ -227,14 +218,6 @@ generateCarouselId(index: number): string {
     item.isDisliked = !item.isDisliked;
     this.signalr.SendLikeDislike(this.obj)
     this.toggle=false
-    // this.homeapiserv.ManageLikeDislike(this.obj).subscribe({
-    //   next: (dataobj) => {
-    //     console.log(dataobj)
-    //   },
-    //   error: (e) => {
-    //     console.log(e);
-    //   },
-    // });
   }
 
  

@@ -46,8 +46,7 @@ color = this.tempcolor !== null ? parseInt(this.tempcolor) : 0;
      LoadingService,private sharedservice:AddressServiceService,private signalr:SignalrserviceService,private apicall:ApiService,private confirmservice:ConfirmService) { 
      }   
  
-ngOnInit(){ 
-  debugger
+ngOnInit(){  
   if(this.emailverified=="true"){
     this.confirmservice.getdata("5")
   }
