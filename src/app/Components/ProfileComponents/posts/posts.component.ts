@@ -1,9 +1,8 @@
-import { Component, ElementRef, Input, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiCallService } from '../../Services/api-call.service';
 import { ApicallService } from 'src/app/home/service/apicall.service';
 import { ProfileredirectService } from '../../shared/profileredirect.service';
-import { HomeArticleComponent } from 'src/app/home/home-article/home-article.component';
 
 @Component({
   selector: 'app-posts',
@@ -17,7 +16,7 @@ export class PostsComponent {
   Username:any
   userName=localStorage.getItem('UserName');
   constructor(private router:Router,private profileredirect:ProfileredirectService,private route:ActivatedRoute){}
-
+  
  ngOnInit(){
   this.route.queryParams.subscribe(params => {
     if(params['View']!==undefined || null){
@@ -32,9 +31,8 @@ export class PostsComponent {
       this.Username=null
     }
   });
-  
  }
- 
+   
   NewPosts(){
   this.router.navigate(['/newpost'])
   }

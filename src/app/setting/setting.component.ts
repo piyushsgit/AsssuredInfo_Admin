@@ -26,7 +26,7 @@ export class SettingComponent {
   password: boolean = false;
   username:boolean = false; 
   setColor:boolean=false;
- emailverifieddata =false;
+  emailverifieddata =false;
   selectedColorCombo: {id:number, darkColor: string, lightColor: string } | null = null;
   selectedTheme: any; 
   colorcombo:any;

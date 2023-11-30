@@ -1,11 +1,9 @@
-
 import { Component,EventEmitter, Input, Output} from '@angular/core';
 import { FormControl} from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
 import { User } from 'src/app/Models/user';
-import { ApiCallService } from '../../Services/api-call.service';
-
-
+import { ApiCallService } from '../../Services/api-call.service'; 
+ 
 @Component({
   selector: 'app-address',
   templateUrl: './address.component.html',
@@ -16,8 +14,9 @@ export class AddressComponent {
   @Input() childValue= {
     pinccode: '',
     district:'',
-    fullAddress:''
-  };;
+    fullAddress:'',
+    isPrimary: false
+  };
   postalcode:any
   loaderActive = false;
   pincode: any;
@@ -97,13 +96,14 @@ export class AddressComponent {
   }
   onSuggestionClick(option: any) {
     this.temp = option;
+   
   }
 
   SelectedPostalCodeData: any;
 
   onSubmit() {
     this.SelectedPostalCodeData = this.PincodeData[0].PostOffice.find(
-      (x: any) => x.Name === this.select.option
+      (x: any) => x.Name === this.childValue.district
     );
     if (this.temp != undefined) {
       this.fullAddress = this.temp;
@@ -114,15 +114,12 @@ export class AddressComponent {
     user_Id:this.id,
     pincode: this.SelectedPostalCodeData.Pincode,
     postalCode:this.SelectedPostalCodeData.Name,
-    fullAddress:  this.fullAddress,
+    fullAddress:  this.childValue.district,
     isPrimary:this.isChecked,
     state: this.SelectedPostalCodeData.Circle,
     district: this.SelectedPostalCodeData.Block
     }
- console.log(obj);
- 
- 
-
+    console.log(obj); 
     this.ApiService.AddnewAddress(obj).subscribe({
       next: (dataobj) => {
         this.temp2 = dataobj;
@@ -139,8 +136,7 @@ export class AddressComponent {
   @Output() newItemEvent = new EventEmitter<any>();
   emitEvent() {
     this.newItemEvent.emit(false); // Emit the event with the desired data
-  }
-
+  } 
   edit: any = false;
   EditAddress(EditData: any) {
     debugger;
@@ -150,4 +146,6 @@ export class AddressComponent {
     this.pincode = EditData.pincode;
     this.isChecked = EditData.isPrimary;
   }
+
+  
 }

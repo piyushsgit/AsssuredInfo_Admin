@@ -40,14 +40,13 @@ color = this.tempcolor !== null ? parseInt(this.tempcolor) : 0;
     { id:5, darkColor: '#883333', lightColor: '#FF9999' },
     { id:6, darkColor: '#336633', lightColor: '#99FF99' },
     { id:7, darkColor: '#333388', lightColor: '#9999FF' },
-    { id:8, darkColor: 'rgb(207, 212, 45);',lightColor: 'rgb(90, 93, 16)' }
+    { id:8, darkColor: '#888833', lightColor: '#FFFF99' }
   ];
   constructor(private router: Router, public auth: AuthService,private loadingService:
      LoadingService,private sharedservice:AddressServiceService,private signalr:SignalrserviceService,private apicall:ApiService,private confirmservice:ConfirmService) { 
      }   
  
-ngOnInit(){ 
-
+ngOnInit(){  
   if(this.emailverified=="true"){
     this.confirmservice.getdata("5")
   }
@@ -58,6 +57,7 @@ ngOnInit(){
   this.sharedservice.setcolorId(this.color)
 
   this.signalr.startConnection().subscribe(() => {
+    console.log('Connection established');
     this.recieveFollowUnfollowRequest()
     this.recieveLikeNotification()
   });
@@ -68,6 +68,7 @@ ngOnInit(){
     return currentRoute !== '/' && currentRoute !== '/Register' ; 
   }
   refreshComponent() {
+ 
     this.NoticicationOpened = true;
     this.SettingOpenend = false;
   }
@@ -98,6 +99,7 @@ ngOnInit(){
   recieveFollowUnfollowRequest(){
     this.signalr.RecieveFollowRequest().subscribe({
       next:(data)=>{
+        debugger
         this.temp=data
         if(this.temp.mode==1){
           this.NotificationNumber++;
@@ -149,9 +151,5 @@ ngOnInit(){
     },
   })
   }
-  showSetting()
-  {
-    const currentRoute = this.router.url;
-    return currentRoute !== '/'  ; 
-  } 
+   
 }

@@ -26,14 +26,9 @@ export class ConfirmService {
  
   private getData = new BehaviorSubject<string>('');
   getndata$ = this.getData.asObservable(); 
-  getdata(data: string): void {
+  getdata(data: string): void { 
     this.getData.next(data);
   }
 
-  private sharemail = new BehaviorSubject<string>('');
-  sharemail$ = this.sharemail.asObservable(); 
-  setemail(data: string): void {
-    this.sharemail.next(data);
-  }
 
 }

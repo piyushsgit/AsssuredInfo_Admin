@@ -42,7 +42,7 @@ export class HomeArticleComponent {
   searchtext:any
   bookmarkStatus: { [key: string]: boolean } = {};
   constructor(private ApiService:ApiCallService,private homeapiserv:ApicallService
-  ,private addressService: AddressServiceService,
+  ,private addressService: AddressServiceService, private profileredirect:ProfileredirectService,
   private route:ActivatedRoute ,private router:Router,private signalr:SignalrserviceService ){
   }
   showComments: boolean[] = [];
@@ -62,6 +62,7 @@ export class HomeArticleComponent {
           this.GetUserAddrssById()
         }
         else{
+          debugger
           this.getArticleByAddress('Search')
         }
       }
@@ -84,6 +85,7 @@ generateCarouselId(index: number): string {
       this.getArticleByAddress('primary')
     });
   }
+
   GetUserByUserName(username:string){
     this.ApiService.GetUserByUserName(username).subscribe({
       next: (dataobj) => {
@@ -97,16 +99,17 @@ generateCarouselId(index: number): string {
       }
       });
   }
+
   selectedAddressId: any 
   getArticleByAddress(addresstype:any){
     if(addresstype=='primary'){
        this.obj={
          addressId : this.selectedAddressId,
-          searchText : '' ,
+         searchText : '' ,
          pageSize : 10,
          pageIndex : 1,
           filter : 1
-      }
+      } 
     }
     if(addresstype=='Search'){
       this.obj = {
@@ -139,10 +142,10 @@ generateCarouselId(index: number): string {
   }
   onScroll() {
     const container = document.getElementById('paggi');
+   
     if (container) {
       if (
-        container.scrollTop + container.clientHeight >=
-        container.scrollHeight
+        container.scrollTop + container.clientHeight >= container.scrollHeight
       ) {
         if (!this.isLoading && this.searchtext==undefined||null) {
           this.pageIndex++;
@@ -155,7 +158,6 @@ generateCarouselId(index: number): string {
     }
   }
   toggleLike(item: any) {
-  
     if (!item.isLiked) {
       item.likes++;
       if (item.isDisliked) {
@@ -185,13 +187,6 @@ generateCarouselId(index: number): string {
     item.isLiked = !item.isLiked;
     this.signalr.SendLikeDislike(this.obj)
     this.toggle=false
-    // this.homeapiserv.ManageLikeDislike(this.obj).subscribe({
-    //   next: (dataobj) => {
-    //   },
-    //   error: (e) => {
-    //     console.log(e);
-    //   },
-    // });
   }
 
   toggleDislike(item: any) {
@@ -223,14 +218,6 @@ generateCarouselId(index: number): string {
     item.isDisliked = !item.isDisliked;
     this.signalr.SendLikeDislike(this.obj)
     this.toggle=false
-    // this.homeapiserv.ManageLikeDislike(this.obj).subscribe({
-    //   next: (dataobj) => {
-    //     console.log(dataobj)
-    //   },
-    //   error: (e) => {
-    //     console.log(e);
-    //   },
-    // });
   }
 
  

@@ -86,7 +86,7 @@
 </nav> 
 <app-loader *ngIf="isLoading | async"></app-loader> 
 <router-outlet></router-outlet> 
-  <p-sidebar [(visible)]="sidebarVisible2" position="right" *ngIf="showSetting()">
+  <p-sidebar [(visible)]="sidebarVisible2" position="right">
     <div *ngIf="NoticicationOpened" ><app-notification></app-notification></div>
     <div *ngIf="SettingOpenend"><app-setting></app-setting></div>
     <ng-template pTemplate="footer"> 
@@ -98,7 +98,8 @@
             srbhgjbh@gmail.com , piyush@gmail.com
         </p>
         <h4 style="margin-bottom: 0px;">
-           <a href="" style="text-decoration: none;
+           <a href="" style="
+           text-decoration: none;
            color: blue; 
            ">About Us</a>
         </h4>
