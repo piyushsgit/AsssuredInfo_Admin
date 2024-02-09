@@ -1,0 +1,78 @@
+button {
+    margin-right: 8px;
+    background-color: rgba(189, 195, 209, 0.99);
+  }
+  #basic-addon1{
+    color:  rgba(94,113,175,255);;
+    border: solid 2px rgba(94, 113, 175, 255);
+  }
+  #poll{
+    background-color: rgba(94, 113, 175, 255);
+    color: white;
+    border: 1px solid white;
+    width: 150px;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: color 0.3s, background-color 0.3s, border-color 0.3s;
+  }
+  .form-check-input:checked {
+    background-color: rgba(94, 113, 175, 255);
+    border-color: rgba(94, 113, 175, 255);
+  }
+  .customcss{
+    background-color: transparent;
+    border: solid 2px rgba(94, 113, 175, 255);
+  }
+
+  textarea{
+    max-height: 80px;
+    min-height: 50px;
+  }
+.danger{
+color: red;
+}
+ 
+.warning{
+  color: rgb(0, 225, 255);
+  }
+  .success{
+    color: rgb(255, 255, 255);
+    }
+
+    .dropdownopened {
+      position: absolute;
+      max-height: fit-content;
+      overflow: hidden;
+      width: 300px; 
+      z-index: 9999;
+      border: 1px solid black;
+      background-color: var(--LBlue);
+      margin-top: 10px;
+      border-radius: 25px;
+    }
+
+    .dropdownclosed {
+      display: none;
+      max-height: 0;
+      overflow: hidden;
+    
+    }
+    
+    
+    .btn-outline-dark:hover{
+background-color: var(--DBlue);
+border: 1px solid white;
+contain: 'Res';
+    }
+    .btn-outline-dark::before{
+      display: flex;
+      content: 'Response';
+          }
+          button{
+            display: flex;
+            flex-direction: row-reverse; 
+                } 
+                .card{
+                  background-color: var(--DBlue);
+                }

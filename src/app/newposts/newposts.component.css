@@ -1,0 +1,98 @@
+
+.p-editor-container .p-editor-toolbar {
+    background:var(--DBlue) !important;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+ 
+}
+ 
+input[type='radio']{
+    margin-top: 10px;
+    width: 20px;
+    height:20px;
+   
+}
+.form-check-input:checked {
+    background-color:  var(--LBlue);
+    border-color:var(--LBlue);
+    border: 1px solid rgb(5 14 22)
+}
+.element-to-change {
+    background-color: rgb(252, 252, 252);
+    transition: background-color 0.3s;
+    
+  }
+  img{
+   width: 20%;
+  }
+  @media (max-width:768px) {
+    img{
+      width: 100%;
+    }
+  }
+
+  .card {
+    
+    box-shadow: 0px 2px 6px var(--LBlue); /* Adjust the values as needed */
+  }
+  /* Background color for selected card */
+  .selected-card {
+    background-color: var(--DBlue) !important;
+    color: white; /* Change to the desired background color */
+  }
+  #Post{
+    background-color: var(--DBlue);
+    color: white;
+    border: 3px solid white;
+    width: 150px;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: color 0.3s, background-color 0.3s, border-color 0.3s;
+  }
+#title{
+    font-size: 150% ;
+    font-weight:500;
+    color: var(--DBlue);
+  }
+.inputGroup {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 1em 0 1em 0;
+    background-color: white;
+    display: flex;
+    border-radius: 10px;
+    max-width: 500px;
+    position: relative;
+    
+  }
+.form-control:focus {
+    border-color: 1px var(--DBlue);
+    box-shadow: none;
+    border: none;
+}
+.custom::placeholder{
+    color: var(--DBlue);
+}
+
+
+
+.scroll {
+  max-height: 700px; /* Set a maximum height for the card */
+  overflow-y: auto; 
+  overflow-x: hidden;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 4px; /* Set the width of the scrollbar */
+  height: 4px; /* Set the height of the scrollbar for x-scrollbar */
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background-color: #aaa; /* Set the color of the scrollbar thumb */
+  border-radius: 6px; /* Set the border-radius to make the thumb round */
+}
+
+.scroll::-webkit-scrollbar-track {
+  background-color: #fafafa; /* Set the color of the scrollbar track */
+  border-radius: 4px; /* Set the border-radius to match the thumb */
+}
