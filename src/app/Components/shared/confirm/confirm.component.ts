@@ -60,7 +60,7 @@ export class ConfirmComponent {
         this.messageService.add({ severity: 'info', summary: 'Input Received', detail: result });
       }
       else{
-        this.messageService.add({ severity: 'error', summary: 'Something went wring', detail: result  })
+       
       }
     }); 
   } 

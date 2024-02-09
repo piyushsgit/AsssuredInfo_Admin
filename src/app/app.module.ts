@@ -28,6 +28,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { NotificationComponent } from './notification/notification.component';
 import { SettingComponent } from './setting/setting.component';
 
+import { MatIconModule } from '@angular/material/icon'
  
 
 
@@ -43,8 +44,6 @@ import { SettingComponent } from './setting/setting.component';
     PollsComponent,
     LoaderComponent,
     SafeHtmlPipe
-    
-
 
   ],
   imports: [
@@ -67,7 +66,8 @@ import { SettingComponent } from './setting/setting.component';
     CommonModule,
     SidebarModule,
     NotificationComponent,
-    SettingComponent  
+    SettingComponent,
+    MatIconModule
   ],
   providers: [MessageService, ConfirmationService, {
     provide: HTTP_INTERCEPTORS,

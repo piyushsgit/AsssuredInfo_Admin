@@ -289,6 +289,7 @@ getArticleByUserid(){
     next:(dataObj)=>{
         this.temp=dataObj
         if(this.temp.success){
+        
           this.AricleResult=this.temp.data
           this.showComments = Array(this.AricleResult.length).fill(false);
            this.getArticleDetailLikeDislike()
