@@ -15,7 +15,9 @@ export class AddressComponent {
     pinccode: '',
     district:'',
     fullAddress:'',
-    isPrimary: false
+    isPrimary: false,
+    state: '',
+    postalcode:''
   };
   postalcode:any
   loaderActive = false;
@@ -96,7 +98,6 @@ export class AddressComponent {
   }
   onSuggestionClick(option: any) {
     this.temp = option;
-   
   }
 
   SelectedPostalCodeData: any;
@@ -119,7 +120,6 @@ export class AddressComponent {
     state: this.SelectedPostalCodeData.Circle,
     district: this.SelectedPostalCodeData.Block
     }
-    console.log(obj); 
     this.ApiService.AddnewAddress(obj).subscribe({
       next: (dataobj) => {
         this.temp2 = dataobj;
@@ -132,20 +132,42 @@ export class AddressComponent {
         console.log(e);
       },
     });
+    
   }
   @Output() newItemEvent = new EventEmitter<any>();
   emitEvent() {
     this.newItemEvent.emit(false); // Emit the event with the desired data
   } 
-  edit: any = false;
-  EditAddress(EditData: any) {
-    debugger;
-    this.edit = true;
-    this.select.option = EditData.postalCode;
-    this.fullAddress = EditData.fullAddress;
-    this.pincode = EditData.pincode;
-    this.isChecked = EditData.isPrimary;
-  }
+temprorydata:any 
+UpdateAddreess(){
+this.ApiService.GetDetailByPincode(this.childValue.pinccode).subscribe(
+        (response: any) => {
+          if (response && response[0] && response[0].PostOffice) {
+            this.temprorydata = response[0].PostOffice.filter(
+              (element: any) => element.Name==this.childValue.postalcode);
+            this.valueUpdate()
+            }
 
-  
+        },
+        (error) => {
+          console.error('Error fetching data:', error);
+        }
+      );
+     
+}
+valueUpdate()
+{
+  const obj={
+    user_Id:this.id,
+    pincode: this.childValue.pinccode,
+    postalCode:this.childValue.postalcode,
+    fullAddress:  this.childValue.fullAddress,
+    isPrimary:this.isChecked,
+    state: this.temprorydata[0].State,
+    district: this.temprorydata[0].Region
+  }
+ console.log(obj);
+ 
+}
+
 }

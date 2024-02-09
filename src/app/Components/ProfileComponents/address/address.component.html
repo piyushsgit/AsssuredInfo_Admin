@@ -32,7 +32,6 @@
                             <span class="material-symbols-outlined" style="color: rgb(187, 53, 53);">
                                 dangerous
                             </span>
-
                         </div>
                         <svg width="0" height="0" class="jelly-maker">
                             <defs>
@@ -53,14 +52,13 @@
                     near_me
                 </div>
                 <select class="form-select" style="max-width: 250px; margin-bottom: 0px;" id="Select_Postal"
-                    name="select"  [(ngModel)]="childValue.district" [disabled]="responseStatus !== 'success'">
-                    <option [value]="childValue.district" [disabled]="childValue.district==='Select One'">{{ childValue.district }}</option>
+                    name="select"  [(ngModel)]="childValue.postalcode" [disabled]="responseStatus !== 'success'">
+                    <option [value]="childValue.postalcode" [disabled]="childValue.postalcode==='Select One'">{{ childValue.postalcode }}</option>
                     <option *ngFor="let item of PostOffice">{{item}}</option>
                 </select>
             </div>
             
-            <div class="d-flex justify-content-center flex-column "
-               >
+            <div class="d-flex justify-content-center flex-column ">
                 <h4 style=" color:  var(--DBlue)!important;" class="m-0 p-0" for="name">Locality/colony</h4>
                 <div class="inputGroup m-0 p-0">
                     <div class="material-symbols-outlined mt-auto p-2">
@@ -88,6 +86,10 @@
             <div class="justify-content-center align-items-center d-flex my-2">
                 <button class="btn btn-outline buttonReg" style="width: 250px; border-radius: 25px; margin-left: 10px;"
                     type="submit" (click)="onSubmit()">Save</button>
+            </div>
+            <div class="justify-content-center align-items-center d-flex my-2">
+                <button class="btn btn-outline buttonReg" style="width: 250px; border-radius: 25px; margin-left: 10px;"
+                    type="button" (click)="UpdateAddreess()">Update</button>
             </div>
         </form>
     </div>

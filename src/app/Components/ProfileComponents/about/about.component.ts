@@ -16,7 +16,6 @@ import Swal from 'sweetalert2';
 export class AboutComponent {
   tempid = localStorage.getItem('userId');
   editAddressData: any;
- 
   id = this.tempid !== null ? parseInt(this.tempid) : 0;
   temp: any;
   UserData: any;
@@ -65,7 +64,7 @@ export class AboutComponent {
   }
   newAddress() {
     this.isNewAddress = true;
-    this.editAddressData ={district:"Select One"};
+    this.editAddressData ={postalcode:"Select One"};
   }
   NewAdressForm(eventData: boolean){
     this.isNewAddress=eventData;
@@ -81,9 +80,6 @@ export class AboutComponent {
     this.editAddressData = this.UserAddresses.find(
       (x: any) => x.id == address_id
     ); 
- console.log( this.editAddressData);
- 
- 
   }  
   DeleteAddressById(id: any) {
   Swal.fire({

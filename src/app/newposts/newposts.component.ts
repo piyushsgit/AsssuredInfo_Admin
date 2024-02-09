@@ -45,9 +45,7 @@ export class NewpostsComponent {
     }
     if (files) {
       this.selectedFiles = [];
-  
       for (let i = 0; i < files.length; i++) {
- 
         const file = files[i];
         const url = URL.createObjectURL(file);
         this.selectedFiles.push({ file, url });
@@ -64,6 +62,7 @@ export class NewpostsComponent {
         }
       }
     } else {
+      debugger
       const formData = new FormData();
       formData.append('mainContent', this.formGroup.value.text);
       formData.append('tittle', this.formGroup.value.tittle);
@@ -75,6 +74,7 @@ export class NewpostsComponent {
       for (const { file } of this.selectedFiles) {
         formData.append('IData', file);
       } 
+      
       this.ApiService.AddnewArticle(formData).subscribe({
         next: (dataobj) => {
           this.temp = dataobj;
@@ -82,6 +82,7 @@ export class NewpostsComponent {
             this.formGroup.reset();
             this.selectedFiles = [];
             Swal.fire({
+
               title: "Post uploaded successfully!",
               text: "Clicked the button will redirect to Home",
               showCancelButton: true,
